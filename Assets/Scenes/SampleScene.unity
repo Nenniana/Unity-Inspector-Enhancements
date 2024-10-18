@@ -246,6 +246,207 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1162276524
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1162276526}
+  - component: {fileID: 1162276525}
+  m_Layer: 0
+  m_Name: TestInlineProperty
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1162276525
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1162276524}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d70e08299a275ea4f9df842209536bba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shouldHide: 0
+  shouldShow: 0
+  structWithHeader:
+    gameObject: {fileID: 0}
+    intField: 0
+    floatField: 0
+    vectorField: {x: 0, y: 0, z: 0}
+  defaultStruct:
+    gameObject: {fileID: 0}
+    intField: 0
+    floatField: 0
+    vectorField: {x: 0, y: 0, z: 0}
+  structWithPrepend:
+    stringField: 
+    colorField: {r: 0, g: 0, b: 0, a: 0}
+  defaultClass:
+    boolField: 0
+    quaternionField: {x: 0, y: 0, z: 0, w: 0}
+  classWithHeader:
+    boolField: 0
+    quaternionField: {x: 0, y: 0, z: 0, w: 0}
+  hideIfStruct:
+    stringField: 
+    colorField: {r: 0, g: 0, b: 0, a: 0}
+  showIfClass:
+    boolField: 0
+    quaternionField: {x: 0, y: 0, z: 0, w: 0}
+  structNoInline:
+    stringField: 
+    colorField: {r: 0, g: 0, b: 0, a: 0}
+  classNoInline:
+    boolField: 0
+    quaternionField: {x: 0, y: 0, z: 0, w: 0}
+--- !u!4 &1162276526
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1162276524}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1285745119
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1285745121}
+  - component: {fileID: 1285745120}
+  m_Layer: 0
+  m_Name: TestShowIf
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1285745120
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1285745119}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39d81f03b0bf6d9429c532b7fef2492b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shouldShow: 1
+  shouldHide: 1
+  visibleField: 20
+  showIfStructNotNull:
+    testInt: 0
+  showIfClassNotNull:
+    testInt: 0
+    someFloat: 0
+    someString: 
+  showMonoIfNotNull: {fileID: 0}
+  visibleFieldMethod: 20
+  visibleFieldParameterMethod: 20
+  showIfWithHideIf: Conditionally Visible
+  showIfWithHideLabel: No Label
+  requiredField: {fileID: 0}
+  rangedVisibleField: 50
+  methodDefaultParametersField: 
+  methodFilledDefaultParametersField: Lengthy sentence to overwrite default value.
+--- !u!4 &1285745121
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1285745119}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1290502692
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1290502694}
+  - component: {fileID: 1290502693}
+  m_Layer: 0
+  m_Name: TestHideIf
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1290502693
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1290502692}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 983dcc98e28b70147b1cc8635d28a1c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shouldHide: 0
+  shouldShow: 0
+  hiddenField: 20
+  hideIfStructNotNull:
+    testInt: 0
+  hideIfClassNotNull:
+    testInt: 0
+    someFloat: 0
+    someString: 
+  hideMonoIfNotNull: {fileID: 1290502693}
+  hiddenFieldMethod: 20
+  hiddenFieldParameterMethod: 20
+  hideIfWithShowIf: Conditionally Visible
+  hideIfWithHideLabel: Hidden Field Label
+  requiredField: {fileID: 0}
+  rangedHiddenField: 50
+  methodDefaultParametersField: 
+  methodFilledDefaultParametersField: Lengthy sentence to overwrite default value.
+--- !u!4 &1290502694
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1290502692}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1735319538
 GameObject:
   m_ObjectHideFlags: 0
@@ -299,3 +500,6 @@ SceneRoots:
   - {fileID: 519420032}
   - {fileID: 1735319540}
   - {fileID: 1145314718}
+  - {fileID: 1290502694}
+  - {fileID: 1285745121}
+  - {fileID: 1162276526}
