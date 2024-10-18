@@ -2,8 +2,6 @@ using UnityEngine;
 using UnityEditor;
 using System.Reflection;
 using System.Collections.Generic;
-using System;
-using System.Linq;
 
 namespace InspectorEnhancements
 {
