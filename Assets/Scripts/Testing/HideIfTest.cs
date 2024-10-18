@@ -74,12 +74,12 @@ namespace InspectorEnhancements.Testing
     }
 
     [System.Serializable]
-    public class TestObject {
+    public struct TestStruct {
         public int testInt;
     }
 
     [System.Serializable]
-    public struct TestStruct {
+    public class TestObject {
         public int testInt;
     }
 }
