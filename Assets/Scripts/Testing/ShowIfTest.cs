@@ -12,47 +12,51 @@ namespace InspectorEnhancements.Testing
         [ShowIf("shouldShow")]
         public int visibleField = 20;
 
-        // 2. Test [ShowIf] on struct (Not currently supported - shows error message)
+        // 2. Test [ShowIf] on custom struct (Not currently supported - shows error message)
         [ShowIf("showIfStructNotNull")]
         public TestStruct showIfStructNotNull;
 
-        // 3. Test [ShowIf] on class (Not currently supported - shows error message)
+        // 3. Test [ShowIf] on custom class (Not currently supported - shows error message)
         [ShowIf("showIfClassNotNull")]
         public TestObject showIfClassNotNull;
 
-        // 4. Test [ShowIf] on MonoBehaviour
+        // 4. Test [ShowIf] on other custom class (Not currently supported - shows error message)
+        [ShowIf("showIfClassNotNull")]
+        public TestObject showIfOtherClassNotNull;
+
+        // 5. Test [ShowIf] on MonoBehaviour
         [ShowIf("showMonoIfNotNull")]
         public MonoBehaviour showMonoIfNotNull;
 
-        // 5. Test [ShowIf] with method
+        // 6. Test [ShowIf] with method
         [ShowIf("ReturnShouldShow")]
         public int visibleFieldMethod = 20;
 
-        // 6. Test [ShowIf] with parameter method
+        // 7. Test [ShowIf] with parameter method
         [ShowIf("ReturnBool", "shouldShow")]
         public int visibleFieldParameterMethod = 20;
 
-        // 7. Combine [ShowIf] with [HideIf]
+        // 8. Combine [ShowIf] with [HideIf]
         [ShowIf("shouldShow"), HideIf("shouldHide")]
         public string showIfWithHideIf = "Conditionally Visible";
 
-        // 8. Combine [ShowIf] with [HideLabel]
+        // 9. Combine [ShowIf] with [HideLabel]
         [ShowIf("shouldShow"), HideLabel]
         public string showIfWithHideLabel = "Hidden Field Label";
 
-        // 9. Combine [ShowIf] with [Required]
+        // 10. Combine [ShowIf] with [Required]
         [ShowIf("shouldShow"), Required]
         public GameObject requiredField;
 
-        // 10. Combine [ShowIf] with [Range], [SerializeField], and [Tooltip]
+        // 11. Combine [ShowIf] with [Range], [SerializeField], and [Tooltip]
         [ShowIf("shouldShow"), Range(0, 100), SerializeField, Tooltip("This field is shown if 'shouldShow' is true.")]
         public int rangedVisibleField = 50;
 
-        // 11. [ShowIf] with default parameters
+        // 12. [ShowIf] with default parameters
         [ShowIf("TestMethod", 5)]
         public string methodDefaultParametersField;
 
-        // 12. [ShowIf] with full parameters
+        // 13. [ShowIf] with full parameters
         [ShowIf("TestMethod", 5, "methodFilledDefaultParametersField", false)]
         public string methodFilledDefaultParametersField = "Lengthy sentence to overwrite default value.";
 
