@@ -353,14 +353,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shouldShow: 1
-  shouldHide: 1
+  shouldHide: 0
   visibleField: 20
   showIfStructNotNull:
     testInt: 0
   showIfClassNotNull:
     testInt: 0
-    someFloat: 0
-    someString: 
   showMonoIfNotNull: {fileID: 0}
   visibleFieldMethod: 20
   visibleFieldParameterMethod: 20
@@ -421,8 +419,6 @@ MonoBehaviour:
     testInt: 0
   hideIfClassNotNull:
     testInt: 0
-    someFloat: 0
-    someString: 
   hideMonoIfNotNull: {fileID: 1290502693}
   hiddenFieldMethod: 20
   hiddenFieldParameterMethod: 20
@@ -430,8 +426,8 @@ MonoBehaviour:
   hideIfWithHideLabel: Hidden Field Label
   requiredField: {fileID: 0}
   rangedHiddenField: 50
-  methodDefaultParametersField: 
-  methodFilledDefaultParametersField: Lengthy sentence to overwrite default value.
+  methodDefaultParametersField: daaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  methodFilledDefaultParametersField: 
 --- !u!4 &1290502694
 Transform:
   m_ObjectHideFlags: 0
