@@ -2,6 +2,7 @@ namespace InspectorEnhancements
 {
     public class ShowIfAttribute : ConditionalAttribute
     {
+        public ShowIfAttribute () {}
         public ShowIfAttribute(string condition) : base(condition)
         {
             Condition = condition;

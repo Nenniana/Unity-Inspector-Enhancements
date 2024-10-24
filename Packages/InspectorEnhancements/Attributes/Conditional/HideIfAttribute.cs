@@ -2,6 +2,7 @@ namespace InspectorEnhancements
 {
     public class HideIfAttribute : ConditionalAttribute
     {
+        public HideIfAttribute() {}
         public HideIfAttribute(string condition) : base(condition)
         {
             Condition = condition;

@@ -4,6 +4,8 @@ namespace InspectorEnhancements
     {
         public string Condition { get; protected set; }
         public object[] Parameters { get; protected set; }
+
+        public ConditionalAttribute() {}
     
         public ConditionalAttribute(string condition)
         {
