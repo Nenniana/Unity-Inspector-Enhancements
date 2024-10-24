@@ -60,6 +60,10 @@ namespace InspectorEnhancements.Testing
         [HideIf("TestMethod", 5, "methodFilledDefaultParametersField", false)]
         public string methodFilledDefaultParametersField = "Lengthy sentence to overwrite default value.";
 
+        // 14. Test [HideIf] on MonoBehaviour without parameters
+        [HideIf]
+        public MonoBehaviour hideMonoIfNotNullParameterless;
+
         private bool ReturnShouldHide () {
             return shouldHide;
         }
