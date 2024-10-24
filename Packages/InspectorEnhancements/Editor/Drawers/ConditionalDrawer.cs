@@ -177,7 +177,6 @@ namespace InspectorEnhancements
 
         private bool TryEvaluateField(object target, string conditionName, ref bool shouldShow)
         {
-            Debug.Log($"Looking for name: {conditionName}");
             FieldInfo fieldInfo = CacheHelper<FieldInfo>.GetOrAdd(
                 target, conditionName,
                 () => ReflectionHelper.FindField(target, conditionName)
@@ -185,8 +184,6 @@ namespace InspectorEnhancements
 
             if (fieldInfo == null)
                 return false;
-
-            Debug.Log($"{conditionName} was found.");
 
             bool result = IsFieldBoolean(target, fieldInfo);
             shouldShow = result;
