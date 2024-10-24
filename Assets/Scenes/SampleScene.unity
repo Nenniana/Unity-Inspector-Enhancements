@@ -359,6 +359,8 @@ MonoBehaviour:
     testInt: 0
   showIfClassNotNull:
     testInt: 0
+  showIfOtherClassNotNull:
+    testInt: 0
   showMonoIfNotNull: {fileID: 0}
   visibleFieldMethod: 20
   visibleFieldParameterMethod: 20
@@ -413,11 +415,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shouldHide: 0
-  shouldShow: 0
+  shouldShow: 1
   hiddenField: 20
   hideIfStructNotNull:
     testInt: 0
   hideIfClassNotNull:
+    testInt: 0
+  hideIfOtherClassNotNull:
     testInt: 0
   hideMonoIfNotNull: {fileID: 1290502693}
   hiddenFieldMethod: 20

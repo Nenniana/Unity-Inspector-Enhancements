@@ -1,0 +1,9 @@
+{
+    "name": "com.nenn.inspector-enhancements",
+    "version": "1.0.0",
+    "displayName": "Inspector Enhancements",
+    "description": "A set of custom property attributes and drawers to enhance the Unity Inspector.",
+    "unity": "2022.3",
+    "dependencies": {}
+  }
+  

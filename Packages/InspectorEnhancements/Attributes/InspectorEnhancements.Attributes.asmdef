@@ -1,0 +1,16 @@
+{
+    "name": "InspectorEnhancements.Attributes",
+    "rootNamespace": "",
+    "references": [
+        "GUID:1516d0d40d84b70468196b9664d487e1"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

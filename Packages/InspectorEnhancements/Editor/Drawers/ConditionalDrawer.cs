@@ -5,7 +5,7 @@ using System;
 
 namespace InspectorEnhancements
 {
-    [CustomPropertyDrawer(typeof(ConditionalAttribute), true)]
+    [CustomPropertyDrawer(typeof(ConditionalAttribute), true)] 
     public class ConditionalDrawer : PropertyDrawer
     {
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
