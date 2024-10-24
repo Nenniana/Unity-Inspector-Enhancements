@@ -1,0 +1,5 @@
+# Ignore everything except InspectorEnhancements package
+/*
+!.gitignore
+!/Packages/
+!/Packages/InspectorEnhancements/
