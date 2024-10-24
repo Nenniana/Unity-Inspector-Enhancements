@@ -1,5 +1,12 @@
-# Ignore everything except InspectorEnhancements package
+# Ignore everything
 /*
+
+# Except .gitignore
 !.gitignore
-!/Packages/
-!/Packages/InspectorEnhancements/
+
+# and except for the Packages folder
+!Packages/
+
+# Ignore everything inside Packages except InspectorEnhancements
+Packages/*
+!Packages/InspectorEnhancements/
