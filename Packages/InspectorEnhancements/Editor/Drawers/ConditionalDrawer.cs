@@ -64,10 +64,12 @@ namespace InspectorEnhancements
             bool invertCondition = attribute is HideIfAttribute;
             object target = property.serializedObject.targetObject;
 
-            return string.IsNullOrEmpty(conditionName) 
-                && TryEvaluateField(target, property.name, ref shouldShow) 
-                && InvertCondition(invertCondition, shouldShow)
-                || InvertCondition(invertCondition, FindMemberAndEvaluate(attribute, property, target, conditionName));
+            if (string.IsNullOrEmpty(conditionName) && TryEvaluateField(target, property.name, ref shouldShow))
+            {
+                return InvertCondition(invertCondition, shouldShow);
+            }
+            
+            return InvertCondition(invertCondition, FindMemberAndEvaluate(attribute, property, target, conditionName));
         }
 
         private bool IsInvalidCustomClassOrStruct(SerializedProperty property, string conditionName)
@@ -109,8 +111,8 @@ namespace InspectorEnhancements
         {
             if (fieldType != null)
             {
-                // Disregard if Unity native object
-                if (typeof(UnityEngine.Object).IsAssignableFrom(fieldType))
+                // Disregard if Unity native object or SerializedProperty
+                if (typeof(UnityEngine.Object).IsAssignableFrom(fieldType) || fieldType == typeof(SerializedProperty))
                     return false;
 
                 // Check if it's a class or struct, and not a primitive type
@@ -175,6 +177,7 @@ namespace InspectorEnhancements
 
         private bool TryEvaluateField(object target, string conditionName, ref bool shouldShow)
         {
+            Debug.Log($"Looking for name: {conditionName}");
             FieldInfo fieldInfo = CacheHelper<FieldInfo>.GetOrAdd(
                 target, conditionName,
                 () => ReflectionHelper.FindField(target, conditionName)
@@ -182,6 +185,8 @@ namespace InspectorEnhancements
 
             if (fieldInfo == null)
                 return false;
+
+            Debug.Log($"{conditionName} was found.");
 
             bool result = IsFieldBoolean(target, fieldInfo);
             shouldShow = result;
