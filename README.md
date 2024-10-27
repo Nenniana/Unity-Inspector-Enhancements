@@ -31,3 +31,22 @@ The `[InlineProperty]` attribute inlines a serializable class or struct, display
 The `[Required]` attribute ensures that a field cannot be left as `null`, helping to prevent common runtime errors by flagging fields that require a value assignment.
 
    - **Capabilities**: Enforces that an object or field must be assigned by displaying a warning if left unfilled.
+
+Here's the **Upcoming Features** section updated to display the new attributes in the same manner as the previous ones:
+
+## Upcoming Features
+
+### **ShowInInspector Attribute**
+The `[ShowInInspector]` attribute allows non-serialized properties to be displayed and edited directly within the Inspector. This feature is useful for exposing calculated or dynamically generated properties while still maintaining editable fields in the editor.
+
+   - **Capabilities**:
+     - Displays non-serialized properties directly in the Inspector.
+     - Allows property editing, updating the backing serialized field if one is referenced, enabling dynamic data management within the editor.
+
+### **InterfaceImplementation Attribute**
+The `[InterfaceImplementation]` attribute displays interface fields in the Inspector, enabling users to select from a list of eligible implementations. This makes it easier to assign specific implementations to an interface directly in the Unity editor.
+
+   - **Capabilities**:
+     - Shows eligible implementations of an interface in a dropdown list within the Inspector.
+     - Only non-abstract classes with a default constructor are selectable, excluding `MonoBehaviour` types and abstract classes.
+     - Simplifies assigning specific implementations to interfaces directly within Unity’s Inspector.
