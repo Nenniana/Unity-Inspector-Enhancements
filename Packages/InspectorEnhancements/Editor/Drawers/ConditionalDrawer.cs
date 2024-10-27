@@ -64,12 +64,18 @@ namespace InspectorEnhancements
             bool invertCondition = attribute is HideIfAttribute;
             object target = property.serializedObject.targetObject;
 
-            if (string.IsNullOrEmpty(conditionName) && TryEvaluateField(target, property.name, ref shouldShow))
+            if (!string.IsNullOrEmpty(conditionName))
+            {
+                return InvertCondition(invertCondition, FindMemberAndEvaluate(attribute, property, target, conditionName));
+            }
+
+            // If no condition is found, check if property can be a null condition
+            if (TryEvaluateField(target, property.name, ref shouldShow)) 
             {
                 return InvertCondition(invertCondition, shouldShow);
-            }
+            }      
             
-            return InvertCondition(invertCondition, FindMemberAndEvaluate(attribute, property, target, conditionName));
+            return true;
         }
 
         private bool IsInvalidCustomClassOrStruct(SerializedProperty property, string conditionName)
@@ -190,14 +196,12 @@ namespace InspectorEnhancements
             return true;
         }
 
-        // Check if a field is boolean or non-null
         public bool IsFieldBoolean(object target, FieldInfo fieldInfo)
         {
             var fieldValue = fieldInfo.GetValue(target);
             return fieldInfo.FieldType == typeof(bool) ? (bool)fieldValue : fieldValue != null;
         }
 
-        // Check if a property is boolean or non-null
         public bool IsPropertyBoolean(object target, PropertyInfo propertyInfo)
         {
             var propertyValue = propertyInfo.GetValue(target);
