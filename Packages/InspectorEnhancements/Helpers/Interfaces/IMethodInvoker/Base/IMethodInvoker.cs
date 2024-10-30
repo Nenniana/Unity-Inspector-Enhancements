@@ -4,6 +4,6 @@ namespace InspectorEnhancements
 {
     public interface IMethodInvoker
     {
-        object InvokeMethod(IMethodOwner target, MethodInfo methodInfo);
+        object InvokeMethod(object target, object[] parameters, MethodInfo methodInfo);
     }
 }
