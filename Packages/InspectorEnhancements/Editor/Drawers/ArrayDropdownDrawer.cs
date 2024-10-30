@@ -32,6 +32,12 @@ namespace InspectorEnhancements
         private string[] GetDropdownValues(string parameterName, SerializedProperty property) 
         {
             object target = property.serializedObject.targetObject;
+            FieldInfo propertyFieldInfo = memberInfoProvider.TryGetMemberInfo<FieldInfo>(target, property.name);
+
+            if (propertyFieldInfo == null)
+            {
+                return null;
+            }
             
             FieldInfo fieldInfo = memberInfoProvider.TryGetMemberInfo<FieldInfo>(target, parameterName);
             if (fieldInfo != null)
@@ -54,7 +60,7 @@ namespace InspectorEnhancements
             return null;
         }
 
-        private static string[] TryGetMethodStringValues()
+        private string[] TryGetMethodStringValues()
         {
             return null;
         }
