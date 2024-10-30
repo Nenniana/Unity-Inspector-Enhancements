@@ -8,7 +8,7 @@ namespace InspectorEnhancements
     [CustomPropertyDrawer(typeof(ConditionalAttribute), true)] 
     public class ConditionalDrawer : PropertyDrawer
     {
-        private IMemberInfoProvider memberInfoProvider = new DefaultMemberInfoProvider();
+        private IMemberInfoProvider memberInfoProvider = new CacheMemberInfoProvider();
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
