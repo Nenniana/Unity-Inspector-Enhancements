@@ -1,3 +1,5 @@
+using System.Reflection;
+
 namespace InspectorEnhancements
 {
     public interface IMethodInvoker
