@@ -5,49 +5,31 @@ namespace InspectorEnhancements
 {
     public static class ReflectionHelper
     {
-        // Find a method by name in the target object with appropriate binding flags
-        public static MethodInfo FindMethod(object target, string methodName)
+        public static TInfo FindMemberInfo<TInfo>(object target, string name) where TInfo : MemberInfo
         {
             if (target == null) 
                 throw new ArgumentNullException(nameof(target));
 
-            if (string.IsNullOrEmpty(methodName)) 
-                throw new ArgumentException("Method name cannot be null or empty", nameof(methodName));
+            if (string.IsNullOrEmpty(name)) 
+                throw new ArgumentException("Name cannot be null or empty", nameof(name));
 
             var type = target.GetType();
-            var method = type.GetMethod(methodName, BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.FlattenHierarchy);
+            MemberInfo member = null;
 
-            return method;
-        }
+            if (typeof(TInfo) == typeof(MethodInfo))
+            {
+                member = type.GetMethod(name, BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.FlattenHierarchy);
+            }
+            else if (typeof(TInfo) == typeof(FieldInfo))
+            {
+                member = type.GetField(name, BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.FlattenHierarchy);
+            }
+            else if (typeof(TInfo) == typeof(PropertyInfo))
+            {
+                member = type.GetProperty(name, BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.FlattenHierarchy);
+            }
 
-        // Find a field by name in the target object
-        public static FieldInfo FindField(object target, string fieldName)
-        {
-            if (target == null) 
-                throw new ArgumentNullException(nameof(target));
-
-            if (string.IsNullOrEmpty(fieldName)) 
-                throw new ArgumentException("Field name cannot be null or empty", nameof(fieldName));
-
-            var type = target.GetType();
-            var field = type.GetField(fieldName, BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.FlattenHierarchy);
-
-            return field;
-        }
-
-        // Find a property by name in the target object
-        public static PropertyInfo FindProperty(object target, string propertyName)
-        {
-            if (target == null) 
-                throw new ArgumentNullException(nameof(target));
-
-            if (string.IsNullOrEmpty(propertyName)) 
-                throw new ArgumentException("Property name cannot be null or empty", nameof(propertyName));
-
-            var type = target.GetType();
-            var property = type.GetProperty(propertyName, BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.FlattenHierarchy);
-
-            return property;
+            return member as TInfo;
         }
 
         public static MethodInfo TryGetMethodInfo(object target, string conditionName) {
