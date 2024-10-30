@@ -49,5 +49,19 @@ namespace InspectorEnhancements
 
             return property;
         }
+
+        public static MethodInfo TryGetMethodInfo(object target, string conditionName) {
+            MethodInfo methodInfo = CacheHelper<MethodInfo>.GetOrAdd(
+                target, conditionName,
+                () => FindMethod(target, conditionName)
+            );
+
+            if (methodInfo == null)
+            {
+                return null;
+            }
+
+            return methodInfo;
+        }
     }
 }
