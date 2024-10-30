@@ -43,8 +43,8 @@ namespace InspectorEnhancements
             if (options != null && options.Length > 0)
             {
                 string[] optionStrings = options.Cast<object>()
-                                        .Select(option => option?.ToString() ?? "null")
-                                        .ToArray();
+                    .Select(option => option?.ToString() ?? "null")
+                    .ToArray();
 
                 // Find the current index of the selected value in the list
                 int currentIndex = Array.IndexOf(options, propertyFieldInfo.GetValue(target));
@@ -103,7 +103,7 @@ namespace InspectorEnhancements
 
             if (propertyInfo.PropertyType.GetElementType() != propertyFieldInfo.FieldType)
             {
-                Debug.LogError("Parameter element and property type are not equal.");
+                DebugIncompatibleTypes(propertyInfo.PropertyType.GetElementType(), propertyFieldInfo.FieldType);
                 return null;
             }
 
@@ -122,13 +122,18 @@ namespace InspectorEnhancements
 
             if (fieldInfo.FieldType.GetElementType() != propertyFieldInfo.FieldType)
             {
-                Debug.LogError("Parameter element and property type are not equal.");
+                DebugIncompatibleTypes(fieldInfo.FieldType.GetElementType(), propertyFieldInfo.FieldType);
                 return null;
             }
 
             Array values = fieldInfo.GetValue(target) as Array;
 
             return values;
+        }
+
+        private void DebugIncompatibleTypes(Type elementType, Type propertyType)
+        {
+            Debug.LogError($"Parameter element type '{elementType}' and property type '{propertyType}' are not equal.");
         }
     }
 }
