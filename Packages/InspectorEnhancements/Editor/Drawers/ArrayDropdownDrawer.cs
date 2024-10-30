@@ -46,7 +46,7 @@ namespace InspectorEnhancements
             FieldInfo fieldInfo = memberInfoProvider.TryGetMemberInfo<FieldInfo>(target, parameterName);
             if (fieldInfo != null)
             {
-                return TryGetFieldStringValues();
+                return TryGetFieldStringValues(fieldInfo, propertyFieldInfo, target);
             }
 
             PropertyInfo propertyInfo = memberInfoProvider.TryGetMemberInfo<PropertyInfo>(target, parameterName);
@@ -74,9 +74,21 @@ namespace InspectorEnhancements
             return null;
         }
 
-        private object[] TryGetFieldStringValues()
+        private object[] TryGetFieldStringValues(FieldInfo fieldInfo, FieldInfo propertyFieldInfo, object target)
         {
-            return null;
+            if (!fieldInfo.FieldType.IsArray) 
+            {
+                Debug.LogError("Parameter is not an array.");
+                return null;
+            }
+
+            if (fieldInfo.FieldType.GetElementType() != propertyFieldInfo.FieldType)
+            {
+                Debug.LogError("Parameter element and property type are not equal.");
+                return null;
+            }
+
+            return fieldInfo.GetValue(target) as object[];
         }
     }
 }
