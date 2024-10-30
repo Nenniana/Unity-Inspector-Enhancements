@@ -1,4 +1,5 @@
 using System;
+using System.Reflection;
 using UnityEditor;
 using UnityEngine;
 
@@ -6,6 +7,8 @@ namespace InspectorEnhancements
 {
     public class ArrayDropdownDrawer : PropertyDrawer
     {
+        private IMemberInfoProvider memberInfoProvider = new CacheMemberInfoProvider();
+
         private void CreateDropdown(Rect position, SerializedProperty property, GUIContent label, string[] options)
         {
             if (options != null && options.Length > 0)
