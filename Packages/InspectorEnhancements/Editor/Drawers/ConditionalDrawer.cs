@@ -8,6 +8,8 @@ namespace InspectorEnhancements
     [CustomPropertyDrawer(typeof(ConditionalAttribute), true)] 
     public class ConditionalDrawer : PropertyDrawer
     {
+        private IMemberInfoProvider memberInfoProvider = new DefaultMemberInfoProvider();
+
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
             string controlName = property.propertyPath;
@@ -89,15 +91,8 @@ namespace InspectorEnhancements
         {
             if (string.IsNullOrEmpty(conditionName)) return false;
 
-            FieldInfo fieldInfo = CacheHelper<FieldInfo>.GetOrAdd(
-                target, conditionName,
-                () => ReflectionHelper.FindField(target, conditionName)
-            );
-
-            PropertyInfo propertyInfo = CacheHelper<PropertyInfo>.GetOrAdd(
-                target, conditionName,
-                () => ReflectionHelper.FindProperty(target, conditionName)
-            );
+            FieldInfo fieldInfo = memberInfoProvider.TryGetMemberInfo<FieldInfo>(target, conditionName);
+            PropertyInfo propertyInfo = memberInfoProvider.TryGetMemberInfo<PropertyInfo>(target, conditionName);
 
             Type fieldType = null;
 
@@ -152,10 +147,7 @@ namespace InspectorEnhancements
 
         private bool TryEvaluateMethod(ConditionalAttribute attribute, SerializedProperty property, object target, string conditionName, ref bool shouldShow)
         {
-            MethodInfo methodInfo = CacheHelper<MethodInfo>.GetOrAdd(
-                target, conditionName,
-                () => ReflectionHelper.FindMethod(target, conditionName)
-            );
+            MethodInfo methodInfo = memberInfoProvider.TryGetMemberInfo<MethodInfo>(target, conditionName);
 
             if (methodInfo == null)
                 return false;
@@ -168,10 +160,7 @@ namespace InspectorEnhancements
 
         private bool TryEvaluateProperty(object target, string conditionName, ref bool shouldShow)
         {
-            PropertyInfo propertyInfo = CacheHelper<PropertyInfo>.GetOrAdd(
-                target, conditionName,
-                () => ReflectionHelper.FindProperty(target, conditionName)
-            );
+            PropertyInfo propertyInfo = memberInfoProvider.TryGetMemberInfo<PropertyInfo>(target, conditionName);
 
             if (propertyInfo == null)
                 return false;
@@ -183,10 +172,7 @@ namespace InspectorEnhancements
 
         private bool TryEvaluateField(object target, string conditionName, ref bool shouldShow)
         {
-            FieldInfo fieldInfo = CacheHelper<FieldInfo>.GetOrAdd(
-                target, conditionName,
-                () => ReflectionHelper.FindField(target, conditionName)
-            );
+            FieldInfo fieldInfo = memberInfoProvider.TryGetMemberInfo<FieldInfo>(target, conditionName);
 
             if (fieldInfo == null)
                 return false;
@@ -224,10 +210,7 @@ namespace InspectorEnhancements
                         // Handle the passed parameter if it's a field name
                         if (passedParams[i] is string fieldName)
                         {
-                            FieldInfo fieldInfo = CacheHelper<FieldInfo>.GetOrAdd(
-                                target, fieldName,
-                                () => ReflectionHelper.FindField(target, fieldName)
-                            );
+                            FieldInfo fieldInfo = memberInfoProvider.TryGetMemberInfo<FieldInfo>(target, fieldName);
 
                             if (fieldInfo == null)
                             {
