@@ -10,6 +10,7 @@ namespace InspectorEnhancements
     public class ArrayDropdownDrawer : PropertyDrawer
     {
         private IMemberInfoProvider memberInfoProvider = new CacheMemberInfoProvider();
+        private IMethodInvoker methodInvoker = new DefaultMethodInvoker();
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
@@ -23,15 +24,14 @@ namespace InspectorEnhancements
             }
 
             ArrayDropdownAttribute dropdownAttribute = (ArrayDropdownAttribute)attribute;
-            string parameterName = dropdownAttribute.Condition;
 
-            if (string.IsNullOrEmpty(parameterName))
+            if (string.IsNullOrEmpty(dropdownAttribute.Condition))
             {
                 Debug.LogWarning("Parameter is either null or empty.");
                 return;
             }
 
-            Array values = GetDropdownValues(parameterName, target, propertyFieldInfo);
+            Array values = GetDropdownValues(dropdownAttribute, target, propertyFieldInfo);
 
             CreateDropdown(position, property, label, values, propertyFieldInfo, target);
 
@@ -64,33 +64,53 @@ namespace InspectorEnhancements
             }
         }
 
-        private Array GetDropdownValues(string parameterName, object target, FieldInfo propertyFieldInfo) 
+        private Array GetDropdownValues(ArrayDropdownAttribute dropdownAttribute, object target, FieldInfo propertyFieldInfo) 
         {
-            FieldInfo fieldInfo = memberInfoProvider.TryGetMemberInfo<FieldInfo>(target, parameterName);
+            FieldInfo fieldInfo = memberInfoProvider.TryGetMemberInfo<FieldInfo>(target, dropdownAttribute.Condition);
             if (fieldInfo != null)
             {
                 return TryGetFieldValueArray(fieldInfo, propertyFieldInfo, target);
             }
 
-            PropertyInfo propertyInfo = memberInfoProvider.TryGetMemberInfo<PropertyInfo>(target, parameterName);
+            PropertyInfo propertyInfo = memberInfoProvider.TryGetMemberInfo<PropertyInfo>(target, dropdownAttribute.Condition);
             if (propertyInfo != null)
             {
                 return TryGetPropertyValueArray(propertyInfo, propertyFieldInfo, target);
             }
 
-            MethodInfo methodInfo = memberInfoProvider.TryGetMemberInfo<MethodInfo>(target, parameterName);
+            MethodInfo methodInfo = memberInfoProvider.TryGetMemberInfo<MethodInfo>(target, dropdownAttribute.Condition);
             if (methodInfo != null)
             {
-                return TryGetMethodStringValues();
+                return TryGetMethodValueArray(dropdownAttribute.Parameters, methodInfo, propertyFieldInfo, target);
             }
             
             Debug.LogWarning("No Dropdown values were found.");
             return null;
         }
 
-        private object[] TryGetMethodStringValues()
+        private Array TryGetMethodValueArray(object[] parameters, MethodInfo methodInfo, FieldInfo propertyFieldInfo, object target)
         {
-            return null;
+            object methodResult = methodInvoker.InvokeMethod(target, parameters, methodInfo);
+
+            if (methodResult == null)
+            {
+                Debug.LogError("Method returns null.");
+                return null;
+            }
+
+            if (!methodResult.GetType().IsArray) 
+            {
+                Debug.LogError("Parameter is not an array.");
+                return null;
+            }
+
+            if (methodResult.GetType().GetElementType() != propertyFieldInfo.FieldType)
+            {
+                DebugIncompatibleTypes(methodResult.GetType().GetElementType(), propertyFieldInfo.FieldType);
+                return null;
+            }
+
+            return methodResult as Array;
         }
 
         private Array TryGetPropertyValueArray(PropertyInfo propertyInfo, FieldInfo propertyFieldInfo, object target)
