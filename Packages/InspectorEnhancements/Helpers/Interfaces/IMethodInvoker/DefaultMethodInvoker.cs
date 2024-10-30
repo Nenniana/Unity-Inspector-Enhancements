@@ -6,18 +6,13 @@ namespace InspectorEnhancements
 {
     public class DefaultMethodInvoker : IMethodInvoker
     {
-        private readonly IMemberInfoProvider _memberInfoProvider;
+        private readonly IMemberInfoProvider _memberInfoProvider = new DefaultMemberInfoProvider();
 
-        public DefaultMethodInvoker(IMemberInfoProvider memberInfoProvider)
-        {
-            _memberInfoProvider = memberInfoProvider ?? throw new ArgumentNullException(nameof(memberInfoProvider));
-        }
-
-        public object InvokeMethod(IMethodOwner target, MethodInfo methodInfo)
+        public object InvokeMethod(object target, object[] passedParameters, MethodInfo methodInfo)
         {
             try
             {
-                var parameterValues = BuildParameterValues(target, methodInfo);
+                var parameterValues = BuildParameterValues(target, passedParameters, methodInfo);
                 if (parameterValues == null) return null;
 
                 return methodInfo.Invoke(target, parameterValues);
@@ -29,14 +24,14 @@ namespace InspectorEnhancements
             }
         }
 
-        private object[] BuildParameterValues(IMethodOwner target, MethodInfo methodInfo)
+        private object[] BuildParameterValues(object target, object[] passedParameters, MethodInfo methodInfo)
         {
             var parameters = methodInfo.GetParameters();
             object[] parameterValues = new object[parameters.Length];
 
             for (int i = 0; i < parameters.Length; i++)
             {
-                parameterValues[i] = GetParameterValue(target, parameters[i], i);
+                parameterValues[i] = GetParameterValue(target, passedParameters, parameters[i], i);
                 if (parameterValues[i] == null && !parameters[i].HasDefaultValue)
                 {
                     Debug.LogWarning($"Missing required parameter '{parameters[i].Name}' for method '{methodInfo.Name}'.");
@@ -47,16 +42,16 @@ namespace InspectorEnhancements
             return parameterValues;
         }
 
-        private object GetParameterValue(IMethodOwner target, ParameterInfo parameter, int index)
+        private object GetParameterValue(object target, object[] passedParameters, ParameterInfo parameter, int index)
         {
-            if (index < target.Parameters.Length)
+            if (index < passedParameters.Length)
             {
-                return GetPassedOrFieldValue(target, target.Parameters[index]);
+                return GetPassedOrFieldValue(target, passedParameters[index]);
             }
             return parameter.HasDefaultValue ? parameter.DefaultValue : null;
         }
 
-        private object GetPassedOrFieldValue(IMethodOwner target, object passedParam)
+        private object GetPassedOrFieldValue(object target, object passedParam)
         {
             if (passedParam is string fieldName)
             {
