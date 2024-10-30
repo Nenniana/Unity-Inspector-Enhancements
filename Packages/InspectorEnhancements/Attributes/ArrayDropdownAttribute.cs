@@ -10,7 +10,7 @@ namespace InspectorEnhancements
             Condition = _condition;
         }
 
-        public ArrayDropdownAttribute (string _condition, object[] _parameters) {
+        public ArrayDropdownAttribute (string _condition, params object[] _parameters) {
             Condition = _condition;
             Parameters = _parameters;
         }
