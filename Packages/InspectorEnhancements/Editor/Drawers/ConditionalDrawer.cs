@@ -8,7 +8,8 @@ namespace InspectorEnhancements
     [CustomPropertyDrawer(typeof(ConditionalAttribute), true)] 
     public class ConditionalDrawer : PropertyDrawer
     {
-        private IMemberInfoProvider memberInfoProvider = new DefaultMemberInfoProvider();
+        private readonly IMemberInfoProvider memberInfoProvider = new DefaultMemberInfoProvider();
+        private readonly IMethodInvoker methodInvoker = new DefaultMethodInvoker();
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
@@ -152,9 +153,8 @@ namespace InspectorEnhancements
             if (methodInfo == null)
                 return false;
 
-            var passedParams = attribute?.Parameters ?? new object[0];
-            bool result = InvokeMethod(target, methodInfo, passedParams, property);
-            shouldShow = result;
+            object methodResult = methodInvoker.InvokeMethod(target, attribute.Parameters, methodInfo);
+            shouldShow = (bool)methodResult;
             return true;
         }
 
@@ -192,57 +192,6 @@ namespace InspectorEnhancements
         {
             var propertyValue = propertyInfo.GetValue(target);
             return propertyInfo.PropertyType == typeof(bool) ? (bool)propertyValue : propertyValue != null;
-        }
-
-        private bool InvokeMethod(object target, MethodInfo methodInfo, object[] passedParams, SerializedProperty property)
-        {
-            try
-            {
-                var parameters = methodInfo.GetParameters();
-                object[] parameterValues = new object[parameters.Length];
-
-                for (int i = 0; i < parameters.Length; i++)
-                {
-                    ParameterInfo parameter = parameters[i];
-
-                    if (i < passedParams.Length)
-                    {
-                        // Handle the passed parameter if it's a field name
-                        if (passedParams[i] is string fieldName)
-                        {
-                            FieldInfo fieldInfo = memberInfoProvider.TryGetMemberInfo<FieldInfo>(target, fieldName);
-
-                            if (fieldInfo == null)
-                            {
-                                Debug.LogWarning($"Field '{fieldName}' not found in {target.GetType()}");
-                                return true; // Default to showing the property on error
-                            }
-
-                            parameterValues[i] = fieldInfo.GetValue(target);
-                        }
-                        else
-                        {
-                            parameterValues[i] = passedParams[i];
-                        }
-                    }
-                    else if (parameter.HasDefaultValue)
-                    {
-                        parameterValues[i] = parameter.DefaultValue;
-                    }
-                    else
-                    {
-                        Debug.LogWarning($"Method {methodInfo.Name} parameter {parameter.Name} is missing and has no default value.");
-                        return true; // Default to showing the property if missing parameters
-                    }
-                }
-
-                return (bool)methodInfo.Invoke(target, parameterValues);
-            }
-            catch (Exception ex)
-            {
-                Debug.LogError($"Error invoking method '{methodInfo.Name}' on {target.GetType()}: {ex.Message}");
-                return true; // Default to showing the property on error
-            }
         }
 
         private void DrawWarningForStructClass(Rect position, SerializedProperty property, GUIContent label)
