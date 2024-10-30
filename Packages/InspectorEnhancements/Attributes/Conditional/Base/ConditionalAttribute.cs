@@ -1,6 +1,6 @@
 namespace InspectorEnhancements
 {
-    public abstract class ConditionalAttribute : CustomPropertyAttribute
+    public abstract class ConditionalAttribute : CustomPropertyAttribute, IMethodOwner
     {
         public string Condition { get; protected set; }
         public object[] Parameters { get; protected set; }
