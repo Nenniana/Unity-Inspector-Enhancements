@@ -69,7 +69,7 @@ namespace InspectorEnhancements
 
             if (!string.IsNullOrEmpty(conditionName))
             {
-                return InvertCondition(invertCondition, FindMemberAndEvaluate(attribute, property, target, conditionName));
+                return InvertCondition(invertCondition, FindMemberAndEvaluate(attribute, target, conditionName));
             }
 
             // If no condition is found, check if property can be a null condition
@@ -124,11 +124,11 @@ namespace InspectorEnhancements
             return false;
         }
 
-        private bool FindMemberAndEvaluate(ConditionalAttribute attribute, SerializedProperty property, object target, string conditionName)
+        private bool FindMemberAndEvaluate(ConditionalAttribute attribute, object target, string conditionName)
         {
             bool shouldShow = true;
 
-            if (TryEvaluateMethod(attribute, property, target, conditionName, ref shouldShow))
+            if (TryEvaluateMethod(attribute, target, conditionName, ref shouldShow))
                 return shouldShow;
 
             if (TryEvaluateField(target, conditionName, ref shouldShow))
@@ -146,7 +146,7 @@ namespace InspectorEnhancements
             return invertCondition ? !result : result;
         }
 
-        private bool TryEvaluateMethod(ConditionalAttribute attribute, SerializedProperty property, object target, string conditionName, ref bool shouldShow)
+        private bool TryEvaluateMethod(ConditionalAttribute attribute, object target, string conditionName, ref bool shouldShow)
         {
             MethodInfo methodInfo = memberInfoProvider.TryGetMemberInfo<MethodInfo>(target, conditionName);
 
