@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Reflection;
 using UnityEditor;
 using UnityEngine;
@@ -9,19 +10,22 @@ namespace InspectorEnhancements
     {
         private IMemberInfoProvider memberInfoProvider = new CacheMemberInfoProvider();
         
-        private void CreateDropdown(Rect position, SerializedProperty property, GUIContent label, string[] options)
+        private void CreateDropdown(Rect position, SerializedProperty property, GUIContent label, object[] options, FieldInfo propertyFieldInfo, object target)
         {
             if (options != null && options.Length > 0)
             {
+                string[] optionStrings = options.Select(option => option?.ToString() ?? "null").ToArray();
+
                 // Find the current index of the selected value in the list
                 int currentIndex = Array.IndexOf(options, property.stringValue);
                 if (currentIndex == -1) currentIndex = 0; // Default to the first item if not found
 
                 // Create the dropdown
-                int selectedIndex = EditorGUI.Popup(position, label.text, currentIndex, options);
+                int selectedIndex = EditorGUI.Popup(position, label.text, currentIndex, optionStrings);
 
                 // Update the property value with the selected key
-                property.stringValue = options[selectedIndex];
+                propertyFieldInfo.SetValue(target, options[selectedIndex]);
+                property.serializedObject.ApplyModifiedProperties();
             }
             else
             {
@@ -29,7 +33,7 @@ namespace InspectorEnhancements
             }
         }
 
-        private string[] GetDropdownValues(string parameterName, SerializedProperty property) 
+        private object[] GetDropdownValues(string parameterName, SerializedProperty property) 
         {
             object target = property.serializedObject.targetObject;
             FieldInfo propertyFieldInfo = memberInfoProvider.TryGetMemberInfo<FieldInfo>(target, property.name);
@@ -60,17 +64,17 @@ namespace InspectorEnhancements
             return null;
         }
 
-        private string[] TryGetMethodStringValues()
+        private object[] TryGetMethodStringValues()
         {
             return null;
         }
 
-        private string[] TryGetPropertyStringValues()
+        private object[] TryGetPropertyStringValues()
         {
             return null;
         }
 
-        private string[] TryGetFieldStringValues()
+        private object[] TryGetFieldStringValues()
         {
             return null;
         }
