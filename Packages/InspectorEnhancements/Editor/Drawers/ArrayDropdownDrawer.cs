@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Linq;
 using System.Reflection;
 using UnityEditor;
@@ -31,64 +32,68 @@ namespace InspectorEnhancements
                 return;
             }
 
-            Array values = GetDropdownValues(dropdownAttribute, target, propertyFieldInfo);
+            IEnumerable values = GetDropdownValues(dropdownAttribute, target, propertyFieldInfo);
 
             CreateDropdown(position, property, label, values, propertyFieldInfo, target);
 
             property.serializedObject.ApplyModifiedProperties();
         }
-        
-        private void CreateDropdown(Rect position, SerializedProperty property, GUIContent label, Array options, FieldInfo propertyFieldInfo, object target)
+
+        private void CreateDropdown(Rect position, SerializedProperty property, GUIContent label, IEnumerable options, FieldInfo propertyFieldInfo, object target)
         {
-            if (options != null && options.Length > 0)
+            if (options != null)
             {
-                string[] optionStrings = options.Cast<object>()
-                    .Select(option => option?.ToString() ?? "null")
-                    .ToArray();
+                var optionsArray = options.Cast<object>().ToArray();
 
-                // Find the current index of the selected value in the list
-                int currentIndex = Array.IndexOf(options, propertyFieldInfo.GetValue(target));
-                if (currentIndex == -1) currentIndex = 0; // Default to the first item if not found
+                if (optionsArray.Length > 0)
+                {
+                    string[] optionStrings = optionsArray.Select(option => option?.ToString() ?? "null").ToArray();
 
-                // Create the dropdown
-                int selectedIndex = EditorGUI.Popup(position, label.text, currentIndex, optionStrings);
+                    int currentIndex = Array.IndexOf(optionsArray, propertyFieldInfo.GetValue(target));
+                    if (currentIndex == -1) currentIndex = 0;
 
-                // Update the property value with the selected key
-                object selectedOption = options.GetValue(selectedIndex);
-                propertyFieldInfo.SetValue(target, selectedOption);
-                property.serializedObject.ApplyModifiedProperties();
+                    int selectedIndex = EditorGUI.Popup(position, label.text, currentIndex, optionStrings);
+
+                    object selectedOption = optionsArray[selectedIndex];
+                    propertyFieldInfo.SetValue(target, selectedOption);
+                    property.serializedObject.ApplyModifiedProperties();
+                }
+                else
+                {
+                    EditorGUI.LabelField(position, label.text, "List is null or empty.");
+                }
             }
             else
             {
-                EditorGUI.LabelField(position, label.text, "Array is null or empty.");
+                EditorGUI.LabelField(position, label.text, "List is null or empty.");
             }
         }
 
-        private Array GetDropdownValues(ArrayDropdownAttribute dropdownAttribute, object target, FieldInfo propertyFieldInfo) 
+        private IEnumerable GetDropdownValues(ArrayDropdownAttribute dropdownAttribute, object target, FieldInfo propertyFieldInfo) 
         {
             FieldInfo fieldInfo = memberInfoProvider.TryGetMemberInfo<FieldInfo>(target, dropdownAttribute.Condition);
             if (fieldInfo != null)
             {
-                return TryGetFieldValueArray(fieldInfo, propertyFieldInfo, target);
+                return TryGetFieldValueList(fieldInfo, propertyFieldInfo, target);
             }
 
             PropertyInfo propertyInfo = memberInfoProvider.TryGetMemberInfo<PropertyInfo>(target, dropdownAttribute.Condition);
             if (propertyInfo != null)
             {
-                return TryGetPropertyValueArray(propertyInfo, propertyFieldInfo, target);
+                return TryGetPropertyValueList(propertyInfo, propertyFieldInfo, target);
             }
 
             MethodInfo methodInfo = memberInfoProvider.TryGetMemberInfo<MethodInfo>(target, dropdownAttribute.Condition);
             if (methodInfo != null)
             {
-                return TryGetMethodValueArray(dropdownAttribute.Parameters, methodInfo, propertyFieldInfo, target);
+                return TryGetMethodValueList(dropdownAttribute.Parameters, methodInfo, propertyFieldInfo, target);
             }
             
             Debug.LogWarning("No Dropdown values were found.");
             return null;
         }
 
-        private Array TryGetMethodValueArray(object[] parameters, MethodInfo methodInfo, FieldInfo propertyFieldInfo, object target)
+        private IEnumerable TryGetMethodValueList(object[] parameters, MethodInfo methodInfo, FieldInfo propertyFieldInfo, object target)
         {
             object methodResult = methodInvoker.InvokeMethod(target, parameters, methodInfo);
 
@@ -98,57 +103,54 @@ namespace InspectorEnhancements
                 return null;
             }
 
-            if (!methodResult.GetType().IsArray) 
+            if (methodResult is IEnumerable resultEnumerable)
             {
-                Debug.LogError("Parameter is not an array.");
-                return null;
+                return VerifyCollectionType(resultEnumerable, propertyFieldInfo.FieldType);
             }
 
-            if (methodResult.GetType().GetElementType() != propertyFieldInfo.FieldType)
-            {
-                DebugIncompatibleTypes(methodResult.GetType().GetElementType(), propertyFieldInfo.FieldType);
-                return null;
-            }
-
-            return methodResult as Array;
+            Debug.LogError("Parameter is not a collection.");
+            return null;
         }
 
-        private Array TryGetPropertyValueArray(PropertyInfo propertyInfo, FieldInfo propertyFieldInfo, object target)
+        private IEnumerable TryGetPropertyValueList(PropertyInfo propertyInfo, FieldInfo propertyFieldInfo, object target)
         {
-            if (!propertyInfo.PropertyType.IsArray) 
+            object propertyValue = propertyInfo.GetValue(target);
+
+            if (propertyValue is IEnumerable resultEnumerable)
             {
-                Debug.LogError("Parameter is not an array.");
-                return null;
+                return VerifyCollectionType(resultEnumerable, propertyFieldInfo.FieldType);
             }
 
-            if (propertyInfo.PropertyType.GetElementType() != propertyFieldInfo.FieldType)
-            {
-                DebugIncompatibleTypes(propertyInfo.PropertyType.GetElementType(), propertyFieldInfo.FieldType);
-                return null;
-            }
-
-            Array values = propertyInfo.GetValue(target) as Array;
-
-            return values;
+            Debug.LogError("Parameter is not a collection.");
+            return null;
         }
 
-        private Array TryGetFieldValueArray(FieldInfo fieldInfo, FieldInfo propertyFieldInfo, object target)
+        private IEnumerable TryGetFieldValueList(FieldInfo fieldInfo, FieldInfo propertyFieldInfo, object target)
         {
-            if (!fieldInfo.FieldType.IsArray) 
+            object fieldValue = fieldInfo.GetValue(target);
+
+            if (fieldValue is IEnumerable resultEnumerable)
             {
-                Debug.LogError("Parameter is not an array.");
+                return VerifyCollectionType(resultEnumerable, propertyFieldInfo.FieldType);
+            }
+
+            Debug.LogError("Parameter is not a collection.");
+            return null;
+        }
+
+        private IEnumerable VerifyCollectionType(IEnumerable collection, Type targetType)
+        {
+            Type elementType = collection.GetType().IsArray
+                ? collection.GetType().GetElementType()
+                : collection.GetType().GetGenericArguments().FirstOrDefault();
+
+            if (elementType != targetType)
+            {
+                DebugIncompatibleTypes(elementType, targetType);
                 return null;
             }
 
-            if (fieldInfo.FieldType.GetElementType() != propertyFieldInfo.FieldType)
-            {
-                DebugIncompatibleTypes(fieldInfo.FieldType.GetElementType(), propertyFieldInfo.FieldType);
-                return null;
-            }
-
-            Array values = fieldInfo.GetValue(target) as Array;
-
-            return values;
+            return collection;
         }
 
         private void DebugIncompatibleTypes(Type elementType, Type propertyType)
