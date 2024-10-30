@@ -6,7 +6,7 @@ namespace InspectorEnhancements
 {
     public class DefaultMethodInvoker : IMethodInvoker
     {
-        private readonly IMemberInfoProvider _memberInfoProvider = new DefaultMemberInfoProvider();
+        private readonly IMemberInfoProvider _memberInfoProvider = new CacheMemberInfoProvider();
 
         public object InvokeMethod(object target, object[] passedParameters, MethodInfo methodInfo)
         {
