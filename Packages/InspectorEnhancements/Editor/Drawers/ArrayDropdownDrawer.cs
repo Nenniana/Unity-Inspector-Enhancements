@@ -6,25 +6,56 @@ using UnityEngine;
 
 namespace InspectorEnhancements
 {
+    [CustomPropertyDrawer(typeof(ArrayDropdownAttribute))]
     public class ArrayDropdownDrawer : PropertyDrawer
     {
         private IMemberInfoProvider memberInfoProvider = new CacheMemberInfoProvider();
+
+        public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
+        {
+            object target = property.serializedObject.targetObject;
+            FieldInfo propertyFieldInfo = memberInfoProvider.TryGetMemberInfo<FieldInfo>(target, property.name);
+
+            if (propertyFieldInfo == null)
+            {
+                Debug.LogWarning("No Property FieldInfo is found.");
+                return;
+            }
+
+            ArrayDropdownAttribute dropdownAttribute = (ArrayDropdownAttribute)attribute;
+            string parameterName = dropdownAttribute.Condition;
+
+            if (string.IsNullOrEmpty(parameterName))
+            {
+                Debug.LogWarning("Parameter is either null or empty.");
+                return;
+            }
+
+            Array values = GetDropdownValues(parameterName, target, propertyFieldInfo);
+
+            CreateDropdown(position, property, label, values, propertyFieldInfo, target);
+
+            property.serializedObject.ApplyModifiedProperties();
+        }
         
-        private void CreateDropdown(Rect position, SerializedProperty property, GUIContent label, object[] options, FieldInfo propertyFieldInfo, object target)
+        private void CreateDropdown(Rect position, SerializedProperty property, GUIContent label, Array options, FieldInfo propertyFieldInfo, object target)
         {
             if (options != null && options.Length > 0)
             {
-                string[] optionStrings = options.Select(option => option?.ToString() ?? "null").ToArray();
+                string[] optionStrings = options.Cast<object>()
+                                        .Select(option => option?.ToString() ?? "null")
+                                        .ToArray();
 
                 // Find the current index of the selected value in the list
-                int currentIndex = Array.IndexOf(options, property.stringValue);
+                int currentIndex = Array.IndexOf(options, propertyFieldInfo.GetValue(target));
                 if (currentIndex == -1) currentIndex = 0; // Default to the first item if not found
 
                 // Create the dropdown
                 int selectedIndex = EditorGUI.Popup(position, label.text, currentIndex, optionStrings);
 
                 // Update the property value with the selected key
-                propertyFieldInfo.SetValue(target, options[selectedIndex]);
+                object selectedOption = options.GetValue(selectedIndex);
+                propertyFieldInfo.SetValue(target, selectedOption);
                 property.serializedObject.ApplyModifiedProperties();
             }
             else
@@ -33,20 +64,12 @@ namespace InspectorEnhancements
             }
         }
 
-        private object[] GetDropdownValues(string parameterName, SerializedProperty property) 
+        private Array GetDropdownValues(string parameterName, object target, FieldInfo propertyFieldInfo) 
         {
-            object target = property.serializedObject.targetObject;
-            FieldInfo propertyFieldInfo = memberInfoProvider.TryGetMemberInfo<FieldInfo>(target, property.name);
-
-            if (propertyFieldInfo == null)
-            {
-                return null;
-            }
-            
             FieldInfo fieldInfo = memberInfoProvider.TryGetMemberInfo<FieldInfo>(target, parameterName);
             if (fieldInfo != null)
             {
-                return TryGetFieldStringValues(fieldInfo, propertyFieldInfo, target);
+                return TryGetFieldValueArray(fieldInfo, propertyFieldInfo, target);
             }
 
             PropertyInfo propertyInfo = memberInfoProvider.TryGetMemberInfo<PropertyInfo>(target, parameterName);
@@ -60,7 +83,8 @@ namespace InspectorEnhancements
             {
                 return TryGetMethodStringValues();
             }
-
+            
+            Debug.LogWarning("No Dropdown values were found.");
             return null;
         }
 
@@ -74,7 +98,7 @@ namespace InspectorEnhancements
             return null;
         }
 
-        private object[] TryGetFieldStringValues(FieldInfo fieldInfo, FieldInfo propertyFieldInfo, object target)
+        private Array TryGetFieldValueArray(FieldInfo fieldInfo, FieldInfo propertyFieldInfo, object target)
         {
             if (!fieldInfo.FieldType.IsArray) 
             {
@@ -88,7 +112,9 @@ namespace InspectorEnhancements
                 return null;
             }
 
-            return fieldInfo.GetValue(target) as object[];
+            Array values = fieldInfo.GetValue(target) as Array;
+
+            return values;
         }
     }
 }
