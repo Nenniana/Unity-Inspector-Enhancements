@@ -7,50 +7,50 @@ namespace InspectorEnhancements
     public class ArrayDropdownTest : MonoBehaviour 
     {
         // Test case 1: Using a string array directly
-        [ArrayDropdown("colors")]
+        [CollectionDropdown("colors")]
         public string selectedColor;
 
         // Test case 2: Using an integer array directly
-        [ArrayDropdown("numbers")]
+        [CollectionDropdown("numbers")]
         public int selectedNumber;
 
         // Test case 3: Using a List<int> field
-        [ArrayDropdown("numberList")]
+        [CollectionDropdown("numberList")]
         public int selectedFromList;
 
         // Test case 4: Using a method that returns a string array
-        [ArrayDropdown("GetColorOptions")]
+        [CollectionDropdown("GetColorOptions")]
         public string selectedColorFromMethod;
 
         // Test case 5: Using a method that returns an integer array
-        [ArrayDropdown("GetNumberOptions")]
+        [CollectionDropdown("GetNumberOptions")]
         public int selectedNumberFromMethod;
 
         // Test case 6: Using a method with parameters to generate a List<int>
-        [ArrayDropdown("GenerateNumberRange", 1, 10)]
+        [CollectionDropdown("GenerateNumberRange", 1, 10)]
         public int selectedNumberInRange;
 
         // Test case 7: Using an enum type
-        [ArrayDropdown("customEnums")]
+        [CollectionDropdown("customEnums")]
         public SampleEnum selectedEnumValue;
 
         // Test case 8: Using an enum type by method
-        [ArrayDropdown("GetEnumValues")]
+        [CollectionDropdown("GetEnumValues")]
         public SampleEnum selectedEnumValueMethod;
 
         // Test case 9: Using a List of a custom class
-        [ArrayDropdown("customObjects")]
+        [CollectionDropdown("customObjects")]
         public CustomClass selectedCustomObject;
 
         // Test case 10: Using a method to retrieve a List of custom classes
-        [ArrayDropdown("GetCustomObjectOptions")]
+        [CollectionDropdown("GetCustomObjectOptions")]
         public CustomClass selectedCustomObjectFromMethod;
 
         // Additional fields to test the drawer with diverse types
-        [ArrayDropdown("stringList")]
+        [CollectionDropdown("stringList")]
         public string selectedStringFromList;
 
-        [ArrayDropdown("GetStringList")]
+        [CollectionDropdown("GetStringList")]
         public string selectedStringFromListMethod;
 
         // Example data fields

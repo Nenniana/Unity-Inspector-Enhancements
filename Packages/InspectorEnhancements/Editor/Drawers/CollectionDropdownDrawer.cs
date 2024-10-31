@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace InspectorEnhancements
 {
-    [CustomPropertyDrawer(typeof(ArrayDropdownAttribute))]
+    [CustomPropertyDrawer(typeof(CollectionDropdownAttribute))]
     public class ArrayDropdownDrawer : PropertyDrawer
     {
         private IMemberInfoProvider memberInfoProvider = new CacheMemberInfoProvider();
@@ -24,7 +24,7 @@ namespace InspectorEnhancements
                 return;
             }
 
-            ArrayDropdownAttribute dropdownAttribute = (ArrayDropdownAttribute)attribute;
+            CollectionDropdownAttribute dropdownAttribute = (CollectionDropdownAttribute)attribute;
 
             if (string.IsNullOrEmpty(dropdownAttribute.Condition))
             {
@@ -69,7 +69,7 @@ namespace InspectorEnhancements
             }
         }
 
-        private IEnumerable GetDropdownValues(ArrayDropdownAttribute dropdownAttribute, object target, FieldInfo propertyFieldInfo) 
+        private IEnumerable GetDropdownValues(CollectionDropdownAttribute dropdownAttribute, object target, FieldInfo propertyFieldInfo) 
         {
             FieldInfo fieldInfo = memberInfoProvider.TryGetMemberInfo<FieldInfo>(target, dropdownAttribute.Condition);
             if (fieldInfo != null)
