@@ -8,7 +8,17 @@ namespace InspectorEnhancements
     public class MethodButtonDrawer : PropertyDrawer
     {
         private readonly IMemberInfoProvider memberInfoProvider = new CacheMemberInfoProvider();
-        // OnGUI Implementation
+        public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
+        {
+            object target = property.serializedObject.targetObject;
+            MethodButtonAttribute attribute = this.attribute as MethodButtonAttribute;
+            ParameterInfo[] methodParameters = GetMethodParams(target, property);
+
+            if (methodParameters == null || methodParameters.Length <= 0)
+            {
+                // Method is parameterless
+            }
+        }
 
         // PropertyHeight Implementation
 
