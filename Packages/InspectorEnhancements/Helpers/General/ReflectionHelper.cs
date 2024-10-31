@@ -7,10 +7,10 @@ namespace InspectorEnhancements
     {
         public static TInfo FindMemberInfo<TInfo>(object target, string name) where TInfo : MemberInfo
         {
-            if (target == null) 
+            if (target == null)
                 throw new ArgumentNullException(nameof(target));
 
-            if (string.IsNullOrEmpty(name)) 
+            if (string.IsNullOrEmpty(name))
                 throw new ArgumentException("Name cannot be null or empty", nameof(name));
 
             var type = target.GetType();
@@ -30,6 +30,30 @@ namespace InspectorEnhancements
             }
 
             return member as TInfo;
+        }
+
+        public static TInfo[] FindAllMemberInfo<TInfo> (object target) where TInfo : MemberInfo
+        {
+            if (target == null)
+                throw new ArgumentNullException(nameof(target));
+
+            var type = target.GetType();
+            MemberInfo[] members = null;
+
+            if (typeof(TInfo) == typeof(MethodInfo))
+            {
+                members = type.GetMethods(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.FlattenHierarchy);
+            }
+            else if (typeof(TInfo) == typeof(FieldInfo))
+            {
+                members = type.GetFields(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.FlattenHierarchy);
+            }
+            else if (typeof(TInfo) == typeof(PropertyInfo))
+            {
+                members = type.GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.FlattenHierarchy);
+            }
+
+            return members as TInfo[];
         }
     }
 }

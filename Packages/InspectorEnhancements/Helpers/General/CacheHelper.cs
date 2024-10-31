@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace InspectorEnhancements
@@ -6,9 +7,38 @@ namespace InspectorEnhancements
     {
         private static Dictionary<string, TValue> cache = new Dictionary<string, TValue>();
 
-        public static TValue GetOrAdd(object target, string conditionName, System.Func<TValue> computeValue)
+        // Public method for name-based key
+        public static TValue GetOrAddByName(object target, string conditionName, Func<TValue> computeValue)
         {
-            string key = GenerateCacheKey(target, conditionName);
+            string key = GenerateCacheKeyByName(target, conditionName);
+            return GetOrAddInternal(key, computeValue);
+        }
+
+        // Public method to cache each element individually by its type
+        public static Dictionary<string, TValue> GetOrAddByTypeArray(object[] targets, Func<TValue> computeValue)
+        {
+            var results = new Dictionary<string, TValue>();
+
+            foreach (var target in targets)
+            {
+                string key = GetTypeKey(target);
+                TValue value = GetOrAddInternal(key, computeValue);
+                results[key] = value; // Store the cached value with the type key in results
+            }
+
+            return results;
+        }
+
+        // Public method for type-based key
+        public static TValue GetOrAddByType(object target, Func<TValue> computeValue)
+        {
+            string key = GetTypeKey(target);
+            return GetOrAddInternal(key, computeValue);
+        }
+
+        // Internal method for retrieving or adding to the cache
+        private static TValue GetOrAddInternal(string key, Func<TValue> computeValue)
+        {
             if (!cache.TryGetValue(key, out var value))
             {
                 value = computeValue();
@@ -22,10 +52,15 @@ namespace InspectorEnhancements
             cache.Clear();
         }
 
-        private static string GenerateCacheKey(object target, string conditionName)
+        // Private helper to generate a key based on object type and condition name
+        private static string GenerateCacheKeyByName(object target, string conditionName)
         {
-            string key = $"{target.GetType().FullName}.{conditionName}";
-            return key;
+            return $"{target.GetType().FullName}.{conditionName}";
+        }
+
+        private static string GetTypeKey(object target)
+        {
+            return target.GetType().FullName;
         }
     }
 }
