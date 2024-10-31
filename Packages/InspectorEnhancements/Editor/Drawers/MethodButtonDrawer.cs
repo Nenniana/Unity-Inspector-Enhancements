@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Reflection;
 using UnityEditor;
 using UnityEngine;
@@ -19,22 +20,41 @@ namespace InspectorEnhancements
             var targetObject = target;
 
             // Retrieve all methods in the target object’s class
-            var methods = targetObject.GetType().GetMethods(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+            var methods = memberInfoProvider.TryGetAllMemberInfo<MethodInfo>(target);
+            NewMethod(targetObject, methods);
+        }
 
+        private void NewMethod(Object targetObject, List<MethodInfo> methods)
+        {
             foreach (var method in methods)
             {
                 // Check if the method has the MethodButtonAttribute
                 var attribute = (MethodButtonAttribute)method.GetCustomAttribute(typeof(MethodButtonAttribute), true);
-                if (attribute != null)
+
+                if (attribute == null)
                 {
-                    object[] methodParameterValues = methodResolver.InvokeMethod(target, attribute.Parameters, method);
-                    // Draw a button with the attribute’s specified button name
-                    if (GUILayout.Button(method.Name))
-                    {
-                        // Invoke the method when the button is clicked
-                        method.Invoke(targetObject, methodParameterValues); // Pass 'null' if method has no parameters
-                    }
+                    continue;
                 }
+
+                object[] parameters = method.GetParameters();
+
+                if (attribute.Parameters != null && attribute.Parameters.Length > 0)
+                {
+                    parameters = attribute.Parameters;
+                }
+
+                DrawMethodButton(targetObject, method, parameters);
+            }
+        }
+
+        private void DrawMethodButton(Object targetObject, MethodInfo method, object[] parameters)
+        {
+            object[] methodParameterValues = methodResolver.InvokeMethod(target, parameters, method);
+            // Draw a button with the attribute’s specified button name
+            if (GUILayout.Button(method.Name))
+            {
+                // Invoke the method when the button is clicked
+                method.Invoke(targetObject, methodParameterValues); // Pass 'null' if method has no parameters
             }
         }
     }
