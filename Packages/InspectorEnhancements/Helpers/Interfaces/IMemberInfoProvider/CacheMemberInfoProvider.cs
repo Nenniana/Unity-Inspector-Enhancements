@@ -1,17 +1,28 @@
+using System.Collections.Generic;
 using System.Reflection;
 
 namespace InspectorEnhancements
 {
     public class CacheMemberInfoProvider : IMemberInfoProvider
     {
-        public TInfo[] TryGetAllMemberInfo<TInfo>(object target) where TInfo : MemberInfo
+        public List<TInfo> TryGetAllMemberInfo<TInfo>(object target) where TInfo : MemberInfo
         {
-            throw new System.NotImplementedException();
+            List<TInfo> allMemberInfo = TypeBasedCacheHelper<TInfo>.GetOrAddList(
+                target, 
+                () => ReflectionHelper.FindAllMemberInfo<TInfo>(target)
+            );
+
+            if (allMemberInfo == null)
+            {
+                return null;
+            }
+
+            return allMemberInfo;
         }
 
         public TInfo TryGetMemberInfo<TInfo>(object target, string conditionName) where TInfo : MemberInfo
         {
-            TInfo memberInfo = CacheHelper<TInfo>.GetOrAddByName(
+            TInfo memberInfo = StringBasedCacheHelper<TInfo>.GetOrAdd(
                 target, conditionName,
                 () => ReflectionHelper.FindMemberInfo<TInfo>(target, conditionName)
             );
