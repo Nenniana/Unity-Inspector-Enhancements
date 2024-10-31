@@ -9,7 +9,7 @@ namespace InspectorEnhancements
     public class ConditionalDrawer : PropertyDrawer
     {
         private readonly IMemberInfoProvider memberInfoProvider = new CacheMemberInfoProvider();
-        private readonly IMethodInvoker methodInvoker = new DefaultMethodInvoker();
+        private readonly IMethodResolver methodResolver = new DefaultMethodResolver();
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
@@ -153,7 +153,9 @@ namespace InspectorEnhancements
             if (methodInfo == null)
                 return false;
 
-            object methodResult = methodInvoker.InvokeMethod(target, attribute.Parameters, methodInfo);
+            object[] methodParameters = methodResolver.InvokeMethod(target, attribute.Parameters, methodInfo);
+            object methodResult = methodInfo.Invoke(target, methodParameters);
+            
             shouldShow = (bool)methodResult;
             return true;
         }
