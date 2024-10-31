@@ -4,6 +4,13 @@ Inspector Enhancements is a Unity package offering custom drawers and property a
 
 ## Features
 
+### **Collection Dropdown Attribute**
+The `[CollectionDropdown]` attribute displays a dropdown for selecting items within a collection directly in the Inspector. Compatible with standard collections such as arrays and lists, this feature enhances Inspector usability by allowing streamlined access to collection elements.
+
+   - **Capabilities**:
+     - Provides a dropdown selection for array, list, and similar collection fields, offering an organized and user-friendly way to view and choose items.
+     - Supports any collection type that implements `IEnumerable`, making it flexible for various use cases in the Inspector.
+
 ### **HideIf / ShowIf Attributes**
 The `[HideIf]` and `[ShowIf]` attributes allow conditional visibility of specific fields in the Inspector. They can be configured to dynamically hide or display fields based on certain conditions, enhancing data organization and readability.
 
