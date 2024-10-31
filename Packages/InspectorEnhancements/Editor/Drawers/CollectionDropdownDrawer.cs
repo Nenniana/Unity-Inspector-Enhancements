@@ -11,7 +11,7 @@ namespace InspectorEnhancements
     public class ArrayDropdownDrawer : PropertyDrawer
     {
         private IMemberInfoProvider memberInfoProvider = new CacheMemberInfoProvider();
-        private IMethodInvoker methodInvoker = new DefaultMethodInvoker();
+        private IMethodResolver methodResolver = new DefaultMethodResolver();
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
@@ -95,7 +95,8 @@ namespace InspectorEnhancements
 
         private IEnumerable TryGetMethodValueList(object[] parameters, MethodInfo methodInfo, FieldInfo propertyFieldInfo, object target)
         {
-            object methodResult = methodInvoker.InvokeMethod(target, parameters, methodInfo);
+            object[] methodParameters = methodResolver.InvokeMethod(target, parameters, methodInfo);
+            object methodResult = methodInfo.Invoke(target, methodParameters);
 
             if (methodResult == null)
             {
