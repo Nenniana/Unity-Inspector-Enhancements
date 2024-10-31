@@ -23,7 +23,7 @@ namespace InspectorEnhancements
             }
             else if (typeof(UnityEngine.Object).IsAssignableFrom(type))
             {
-                DrawUnityNativeType(label, value, type);
+                DrawUnityNativeField(label, value, type);
             }
             else if (type.IsClass || type.IsValueType)
             {
@@ -31,7 +31,7 @@ namespace InspectorEnhancements
             }
         }
 
-        protected virtual void DrawUnityNativeType(string label, object value, Type type)
+        protected virtual void DrawUnityNativeField(string label, object value, Type type)
         {
             EditorGUILayout.ObjectField(label, (UnityEngine.Object)value, type, true);
         }
