@@ -1,13 +1,16 @@
 using System;
+using System.Collections.Generic;
+using System.Reflection;
 using UnityEditor;
 
 namespace InspectorEnhancements
 {
     public abstract class BaseFieldDrawer : IFieldDrawer
     {
+        private IMemberInfoProvider memberInfoProvider = new CacheMemberInfoProvider();
         public virtual void DrawField(string fieldName, object fieldValue, Type type, bool isEditable)
         {
-            throw new NotImplementedException();
+            EvaluateType(fieldName, fieldValue, type, isEditable);
         }
 
         protected virtual void EvaluateType(string label, object value, Type type, bool isEditable)
@@ -27,7 +30,7 @@ namespace InspectorEnhancements
             }
             else if (type.IsClass || type.IsValueType)
             {
-                // Draw complex value
+                DrawComplexField(label, value, type, isEditable);
             }
         }
 
@@ -62,6 +65,25 @@ namespace InspectorEnhancements
                     EditorGUILayout.LabelField(label, value.ToString());
                     break;
             }
+        }
+
+        protected virtual void DrawComplexField(string label, object value, Type type, bool isEditable)
+        {
+            EditorGUILayout.LabelField(label, type.Name);
+            EditorGUI.indentLevel++;
+
+            List<FieldInfo> fieldInfos = memberInfoProvider.TryGetAllMemberInfo<FieldInfo>(value);
+
+            foreach (var field in fieldInfos)
+            {
+                if (!field.IsPublic || field.IsNotSerialized)
+                    continue;
+
+                object fieldValue = field.GetValue(value);
+                EvaluateType(field.Name, fieldValue, field.FieldType, !field.IsInitOnly);
+            }
+
+            EditorGUI.indentLevel--;
         }
     }
 }
