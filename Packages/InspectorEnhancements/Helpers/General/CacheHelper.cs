@@ -14,6 +14,21 @@ namespace InspectorEnhancements
             return GetOrAddInternal(key, computeValue);
         }
 
+        // Public method to cache each element individually by its type
+        public static Dictionary<string, TValue> GetOrAddByTypeArray(object[] targets, Func<TValue> computeValue)
+        {
+            var results = new Dictionary<string, TValue>();
+
+            foreach (var target in targets)
+            {
+                string key = GetTypeKey(target);
+                TValue value = GetOrAddInternal(key, computeValue);
+                results[key] = value; // Store the cached value with the type key in results
+            }
+
+            return results;
+        }
+
         // Public method for type-based key
         public static TValue GetOrAddByType(object target, Func<TValue> computeValue)
         {
