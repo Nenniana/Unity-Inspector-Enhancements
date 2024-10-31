@@ -1,5 +1,8 @@
+using System;
+
 namespace InspectorEnhancements
 {
+    [AttributeUsage(AttributeTargets.Field, AllowMultiple = false)]
     public class MethodButtonAttribute : CustomPropertyAttribute, IMethodOwner
     {
         public string Condition { get; private set; }
