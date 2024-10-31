@@ -8,7 +8,7 @@ namespace InspectorEnhancements
     {
         private static Dictionary<Type, List<TValue>> cache = new Dictionary<Type, List<TValue>>();
 
-        public static List<TValue> GetOrAddList(object[] target, Func<TValue[]> computeValue)
+        public static List<TValue> GetOrAddList(object target, Func<TValue[]> computeValue)
         {
             Type typeKey = target.GetType();
             if (!cache.TryGetValue(typeKey, out var valueList))
