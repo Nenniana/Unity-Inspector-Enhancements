@@ -4,25 +4,18 @@ using UnityEngine;
 
 namespace InspectorEnhancements
 {
-    [CustomPropertyDrawer(typeof(MethodButtonAttribute))]
-    public class MethodButtonDrawer : PropertyDrawer
+    [CanEditMultipleObjects]
+    [CustomEditor(typeof(UnityEngine.Object), true)]
+    public class MethodButtonDrawer : Editor
     {
         private readonly IMemberInfoProvider memberInfoProvider = new CacheMemberInfoProvider();
-        public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
+        private readonly IMethodResolver methodResolver = new DefaultMethodResolver();
+        public override void OnInspectorGUI()
         {
-            object target = property.serializedObject.targetObject;
-            MethodButtonAttribute attribute = this.attribute as MethodButtonAttribute;
-            ParameterInfo[] methodParameters = GetMethodParams(target, property);
-
-            if (methodParameters == null || methodParameters.Length <= 0)
-            {
-                // Method is parameterless
-            }
+            
         }
 
-        // PropertyHeight Implementation
-
-        private ParameterInfo[] GetMethodParams(object target, SerializedProperty property) 
+        private MethodInfo GetMethodInfo(object target, SerializedProperty property) 
         {
             MethodInfo methodInfo = memberInfoProvider.TryGetMemberInfo<MethodInfo>(target, property.name);
 
@@ -32,11 +25,14 @@ namespace InspectorEnhancements
                 return null;
             }
 
-            return methodInfo.GetParameters();
+            return methodInfo;
         }
 
         // DrawMethodParams Implementation
         
-        // InvokeMethod Implementation
+        private void InvokeMethod (object target, MethodInfo methodInfo, object[] methodParameterValues) 
+        {
+            methodInfo.Invoke(target, methodParameterValues);
+        }
     }
 }
