@@ -23,12 +23,17 @@ namespace InspectorEnhancements
             }
             else if (typeof(UnityEngine.Object).IsAssignableFrom(type))
             {
-                // Draw Unity native value
+                DrawUnityNativeType(label, value, type);
             }
             else if (type.IsClass || type.IsValueType)
             {
                 // Draw complex value
             }
+        }
+
+        protected virtual void DrawUnityNativeType(string label, object value, Type type)
+        {
+            EditorGUILayout.ObjectField(label, (UnityEngine.Object)value, type, true);
         }
     }
 }
