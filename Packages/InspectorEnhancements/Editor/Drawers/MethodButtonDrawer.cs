@@ -12,27 +12,30 @@ namespace InspectorEnhancements
         private readonly IMethodResolver methodResolver = new DefaultMethodResolver();
         public override void OnInspectorGUI()
         {
-            
-        }
+            // Draw the default inspector first
+            DrawDefaultInspector();
 
-        private MethodInfo GetMethodInfo(object target, SerializedProperty property) 
-        {
-            MethodInfo methodInfo = memberInfoProvider.TryGetMemberInfo<MethodInfo>(target, property.name);
+            // Get the target object (the MonoBehaviour instance) as the current script
+            var targetObject = target;
 
-            if (methodInfo == null)
+            // Retrieve all methods in the target object’s class
+            var methods = targetObject.GetType().GetMethods(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+
+            foreach (var method in methods)
             {
-                Debug.LogError($"No MethodInfo found for {property.name} on {target.GetType()}.");
-                return null;
+                // Check if the method has the MethodButtonAttribute
+                var attribute = (MethodButtonAttribute)method.GetCustomAttribute(typeof(MethodButtonAttribute), true);
+                if (attribute != null)
+                {
+                    object[] methodParameterValues = methodResolver.InvokeMethod(target, attribute.Parameters, method);
+                    // Draw a button with the attribute’s specified button name
+                    if (GUILayout.Button(method.Name))
+                    {
+                        // Invoke the method when the button is clicked
+                        method.Invoke(targetObject, methodParameterValues); // Pass 'null' if method has no parameters
+                    }
+                }
             }
-
-            return methodInfo;
-        }
-
-        // DrawMethodParams Implementation
-        
-        private void InvokeMethod (object target, MethodInfo methodInfo, object[] methodParameterValues) 
-        {
-            methodInfo.Invoke(target, methodParameterValues);
         }
     }
 }
