@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace InspectorEnhancements
 {
-    public class DefaultMethodInvoker : IMethodResolver
+    public class DefaultMethodResolver : IMethodResolver
     {
         private readonly IMemberInfoProvider _memberInfoProvider = new CacheMemberInfoProvider();
 
