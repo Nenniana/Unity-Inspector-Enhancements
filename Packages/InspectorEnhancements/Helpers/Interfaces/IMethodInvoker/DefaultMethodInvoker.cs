@@ -4,18 +4,18 @@ using UnityEngine;
 
 namespace InspectorEnhancements
 {
-    public class DefaultMethodInvoker : IMethodInvoker
+    public class DefaultMethodInvoker : IMethodResolver
     {
         private readonly IMemberInfoProvider _memberInfoProvider = new CacheMemberInfoProvider();
 
-        public object InvokeMethod(object target, object[] passedParameters, MethodInfo methodInfo)
+        public object[] InvokeMethod(object target, object[] passedParameters, MethodInfo methodInfo)
         {
             try
             {
                 var parameterValues = BuildParameterValues(target, passedParameters, methodInfo);
                 if (parameterValues == null) return null;
 
-                return methodInfo.Invoke(target, parameterValues);
+                return parameterValues;
             }
             catch (Exception ex)
             {
