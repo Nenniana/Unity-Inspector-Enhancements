@@ -2,13 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using UnityEditor;
+using UnityEngine;
 
 namespace InspectorEnhancements
 {
-    public abstract class BaseFieldDrawer : IFieldDrawer
+    public class BaseFieldDrawer : IFieldDrawer
     {
         private IMemberInfoProvider memberInfoProvider = new CacheMemberInfoProvider();
-        public virtual void DrawField(string fieldName, object fieldValue, Type type, bool isEditable)
+        public virtual void DrawField(string fieldName, object fieldValue, Type type, object owner, bool isEditable)
         {
             EvaluateType(fieldName, fieldValue, type, isEditable);
         }
@@ -62,6 +63,7 @@ namespace InspectorEnhancements
                     EditorGUILayout.TextField(label, stringValue);
                     break;
                 default:
+                    Debug.Log("Unsupported primitive type: " + value.GetType().Name);
                     EditorGUILayout.LabelField(label, value.ToString());
                     break;
             }
