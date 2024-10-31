@@ -2,7 +2,7 @@ using System;
 
 namespace InspectorEnhancements
 {
-    [AttributeUsage(AttributeTargets.Field, AllowMultiple = false)]
+    [AttributeUsage(AttributeTargets.Method, AllowMultiple = false)]
     public class MethodButtonAttribute : CustomPropertyAttribute, IMethodOwner
     {
         public string Condition { get; private set; }
