@@ -2,8 +2,8 @@ using System.Reflection;
 
 namespace InspectorEnhancements
 {
-    public interface IMethodInvoker
+    public interface IMethodResolver
     {
-        object InvokeMethod(object target, object[] parameters, MethodInfo methodInfo);
+        object[] InvokeMethod(object target, object[] parameters, MethodInfo methodInfo);
     }
 }
