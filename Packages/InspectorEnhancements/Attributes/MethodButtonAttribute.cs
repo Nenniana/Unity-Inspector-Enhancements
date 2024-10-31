@@ -3,21 +3,14 @@ using System;
 namespace InspectorEnhancements
 {
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = false)]
-    public class MethodButtonAttribute : CustomPropertyAttribute, IMethodOwner
+    public class MethodButtonAttribute : CustomPropertyAttribute
     {
-        public string Condition { get; private set; }
         public object[] Parameters { get; private set; }
 
         public MethodButtonAttribute() {}
 
-        public MethodButtonAttribute (string _condition)
+        public MethodButtonAttribute (params object[] _parameters)
         {
-            Condition = _condition;
-        }
-
-        public MethodButtonAttribute (string _condition, params object[] _parameters)
-        {
-            Condition = _condition;
             Parameters = _parameters;
         }
     }
