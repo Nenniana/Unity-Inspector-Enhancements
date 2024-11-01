@@ -4,6 +4,6 @@ namespace InspectorEnhancements
 {
     public interface IFieldDrawer
     {
-        void DrawField(string fieldName, object fieldValue, Type type, object owner, bool isEditable);
+        void DrawField(string fieldName, ref object fieldValue, Type type, bool isEditable);
     }
 }
