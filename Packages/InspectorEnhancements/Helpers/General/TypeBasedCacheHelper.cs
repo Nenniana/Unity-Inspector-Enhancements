@@ -1,20 +1,22 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 
 namespace InspectorEnhancements
 {
     public static class TypeBasedCacheHelper<TValue>
     {
-        private static Dictionary<Type, List<TValue>> cache = new Dictionary<Type, List<TValue>>();
+        private static Dictionary<(Type, BindingFlags), List<TValue>> cache = new Dictionary<(Type, BindingFlags), List<TValue>>();
 
-        public static List<TValue> GetOrAddList(object target, Func<TValue[]> computeValue)
+
+        public static List<TValue> GetOrAddList(Type type, Func<TValue[]> computeValue, BindingFlags bindingFlags)
         {
-            Type typeKey = target.GetType();
-            if (!cache.TryGetValue(typeKey, out var valueList))
+            var cacheKey = (type, bindingFlags);
+            if (!cache.TryGetValue(cacheKey, out var valueList))
             {
                 valueList = computeValue().ToList();
-                cache[typeKey] = valueList;
+                cache[cacheKey] = valueList;
             }
 
             return valueList;

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace InspectorEnhancements
@@ -6,7 +7,7 @@ namespace InspectorEnhancements
     {
         private static Dictionary<string, TValue> cache = new Dictionary<string, TValue>();
 
-        public static TValue GetOrAdd(object target, string conditionName, System.Func<TValue> computeValue)
+        public static TValue GetOrAdd(Type target, string conditionName, System.Func<TValue> computeValue)
         {
             string key = GenerateCacheKey(target, conditionName);
             if (!cache.TryGetValue(key, out var value))
@@ -22,9 +23,9 @@ namespace InspectorEnhancements
             cache.Clear();
         }
 
-        private static string GenerateCacheKey(object target, string conditionName)
+        private static string GenerateCacheKey(Type target, string conditionName)
         {
-            string key = $"{target.GetType().FullName}.{conditionName}";
+            string key = $"{target.FullName}.{conditionName}";
             return key;
         }
     }
