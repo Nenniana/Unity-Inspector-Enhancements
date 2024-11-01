@@ -5,15 +5,14 @@ namespace InspectorEnhancements
 {
     public static class ReflectionHelper
     {
-        public static TInfo FindMemberInfo<TInfo>(object target, string name, BindingFlags bindingFlags) where TInfo : MemberInfo
+        public static TInfo FindMemberInfo<TInfo>(Type type, string name, BindingFlags bindingFlags) where TInfo : MemberInfo
         {
-            if (target == null)
-                throw new ArgumentNullException(nameof(target));
+            if (type == null)
+                throw new ArgumentNullException(nameof(type));
 
             if (string.IsNullOrEmpty(name))
                 throw new ArgumentException("Name cannot be null or empty", nameof(name));
 
-            var type = target.GetType();
             MemberInfo member = null;
 
             if (typeof(TInfo) == typeof(MethodInfo))
@@ -32,12 +31,11 @@ namespace InspectorEnhancements
             return member as TInfo;
         }
 
-        public static TInfo[] FindAllMemberInfo<TInfo>(object target, BindingFlags bindingFlags) where TInfo : MemberInfo
+        public static TInfo[] FindAllMemberInfo<TInfo>(Type type, BindingFlags bindingFlags) where TInfo : MemberInfo
         {
-            if (target == null)
-                throw new ArgumentNullException(nameof(target));
+            if (type == null)
+                throw new ArgumentNullException(nameof(type));
 
-            var type = target.GetType();
             MemberInfo[] members = null;
 
             if (typeof(TInfo) == typeof(MethodInfo))

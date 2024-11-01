@@ -6,11 +6,11 @@ namespace InspectorEnhancements
 {
     public class CacheMemberInfoProvider : IMemberInfoProvider
     {
-        public List<TInfo> TryGetAllMemberInfo<TInfo>(object target, BindingFlags bindingFlags = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.FlattenHierarchy) where TInfo : MemberInfo
+        public List<TInfo> TryGetAllMemberInfo<TInfo>(Type type, BindingFlags bindingFlags = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.FlattenHierarchy) where TInfo : MemberInfo
         {
             List<TInfo> allMemberInfo = TypeBasedCacheHelper<TInfo>.GetOrAddList(
-                target, 
-                () => ReflectionHelper.FindAllMemberInfo<TInfo>(target, bindingFlags)
+                type, 
+                () => ReflectionHelper.FindAllMemberInfo<TInfo>(type, bindingFlags)
             );
 
             if (allMemberInfo == null)
@@ -21,11 +21,11 @@ namespace InspectorEnhancements
             return allMemberInfo;
         }
 
-        public TInfo TryGetMemberInfo<TInfo>(object target, string conditionName, BindingFlags bindingFlags = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.FlattenHierarchy) where TInfo : MemberInfo
+        public TInfo TryGetMemberInfo<TInfo>(Type type, string conditionName, BindingFlags bindingFlags = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.FlattenHierarchy) where TInfo : MemberInfo
         {
             TInfo memberInfo = StringBasedCacheHelper<TInfo>.GetOrAdd(
-                target, conditionName,
-                () => ReflectionHelper.FindMemberInfo<TInfo>(target, conditionName, bindingFlags)
+                type, conditionName,
+                () => ReflectionHelper.FindMemberInfo<TInfo>(type, conditionName, bindingFlags)
             );
 
             if (memberInfo == null)
