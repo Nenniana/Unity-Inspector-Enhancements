@@ -5,7 +5,7 @@ namespace InspectorEnhancements
 {
     public static class ReflectionHelper
     {
-        public static TInfo FindMemberInfo<TInfo>(object target, string name) where TInfo : MemberInfo
+        public static TInfo FindMemberInfo<TInfo>(object target, string name, BindingFlags bindingFlags) where TInfo : MemberInfo
         {
             if (target == null)
                 throw new ArgumentNullException(nameof(target));
@@ -18,21 +18,21 @@ namespace InspectorEnhancements
 
             if (typeof(TInfo) == typeof(MethodInfo))
             {
-                member = type.GetMethod(name, BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.FlattenHierarchy);
+                member = type.GetMethod(name, bindingFlags);
             }
             else if (typeof(TInfo) == typeof(FieldInfo))
             {
-                member = type.GetField(name, BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.FlattenHierarchy);
+                member = type.GetField(name, bindingFlags);
             }
             else if (typeof(TInfo) == typeof(PropertyInfo))
             {
-                member = type.GetProperty(name, BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.FlattenHierarchy);
+                member = type.GetProperty(name, bindingFlags);
             }
 
             return member as TInfo;
         }
 
-        public static TInfo[] FindAllMemberInfo<TInfo> (object target) where TInfo : MemberInfo
+        public static TInfo[] FindAllMemberInfo<TInfo>(object target, BindingFlags bindingFlags) where TInfo : MemberInfo
         {
             if (target == null)
                 throw new ArgumentNullException(nameof(target));
@@ -42,15 +42,15 @@ namespace InspectorEnhancements
 
             if (typeof(TInfo) == typeof(MethodInfo))
             {
-                members = type.GetMethods(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.FlattenHierarchy);
+                members = type.GetMethods(bindingFlags);
             }
             else if (typeof(TInfo) == typeof(FieldInfo))
             {
-                members = type.GetFields(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.FlattenHierarchy);
+                members = type.GetFields(bindingFlags);
             }
             else if (typeof(TInfo) == typeof(PropertyInfo))
             {
-                members = type.GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.FlattenHierarchy);
+                members = type.GetProperties(bindingFlags);
             }
 
             return members as TInfo[];
