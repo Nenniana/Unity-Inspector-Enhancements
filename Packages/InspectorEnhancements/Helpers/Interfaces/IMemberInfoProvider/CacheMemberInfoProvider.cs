@@ -10,7 +10,8 @@ namespace InspectorEnhancements
         {
             List<TInfo> allMemberInfo = TypeBasedCacheHelper<TInfo>.GetOrAddList(
                 type, 
-                () => ReflectionHelper.FindAllMemberInfo<TInfo>(type, bindingFlags)
+                () => ReflectionHelper.FindAllMemberInfo<TInfo>(type, bindingFlags),
+                bindingFlags
             );
 
             if (allMemberInfo == null)
