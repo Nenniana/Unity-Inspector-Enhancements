@@ -55,7 +55,7 @@ namespace InspectorEnhancements
         {
             if (passedParam is string fieldName)
             {
-                FieldInfo fieldInfo = _memberInfoProvider.TryGetMemberInfo<FieldInfo>(target, fieldName);
+                FieldInfo fieldInfo = _memberInfoProvider.TryGetMemberInfo<FieldInfo>(target.GetType(), fieldName);
                 if (fieldInfo == null)
                 {
                     Debug.LogWarning($"Field '{fieldName}' not found in {target.GetType()}");
