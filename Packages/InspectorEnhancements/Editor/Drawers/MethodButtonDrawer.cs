@@ -20,7 +20,7 @@ namespace InspectorEnhancements
             var targetObject = target;
 
             // Retrieve all methods in the target object’s class
-            var methods = memberInfoProvider.TryGetAllMemberInfo<MethodInfo>(target);
+            var methods = memberInfoProvider.TryGetAllMemberInfo<MethodInfo>(target.GetType());
             NewMethod(targetObject, methods);
         }
 
