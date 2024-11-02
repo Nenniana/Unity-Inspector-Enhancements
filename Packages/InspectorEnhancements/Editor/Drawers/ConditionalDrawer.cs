@@ -92,8 +92,8 @@ namespace InspectorEnhancements
         {
             if (string.IsNullOrEmpty(conditionName)) return false;
 
-            FieldInfo fieldInfo = memberInfoProvider.TryGetMemberInfo<FieldInfo>(target, conditionName);
-            PropertyInfo propertyInfo = memberInfoProvider.TryGetMemberInfo<PropertyInfo>(target, conditionName);
+            FieldInfo fieldInfo = memberInfoProvider.TryGetMemberInfo<FieldInfo>(target.GetType(), conditionName);
+            PropertyInfo propertyInfo = memberInfoProvider.TryGetMemberInfo<PropertyInfo>(target.GetType(), conditionName);
 
             Type fieldType = null;
 
@@ -148,7 +148,7 @@ namespace InspectorEnhancements
 
         private bool TryEvaluateMethod(ConditionalAttribute attribute, object target, string conditionName, ref bool shouldShow)
         {
-            MethodInfo methodInfo = memberInfoProvider.TryGetMemberInfo<MethodInfo>(target, conditionName);
+            MethodInfo methodInfo = memberInfoProvider.TryGetMemberInfo<MethodInfo>(target.GetType(), conditionName);
 
             if (methodInfo == null)
                 return false;
@@ -162,7 +162,7 @@ namespace InspectorEnhancements
 
         private bool TryEvaluateProperty(object target, string conditionName, ref bool shouldShow)
         {
-            PropertyInfo propertyInfo = memberInfoProvider.TryGetMemberInfo<PropertyInfo>(target, conditionName);
+            PropertyInfo propertyInfo = memberInfoProvider.TryGetMemberInfo<PropertyInfo>(target.GetType(), conditionName);
 
             if (propertyInfo == null)
                 return false;
@@ -174,7 +174,7 @@ namespace InspectorEnhancements
 
         private bool TryEvaluateField(object target, string conditionName, ref bool shouldShow)
         {
-            FieldInfo fieldInfo = memberInfoProvider.TryGetMemberInfo<FieldInfo>(target, conditionName);
+            FieldInfo fieldInfo = memberInfoProvider.TryGetMemberInfo<FieldInfo>(target.GetType(), conditionName);
 
             if (fieldInfo == null)
                 return false;

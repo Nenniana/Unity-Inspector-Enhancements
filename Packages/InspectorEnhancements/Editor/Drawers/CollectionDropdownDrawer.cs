@@ -16,7 +16,7 @@ namespace InspectorEnhancements
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
             object target = property.serializedObject.targetObject;
-            FieldInfo propertyFieldInfo = memberInfoProvider.TryGetMemberInfo<FieldInfo>(target, property.name);
+            FieldInfo propertyFieldInfo = memberInfoProvider.TryGetMemberInfo<FieldInfo>(target.GetType(), property.name);
 
             if (propertyFieldInfo == null)
             {
@@ -71,19 +71,19 @@ namespace InspectorEnhancements
 
         private IEnumerable GetDropdownValues(CollectionDropdownAttribute dropdownAttribute, object target, FieldInfo propertyFieldInfo) 
         {
-            FieldInfo fieldInfo = memberInfoProvider.TryGetMemberInfo<FieldInfo>(target, dropdownAttribute.Condition);
+            FieldInfo fieldInfo = memberInfoProvider.TryGetMemberInfo<FieldInfo>(target.GetType(), dropdownAttribute.Condition);
             if (fieldInfo != null)
             {
                 return TryGetFieldValueList(fieldInfo, propertyFieldInfo, target);
             }
 
-            PropertyInfo propertyInfo = memberInfoProvider.TryGetMemberInfo<PropertyInfo>(target, dropdownAttribute.Condition);
+            PropertyInfo propertyInfo = memberInfoProvider.TryGetMemberInfo<PropertyInfo>(target.GetType(), dropdownAttribute.Condition);
             if (propertyInfo != null)
             {
                 return TryGetPropertyValueList(propertyInfo, propertyFieldInfo, target);
             }
 
-            MethodInfo methodInfo = memberInfoProvider.TryGetMemberInfo<MethodInfo>(target, dropdownAttribute.Condition);
+            MethodInfo methodInfo = memberInfoProvider.TryGetMemberInfo<MethodInfo>(target.GetType(), dropdownAttribute.Condition);
             if (methodInfo != null)
             {
                 return TryGetMethodValueList(dropdownAttribute.Parameters, methodInfo, propertyFieldInfo, target);
