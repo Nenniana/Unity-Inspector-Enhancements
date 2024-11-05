@@ -11,6 +11,12 @@ namespace InspectorEnhancements
     {
         private readonly IMemberInfoProvider memberInfoProvider = new CacheMemberInfoProvider();
         private readonly IMethodResolver methodResolver = new DefaultMethodResolver();
+        private IFieldDrawer fieldDrawer;
+
+        private void OnEnable() {
+            fieldDrawer = FieldDrawerFactory.CreateDefaultFieldDrawer(memberInfoProvider, new EditorGUILayoutMethodProvider());
+        }
+
         public override void OnInspectorGUI()
         {
             // Draw the default inspector first
