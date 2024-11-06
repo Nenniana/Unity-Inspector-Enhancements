@@ -27,10 +27,6 @@ namespace InspectorEnhancements
             {
                 member = type.GetProperty(name, bindingFlags);
             }
-            else if (typeof (TInfo) == typeof(MemberInfo))
-            {
-                member = type.GetMember(name, bindingFlags);
-            }
 
             return member as TInfo;
         }
