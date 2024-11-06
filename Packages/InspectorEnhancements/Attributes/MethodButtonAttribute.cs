@@ -6,11 +6,16 @@ namespace InspectorEnhancements
     public class MethodButtonAttribute : CustomPropertyAttribute
     {
         public object[] Parameters { get; private set; }
+        public bool ExpandParameters { get; private set; }
 
-        public MethodButtonAttribute() {}
-
-        public MethodButtonAttribute (params object[] _parameters)
+        public MethodButtonAttribute(bool _expandParameters = true) 
         {
+            ExpandParameters = _expandParameters;
+        }
+
+        public MethodButtonAttribute (bool _expandParameters = true, params object[] _parameters)
+        {
+            ExpandParameters = _expandParameters;
             Parameters = _parameters;
         }
     }
