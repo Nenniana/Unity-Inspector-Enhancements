@@ -10,7 +10,6 @@ namespace InspectorEnhancements
     [CustomEditor(typeof(UnityEngine.Object), true)]
     public class MethodButtonDrawer : Editor
     {
-        private Dictionary<MethodInfo, bool> methodFoldoutStates = new Dictionary<MethodInfo, bool>();
         private readonly IDefaultValueProvider defaultValueProvider = new DefaultValueProvider();
         private readonly IParameterProvider parameterProvider = new OverwriteableParameterProvider();
         private readonly IMemberInfoProvider memberInfoProvider = new CacheMemberInfoProvider();
@@ -35,24 +34,22 @@ namespace InspectorEnhancements
 
             foreach (var method in methods)
             {
-                if (!(method.GetCustomAttribute(typeof(MethodButtonAttribute), true) is MethodButtonAttribute attribute))
+                var attribute = (MethodButtonAttribute)method.GetCustomAttribute(typeof(MethodButtonAttribute), true);
+
+                if (attribute == null)
                 {
                     continue;
                 }
 
-                // Initialize foldout state for the method if it doesn't exist
-                if (!methodFoldoutStates.ContainsKey(method))
-                {
-                    methodFoldoutStates[method] = true;
-                }
-
-                bool hasParameters = AnyParameters(method);
-                DrawMethodGUI(method, hasParameters, target);
+                DrawMethodGUI(method, target, attribute);
             }
         }
 
-        private void DrawMethodGUI(MethodInfo method, bool hasParameters, object targetObject)
+        private void DrawMethodGUI(MethodInfo method, object targetObject, MethodButtonAttribute attribute)
         {
+            bool parametersFoldedOut = OverwriteableStringCache<bool>.GetOrAdd(target.GetType(), method.Name, () => attribute.ExpandParameters);
+            bool hasParameters = AnyParameters(method);
+            
             if (hasParameters) GUILayout.BeginVertical("box");
 
             GUILayout.BeginHorizontal();
@@ -67,30 +64,31 @@ namespace InspectorEnhancements
             // Toggle foldout for parameters if there are any
             if (hasParameters)
             {
-                DrawParameterFoldout(method);
+                DrawParameterFoldout(method, parametersFoldedOut);
             }
 
             GUILayout.EndHorizontal();
 
             // Show parameters if foldout is open
-            if (methodFoldoutStates[method] && hasParameters)
+            if (parametersFoldedOut && hasParameters)
             {
+                GUILayout.Space(2);
                 DrawMethodParameterFields(method);
             }
 
             if (hasParameters) GUILayout.EndVertical();
         }
 
-        private void DrawParameterFoldout(MethodInfo method)
+        private void DrawParameterFoldout(MethodInfo method, bool parametersFoldedOut)
         {
-            GUILayout.Space(10);
+            GUILayout.Space(10); 
             GUILayout.BeginHorizontal(GUILayout.Width(60));
 
-            methodFoldoutStates[method] = GUILayout.Toggle(
-                methodFoldoutStates[method],
+            OverwriteableStringCache<bool>.OverwriteOrAdd(target.GetType(), method.Name, GUILayout.Toggle(
+                parametersFoldedOut,
                 "Show",
                 EditorStyles.foldout
-            );
+            ));
 
             GUILayout.EndHorizontal();
         }
