@@ -27,6 +27,10 @@ namespace InspectorEnhancements
             {
                 member = type.GetProperty(name, bindingFlags);
             }
+            else if (typeof (TInfo) == typeof(MemberInfo))
+            {
+                member = type.GetMember(name, bindingFlags);
+            }
 
             return member as TInfo;
         }
@@ -49,8 +53,12 @@ namespace InspectorEnhancements
             else if (typeof(TInfo) == typeof(PropertyInfo))
             {
                 members = type.GetProperties(bindingFlags);
+            } 
+            else if (typeof (TInfo) == typeof(MemberInfo))
+            {
+                members = type.GetMembers(bindingFlags);
             }
-
+ 
             return members as TInfo[];
         }
     }
