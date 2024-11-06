@@ -89,12 +89,13 @@ namespace InspectorEnhancements
 
                 if (parameters[i].HasDefaultValue)
                 {
-                    value = parameters[i].DefaultValue;
+                    value = parameterProvider.GetOrAdd(method.Name, parameters[i], 
+                        () => parameters[i].DefaultValue);
                 }
                 else
                 {
                     value = parameterProvider.GetOrAdd(method.Name, parameters[i], 
-                        () => defaultValueProvider.GetDefaultValue(parameters[i].ParameterType));
+                        () => defaultValueProvider.GetDefaultValue(parameters[i].ParameterType)); 
                 }
 
                 fieldDrawer.DrawField(parameters[i].Name, ref value, parameters[i].ParameterType, true);
