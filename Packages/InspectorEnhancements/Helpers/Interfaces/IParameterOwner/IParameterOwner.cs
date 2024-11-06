@@ -1,8 +1,7 @@
 namespace InspectorEnhancements
 {
-    public interface IMethodOwner
+    public interface IParameterOwner
     {
-        public string Condition { get; }
         public object[] Parameters { get; }
     }
 }
