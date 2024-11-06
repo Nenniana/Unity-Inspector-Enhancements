@@ -21,6 +21,11 @@ namespace InspectorEnhancements
             if (!type.IsClass && !type.IsValueType)
                 return false;
 
+            if (value == null)
+            {
+                value = Activator.CreateInstance(type); 
+            }
+
             EditorGUILayout.LabelField(label, type.Name);
             EditorGUI.indentLevel++;
 
@@ -28,10 +33,11 @@ namespace InspectorEnhancements
             foreach (var field in fields)
             {
                 if (!field.IsPublic || field.IsNotSerialized)
+                {
                     continue;
+                }
 
                 object fieldValue = field.GetValue(value);
-
                 fieldDrawerFactory().DrawField(field.Name, ref fieldValue, field.FieldType, !field.IsInitOnly);
                 field.SetValue(value, fieldValue);
             }
