@@ -1,3 +1,5 @@
+using System;
+using System.Linq;
 using System.Reflection;
 using UnityEditor;
 using UnityEngine;
@@ -39,7 +41,7 @@ namespace InspectorEnhancements
             // Draw the button and handle the click event
             if (GUILayout.Button(method.Name, GUILayout.ExpandWidth(true)))
             {
-                var parameterValues = DrawMethodParameterFields(method);
+                var parameterValues = DrawMethodParameterFields(method, attribute, targetObject);
                 method.Invoke(targetObject, parameterValues);
             }
 
@@ -52,7 +54,7 @@ namespace InspectorEnhancements
 
             if (parametersFoldedOut && hasParameters)
             {
-                DrawMethodParameterFields(method);
+                DrawMethodParameterFields(method, attribute, targetObject);
             }
 
             if (hasParameters) GUILayout.EndVertical();
@@ -74,10 +76,10 @@ namespace InspectorEnhancements
 
         private bool AnyParameters(MethodInfo method)
         {
-            return method.GetParameters().Length > 0;
+            return method.GetParameters().Length > 0; 
         }
 
-        private object[] DrawMethodParameterFields(MethodInfo method)
+        private object[] DrawMethodParameterFields(MethodInfo method, MethodButtonAttribute attribute, object targetObject)
         {
             GUILayout.Space(2);
             ParameterInfo[] parameters = method.GetParameters();
@@ -85,18 +87,9 @@ namespace InspectorEnhancements
 
             for (int i = 0; i < parameters.Length; i++)
             {
-                object value;
+                Func<object> ValueDelegate = GetValueDelegate(attribute, targetObject, parameters, i);
 
-                if (parameters[i].HasDefaultValue)
-                {
-                    value = parameterProvider.GetOrAdd(method.Name, parameters[i], 
-                        () => parameters[i].DefaultValue);
-                }
-                else
-                {
-                    value = parameterProvider.GetOrAdd(method.Name, parameters[i], 
-                        () => defaultValueProvider.GetDefaultValue(parameters[i].ParameterType)); 
-                }
+                object value = parameterProvider.GetOrAdd(method.Name, parameters[i], ValueDelegate);
 
                 fieldDrawer.DrawField(parameters[i].Name, ref value, parameters[i].ParameterType, true);
 
@@ -104,6 +97,35 @@ namespace InspectorEnhancements
             }
 
             return parameterValues;
+        }
+
+        private Func<object> GetValueDelegate(MethodButtonAttribute attribute, object targetObject, ParameterInfo[] parameters, int i)
+        {
+            Func<object> ValueDelegate = () => defaultValueProvider.GetDefaultValue(parameters[i].ParameterType);
+
+            if (parameters[i].HasDefaultValue)
+            {
+                ValueDelegate = () => parameters[i].DefaultValue;
+            }
+
+            if (attribute.Parameters != null)
+            {
+                if (parameters[i].ParameterType == attribute.Parameters[i].GetType())
+                {
+                    ValueDelegate = () => attribute.Parameters[i];
+                }
+                else if (attribute.Parameters[i].GetType() == typeof(string))
+                {
+                    FieldInfo fieldInfo = ReflectionHelper.FindMemberInfo<FieldInfo>(targetObject.GetType(), attribute.Parameters[i] as string);
+
+                    if (fieldInfo != null)
+                    {
+                        ValueDelegate = () => fieldInfo.GetValue(targetObject);
+                    }
+                }
+            }
+
+            return ValueDelegate;
         }
     }
 }
