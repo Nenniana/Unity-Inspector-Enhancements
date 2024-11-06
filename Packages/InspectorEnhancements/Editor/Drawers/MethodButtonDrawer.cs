@@ -10,6 +10,7 @@ namespace InspectorEnhancements
     [CustomEditor(typeof(UnityEngine.Object), true)]
     public class MethodButtonDrawer : Editor
     {
+        private Dictionary<MethodInfo, bool> methodFoldoutStates = new Dictionary<MethodInfo, bool>();
         private readonly IDefaultValueProvider defaultValueProvider = new DefaultValueProvider();
         private readonly IParameterProvider parameterProvider = new OverwriteableParameterProvider();
         private readonly IMemberInfoProvider memberInfoProvider = new CacheMemberInfoProvider();
@@ -29,40 +30,74 @@ namespace InspectorEnhancements
 
         private void DrawMethod()
         {
-            // Get the target object (the MonoBehaviour instance) as the current script
-            var targetObject = target;
-
-            // Retrieve all methods in the target object’s class
+            // Retrieve target object and all methods with MethodButtonAttribute
             var methods = memberInfoProvider.TryGetAllMemberInfo<MethodInfo>(target.GetType());
 
             foreach (var method in methods)
             {
-                // Check if the method has the MethodButtonAttribute
-                var attribute = (MethodButtonAttribute)method.GetCustomAttribute(typeof(MethodButtonAttribute), true);
-
-                if (attribute == null)
+                if (!(method.GetCustomAttribute(typeof(MethodButtonAttribute), true) is MethodButtonAttribute attribute))
                 {
                     continue;
                 }
 
-                if (DrawMethodButton(method))
+                // Initialize foldout state for the method if it doesn't exist
+                if (!methodFoldoutStates.ContainsKey(method))
                 {
-                    // If button is clicked, invoke the method with parameters
-                    object[] parameterValues = DrawMethodParameterFields(method);
-                    method.Invoke(targetObject, parameterValues); // Pass 'null' if method has no parameters
+                    methodFoldoutStates[method] = true;
                 }
-                else
-                {
-                    // If the button is not clicked, just draw parameter fields
-                    DrawMethodParameterFields(method);
-                }
+
+                bool hasParameters = AnyParameters(method);
+                DrawMethodGUI(method, hasParameters, target);
             }
         }
 
-        private bool DrawMethodButton(MethodInfo method)
+        private void DrawMethodGUI(MethodInfo method, bool hasParameters, object targetObject)
         {
-            // Return true if the button was clicked
-            return GUILayout.Button(method.Name);
+            if (hasParameters) GUILayout.BeginVertical("box");
+
+            GUILayout.BeginHorizontal();
+
+            // Draw the button and handle the click event
+            if (GUILayout.Button(method.Name, GUILayout.ExpandWidth(true)))
+            {
+                var parameterValues = DrawMethodParameterFields(method);
+                method.Invoke(targetObject, parameterValues);
+            }
+
+            // Toggle foldout for parameters if there are any
+            if (hasParameters)
+            {
+                DrawParameterFoldout(method);
+            }
+
+            GUILayout.EndHorizontal();
+
+            // Show parameters if foldout is open
+            if (methodFoldoutStates[method] && hasParameters)
+            {
+                DrawMethodParameterFields(method);
+            }
+
+            if (hasParameters) GUILayout.EndVertical();
+        }
+
+        private void DrawParameterFoldout(MethodInfo method)
+        {
+            GUILayout.Space(10);
+            GUILayout.BeginHorizontal(GUILayout.Width(60));
+
+            methodFoldoutStates[method] = GUILayout.Toggle(
+                methodFoldoutStates[method],
+                "Show",
+                EditorStyles.foldout
+            );
+
+            GUILayout.EndHorizontal();
+        }
+
+        private static bool AnyParameters(MethodInfo method)
+        {
+            return method.GetParameters().Length > 0;
         }
 
         public object[] DrawMethodParameterFields(MethodInfo method)
