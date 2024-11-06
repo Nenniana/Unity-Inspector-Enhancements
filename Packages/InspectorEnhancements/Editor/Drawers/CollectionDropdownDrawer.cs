@@ -26,7 +26,7 @@ namespace InspectorEnhancements
 
             CollectionDropdownAttribute dropdownAttribute = (CollectionDropdownAttribute)attribute;
 
-            if (string.IsNullOrEmpty(dropdownAttribute.Condition))
+            if (string.IsNullOrEmpty(dropdownAttribute.MethodName))
             {
                 Debug.LogWarning("Parameter is either null or empty.");
                 return;
@@ -71,19 +71,19 @@ namespace InspectorEnhancements
 
         private IEnumerable GetDropdownValues(CollectionDropdownAttribute dropdownAttribute, object target, FieldInfo propertyFieldInfo) 
         {
-            FieldInfo fieldInfo = memberInfoProvider.TryGetMemberInfo<FieldInfo>(target.GetType(), dropdownAttribute.Condition);
+            FieldInfo fieldInfo = memberInfoProvider.TryGetMemberInfo<FieldInfo>(target.GetType(), dropdownAttribute.MethodName);
             if (fieldInfo != null)
             {
                 return TryGetFieldValueList(fieldInfo, propertyFieldInfo, target);
             }
 
-            PropertyInfo propertyInfo = memberInfoProvider.TryGetMemberInfo<PropertyInfo>(target.GetType(), dropdownAttribute.Condition);
+            PropertyInfo propertyInfo = memberInfoProvider.TryGetMemberInfo<PropertyInfo>(target.GetType(), dropdownAttribute.MethodName);
             if (propertyInfo != null)
             {
                 return TryGetPropertyValueList(propertyInfo, propertyFieldInfo, target);
             }
 
-            MethodInfo methodInfo = memberInfoProvider.TryGetMemberInfo<MethodInfo>(target.GetType(), dropdownAttribute.Condition);
+            MethodInfo methodInfo = memberInfoProvider.TryGetMemberInfo<MethodInfo>(target.GetType(), dropdownAttribute.MethodName);
             if (methodInfo != null)
             {
                 return TryGetMethodValueList(dropdownAttribute.Parameters, methodInfo, propertyFieldInfo, target);

@@ -5,13 +5,13 @@ namespace InspectorEnhancements
         public ShowIfAttribute () {}
         public ShowIfAttribute(string condition) : base(condition)
         {
-            Condition = condition;
+            MethodName = condition;
             Parameters = new object[0];
         }
     
         public ShowIfAttribute(string condition, params object[] parameters)  : base(condition, parameters)
         {
-            Condition = condition;
+            MethodName = condition;
             Parameters = parameters;
         }
     }

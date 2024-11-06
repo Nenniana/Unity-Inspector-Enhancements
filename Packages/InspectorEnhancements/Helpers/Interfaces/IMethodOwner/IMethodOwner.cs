@@ -2,7 +2,7 @@ namespace InspectorEnhancements
 {
     public interface IMethodOwner
     {
-        public string Condition { get; }
+        public string MethodName { get; }
         public object[] Parameters { get; }
     }
 }

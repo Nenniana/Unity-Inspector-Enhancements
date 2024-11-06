@@ -5,13 +5,13 @@ namespace InspectorEnhancements
         public HideIfAttribute() {}
         public HideIfAttribute(string condition) : base(condition)
         {
-            Condition = condition;
+            MethodName = condition;
             Parameters = new object[0];
         }
     
         public HideIfAttribute(string condition, params object[] parameters)  : base(condition, parameters)
         {
-            Condition = condition;
+            MethodName = condition;
             Parameters = parameters;
         }
     }

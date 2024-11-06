@@ -15,7 +15,7 @@ namespace InspectorEnhancements
         {
             string controlName = property.propertyPath;
             var attribute = this.attribute as ConditionalAttribute;
-            string conditionName = attribute?.Condition;
+            string conditionName = attribute?.MethodName;
 
             GUI.SetNextControlName(controlName);
 
@@ -45,7 +45,7 @@ namespace InspectorEnhancements
         public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
         {
             var attribute = this.attribute as ConditionalAttribute;
-            string conditionName = attribute?.Condition;
+            string conditionName = attribute?.MethodName;
 
             if (IsInvalidCustomClassOrStruct(property, conditionName))
             {
