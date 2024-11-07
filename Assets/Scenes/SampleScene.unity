@@ -123,6 +123,60 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &27313396
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 27313398}
+  - component: {fileID: 27313397}
+  m_Layer: 0
+  m_Name: TestFieldDrawing
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &27313397
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 27313396}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63b2e1d4cbe710945a2247760d66ee64, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  integerField: 10
+  floatField: 3.14
+  boolField: 1
+  stringField: Hello, World!
+  gameObjectField: {fileID: 0}
+  complexField:
+    nestedInt: 42
+    nestedString: Hello indeed!
+  Vector2: {x: 4, y: 0}
+  Vector3: {x: 0, y: 0, z: 0}
+--- !u!4 &27313398
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 27313396}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -431,7 +485,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 983dcc98e28b70147b1cc8635d28a1c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shouldHide: 1
+  shouldHide: 0
   shouldShow: 1
   hiddenField: 20
   hideIfStructNotNull:
@@ -546,11 +600,12 @@ MonoBehaviour:
   selectedColorFromMethod: Red
   selectedNumberFromMethod: 2
   selectedNumberInRange: 9
-  selectedEnumValue: 2
+  selectedEnumValue: 1
+  selectedEnumValueMethod: 2
   selectedCustomObject:
-    Name: Object 2
+    Name: Object 1
   selectedCustomObjectFromMethod:
-    Name: Object 3
+    Name: Object 1
   selectedStringFromList: Gamma
   selectedStringFromListMethod: Delta
 --- !u!4 &1802182078
@@ -560,6 +615,50 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1802182076}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2044615005
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2044615007}
+  - component: {fileID: 2044615006}
+  m_Layer: 0
+  m_Name: TestMethodButton
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2044615006
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2044615005}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4aa8990735d8f342b1c2439296e1c95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &2044615007
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2044615005}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -579,3 +678,5 @@ SceneRoots:
   - {fileID: 1285745121}
   - {fileID: 1162276526}
   - {fileID: 1802182078}
+  - {fileID: 27313398}
+  - {fileID: 2044615007}
