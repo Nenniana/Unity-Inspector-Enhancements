@@ -1,10 +1,13 @@
 {
-    "name": "InspectorEnhancements.Attributes",
+    "name": "InspectorEnhancements.Helpers.Factories",
     "rootNamespace": "",
     "references": [
-        "GUID:1516d0d40d84b70468196b9664d487e1",
+        "GUID:fa87b7339f9ad744e855893058c4823d",
         "GUID:9ca43c2d3fd0b4646b33bc2581c28e9e",
-        "GUID:cc5f571979c592748a4351f40b4cdf31"
+        "GUID:a2552081f42c987438c2ab7bb1da3b4a",
+        "GUID:1516d0d40d84b70468196b9664d487e1",
+        "GUID:c0b2ff8dca994084f8b714d3a6ca6b0b",
+        "GUID:b01b0199b7e19a347b7c6c46bd7e6f51"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
