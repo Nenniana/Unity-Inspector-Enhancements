@@ -14,12 +14,10 @@ namespace InspectorEnhancements
         private void OnEnable()
         {
             // Register available custom elements here, injecting dependencies as needed
-            customInspectorElements.Add(new MethodButtonElement(
-                new DefaultValueProvider(), 
-                new OverwriteableParameterProvider(), 
-                FieldDrawerFactory.CreateDefaultFieldDrawer(new CacheMemberInfoProvider(), new EditorGUILayoutMethodProvider())
-            ));
-        }
+            customInspectorElements.Add(
+                MethodButtonElementFactory.CreateDefaultMethodButtonElement()
+            );
+        } 
 
         public override void OnInspectorGUI()
         {
