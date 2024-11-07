@@ -4,6 +4,15 @@ Inspector Enhancements is a Unity package offering custom drawers and property a
 
 ## Features
 
+### **Method Button Attribute**
+The `[MethodButton]` attribute enables direct method invocation from the Unity Inspector, working seamlessly with both parameterless methods and methods that require parameters.
+
+   - **Capabilities**:
+     - Functions with methods regardless of whether they have parameters or not, requiring no additional setup.
+     - Displays default values in the Inspector for parameters specified in the attribute or defined as default values in the method itself.
+     - Supports referencing other serialized fields as parameters by specifying their names.
+     - Compatible with Unity native types (e.g., `Vector3`, `GameObject`), custom serializable classes, and structs.
+
 ### **Collection Dropdown Attribute**
 The `[CollectionDropdown]` attribute displays a dropdown for selecting items within a collection directly in the Inspector. Compatible with standard collections such as arrays and lists, this feature enhances Inspector usability by allowing streamlined access to collection elements.
 
