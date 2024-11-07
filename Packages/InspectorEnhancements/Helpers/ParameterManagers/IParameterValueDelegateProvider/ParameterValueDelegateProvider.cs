@@ -45,7 +45,7 @@ namespace InspectorEnhancements
                 
                 else if (providedParameter is string parameterName)
                 {
-                    var fieldInfo = ReflectionHelper.FindMemberInfo<FieldInfo>(targetObject.GetType(), parameterName);
+                    var fieldInfo = ReflectionHelper.FindMemberInfo<FieldInfo>(targetObject.GetType(), parameterName, BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.FlattenHierarchy);
 
                     if (fieldInfo != null)
                     {
