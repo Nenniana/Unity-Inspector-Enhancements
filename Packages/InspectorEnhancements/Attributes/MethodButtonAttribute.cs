@@ -3,7 +3,7 @@ using System;
 namespace InspectorEnhancements
 {
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = false)]
-    public class MethodButtonAttribute : CustomPropertyAttribute
+    public class MethodButtonAttribute : CustomPropertyAttribute, IParameterOwner
     {
         public object[] Parameters { get; private set; }
         public bool ExpandParameters { get; private set; }
