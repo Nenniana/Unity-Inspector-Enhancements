@@ -36,17 +36,17 @@ namespace InspectorEnhancements
             return key;
         }
 
-        public static void OverwriteOrAdd(Type target, string conditionName, TValue value)
+        public static TValue OverwriteOrAdd(Type target, string conditionName, TValue value)
         {
             string key = GenerateCacheKey(target, conditionName);
 
             if (cache.ContainsKey(key)) 
             {
                 cache[key] = value;
-                return;
+                return value;
             } 
 
-            GetOrAddByKey(key, () => value);
+            return GetOrAddByKey(key, () => value);
         }
     }
 }
