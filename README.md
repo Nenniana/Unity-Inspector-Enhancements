@@ -2,6 +2,9 @@
 
 Inspector Enhancements is a Unity package offering custom drawers and property attributes to enhance the Unity Inspector experience. This collection of utility attributes improves data visualization, organization, and validation in the editor.
 
+## Wiki
+Please visit the [Wiki](https://github.com/Nenniana/Unity-Inspector-Enhancements/wiki) for information on installation and usage.
+
 ## Features
 
 ### **Method Button Attribute**
