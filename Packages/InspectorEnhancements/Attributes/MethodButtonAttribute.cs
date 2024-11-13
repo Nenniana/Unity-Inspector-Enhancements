@@ -18,5 +18,11 @@ namespace InspectorEnhancements
             ExpandParameters = _expandParameters;
             Parameters = _parameters;
         }
+
+        public MethodButtonAttribute (params object[] _parameters)
+        {
+            ExpandParameters = true;
+            Parameters = _parameters;
+        }
     }
 }
