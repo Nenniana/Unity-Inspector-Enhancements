@@ -652,6 +652,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4aa8990735d8f342b1c2439296e1c95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  customClassInstance:
+    nestedInt: 42
+    nestedString: Nested Hello
 --- !u!4 &2044615007
 Transform:
   m_ObjectHideFlags: 0
