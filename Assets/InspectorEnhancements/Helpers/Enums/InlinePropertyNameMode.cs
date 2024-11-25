@@ -1,4 +1,4 @@
-namespace InspectorEnhancements
+namespace InspectorEnhancements.Helpers.Enums
 {
     public enum InlinePropertyNameMode
     {

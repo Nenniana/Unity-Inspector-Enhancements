@@ -1,6 +1,7 @@
+using InspectorEnhancements.Attributes;
 using UnityEngine;
 
-namespace InspectorEnhancements
+namespace Nenn.InspectorEnhancements
 {
     public class MethodButtonTest : MonoBehaviour
     {

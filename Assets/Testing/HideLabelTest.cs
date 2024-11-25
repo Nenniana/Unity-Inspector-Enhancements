@@ -1,7 +1,8 @@
 using System;
+using InspectorEnhancements.Attributes;
 using UnityEngine;
 
-namespace InspectorEnhancements.Testing
+namespace Nenn.InspectorEnhancements.Testing
 {
     public class HideLabelTest : MonoBehaviour
     {

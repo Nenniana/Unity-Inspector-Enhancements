@@ -2,14 +2,14 @@ using System;
 using System.Reflection;
 using UnityEditor;
 
-namespace InspectorEnhancements
+namespace InspectorEnhancements.Helpers.Interfaces.ITypeDrawer
 {
-    public class ComplexFieldDrawer : ITypeDrawer
+    public class ComplexFieldDrawer : Base.ITypeDrawer
     {
-        private readonly Func<IFieldDrawer> fieldDrawerFactory;
-        private readonly IMemberInfoProvider memberInfoProvider;
+        private readonly Func<IFieldDrawer.Base.IFieldDrawer> fieldDrawerFactory;
+        private readonly IMemberInfoProvider.Base.IMemberInfoProvider memberInfoProvider;
 
-        public ComplexFieldDrawer(Func<IFieldDrawer> fieldDrawerFactory, IMemberInfoProvider memberInfoProvider)
+        public ComplexFieldDrawer(Func<IFieldDrawer.Base.IFieldDrawer> fieldDrawerFactory, IMemberInfoProvider.Base.IMemberInfoProvider memberInfoProvider)
         {
             // Use factory delegate to pass IFieldDrawer instance
             this.fieldDrawerFactory = fieldDrawerFactory ?? throw new ArgumentNullException(nameof(fieldDrawerFactory));

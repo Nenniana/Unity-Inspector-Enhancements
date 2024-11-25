@@ -1,8 +1,8 @@
 using System;
 
-namespace InspectorEnhancements
+namespace InspectorEnhancements.Helpers.Interfaces.IDefaultValueProvider
 {
-    public class DefaultValueProvider : IDefaultValueProvider
+    public class DefaultValueProvider : Base.IDefaultValueProvider
     {
         public object GetDefaultValue(Type type)
         {

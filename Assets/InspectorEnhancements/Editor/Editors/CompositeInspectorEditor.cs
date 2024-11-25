@@ -1,12 +1,16 @@
 using System.Collections.Generic;
 using System.Reflection;
+using InspectorEnhancements.Helpers.CustomInspectorElements.Base;
+using InspectorEnhancements.Helpers.Factories.MethodButtonElementFactory;
+using InspectorEnhancements.Helpers.Interfaces.IMemberInfoProvider;
+using InspectorEnhancements.Helpers.Interfaces.IMemberInfoProvider.Base;
 using UnityEditor;
 
-namespace InspectorEnhancements
+namespace InspectorEnhancements.Editor.Editors
 {
     [CanEditMultipleObjects]
     [CustomEditor(typeof(UnityEngine.Object), true)]
-    public class CompositeInspectorEditor : Editor
+    public class CompositeInspectorEditor : UnityEditor.Editor
     {
         private readonly List<ICustomInspectorElement> customInspectorElements = new List<ICustomInspectorElement>();
         private readonly IMemberInfoProvider memberInfoProvider = new CacheMemberInfoProvider();

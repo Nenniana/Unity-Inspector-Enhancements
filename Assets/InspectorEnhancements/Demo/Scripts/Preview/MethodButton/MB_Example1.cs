@@ -1,7 +1,8 @@
 
+using InspectorEnhancements.Attributes;
 using UnityEngine;
 
-namespace InspectorEnhancements.Preview {
+namespace InspectorEnhancements.Demo.Scripts.Preview.MethodButton {
     public class MethodButtonExample1 : MonoBehaviour {
         [MethodButton]
         public void LogMessage() {

@@ -1,7 +1,8 @@
 
+using InspectorEnhancements.Attributes;
 using UnityEngine;
 
-namespace InspectorEnhancements.Preview {
+namespace InspectorEnhancements.Demo.Scripts.Preview.MethodButton {
     public class MethodButtonExample3 : MonoBehaviour {
         [MethodButton("Hello World", 3)]
         public void PrintMessageMultipleTimes(string message, int repeatCount) {

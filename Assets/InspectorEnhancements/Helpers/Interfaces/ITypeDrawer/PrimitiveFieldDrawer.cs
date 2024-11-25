@@ -2,9 +2,9 @@ using System;
 using UnityEditor;
 using UnityEngine;
 
-namespace InspectorEnhancements
+namespace InspectorEnhancements.Helpers.Interfaces.ITypeDrawer
 {
-    public class PrimitiveFieldDrawer : ITypeDrawer
+    public class PrimitiveFieldDrawer : Base.ITypeDrawer
     {
         public bool Draw(string label, ref object value, Type type, bool isEditable)
         {

@@ -1,6 +1,8 @@
 using System;
+using InspectorEnhancements.Attributes.Base;
+using InspectorEnhancements.Helpers.Interfaces.IParameterOwner;
 
-namespace InspectorEnhancements
+namespace InspectorEnhancements.Attributes
 {
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = false)]
     public class MethodButtonAttribute : CustomPropertyAttribute, IParameterOwner

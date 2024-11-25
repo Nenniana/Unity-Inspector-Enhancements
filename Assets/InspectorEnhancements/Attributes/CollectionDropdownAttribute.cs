@@ -1,6 +1,8 @@
 using System;
+using InspectorEnhancements.Attributes.Base;
+using InspectorEnhancements.Helpers.Interfaces.IMemberOwner;
 
-namespace InspectorEnhancements
+namespace InspectorEnhancements.Attributes
 {
     [AttributeUsage(AttributeTargets.Field, AllowMultiple = false)]
     public class CollectionDropdownAttribute : CustomPropertyAttribute, IMemberOwner

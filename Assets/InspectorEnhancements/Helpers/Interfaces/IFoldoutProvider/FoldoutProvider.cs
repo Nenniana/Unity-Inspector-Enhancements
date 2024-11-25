@@ -1,9 +1,9 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace InspectorEnhancements
+namespace InspectorEnhancements.Helpers.Interfaces.IFoldoutProvider
 {
-    public class FoldoutProvider : IFoldoutProvider
+    public class FoldoutProvider : Base.IFoldoutProvider
     {
         public bool GetFoldoutState(string foldoutKey, bool defaultState = false)
         {

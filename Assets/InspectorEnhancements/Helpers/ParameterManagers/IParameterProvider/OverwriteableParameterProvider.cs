@@ -1,9 +1,10 @@
 using System;
 using System.Reflection;
+using InspectorEnhancements.Helpers.General;
 
-namespace InspectorEnhancements
+namespace InspectorEnhancements.Helpers.ParameterManagers.IParameterProvider
 {
-    public class OverwriteableParameterProvider : IParameterProvider
+    public class OverwriteableParameterProvider : Base.IParameterProvider
     {
         public object GetOrAdd(string methodName, ParameterInfo parameter, Func<object> valueFactory)
         {

@@ -1,12 +1,14 @@
 using System;
 using System.Reflection;
+using InspectorEnhancements.Helpers.Interfaces.IMemberInfoProvider;
+using InspectorEnhancements.Helpers.Interfaces.IMethodInvoker.Base;
 using UnityEngine;
 
-namespace InspectorEnhancements
+namespace InspectorEnhancements.Helpers.Interfaces.IMethodInvoker
 {
     public class DefaultMethodResolver : IMethodResolver
     {
-        private readonly IMemberInfoProvider _memberInfoProvider = new CacheMemberInfoProvider();
+        private readonly IMemberInfoProvider.Base.IMemberInfoProvider _memberInfoProvider = new CacheMemberInfoProvider();
 
         public object[] InvokeMethod(object target, object[] passedParameters, MethodInfo methodInfo)
         {

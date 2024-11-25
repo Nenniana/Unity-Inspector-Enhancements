@@ -1,10 +1,11 @@
 using System;
 using System.Reflection;
+using InspectorEnhancements.Helpers.Interfaces.EditorGUILayoutMethodResolver;
 using UnityEditor;
 
-namespace InspectorEnhancements
+namespace InspectorEnhancements.Helpers.Interfaces.ITypeDrawer
 {
-    public class UnityStructFieldDrawer : ITypeDrawer
+    public class UnityStructFieldDrawer : Base.ITypeDrawer
     {
         private readonly EditorGUILayoutMethodProvider editorGUILayoutMethodProvider;
 

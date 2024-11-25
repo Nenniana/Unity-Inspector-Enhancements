@@ -1,9 +1,11 @@
-using UnityEditor;
-using UnityEngine;
 using System;
 using System.Reflection;
+using InspectorEnhancements.Attributes;
+using InspectorEnhancements.Helpers.Enums;
+using UnityEditor;
+using UnityEngine;
 
-namespace InspectorEnhancements
+namespace InspectorEnhancements.Editor.Drawers
 {
     [CustomPropertyDrawer(typeof(InlinePropertyAttribute), true)]
     public class InlinePropertyDrawer : PropertyDrawer

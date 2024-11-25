@@ -1,14 +1,15 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
+using InspectorEnhancements.Helpers.Interfaces.IMemberInfoProvider;
 using UnityEditor;
 using UnityEngine;
 
-namespace InspectorEnhancements
+namespace InspectorEnhancements.Helpers.Interfaces.EditorGUILayoutMethodResolver
 {
     public class EditorGUILayoutMethodProvider
     {
-        private readonly IMemberInfoProvider memberInfoProvider;
+        private readonly IMemberInfoProvider.Base.IMemberInfoProvider memberInfoProvider;
         private static readonly Dictionary<string, MethodInfo> cachedMethods = new Dictionary<string, MethodInfo>();
 
         public EditorGUILayoutMethodProvider() {
@@ -21,7 +22,7 @@ namespace InspectorEnhancements
         }
 
         // Inject IMemberInfoProvider to retrieve general member information when needed
-        public EditorGUILayoutMethodProvider(IMemberInfoProvider memberInfoProvider)
+        public EditorGUILayoutMethodProvider(IMemberInfoProvider.Base.IMemberInfoProvider memberInfoProvider)
         {
             this.memberInfoProvider = memberInfoProvider ?? throw new ArgumentNullException(nameof(memberInfoProvider));;
 

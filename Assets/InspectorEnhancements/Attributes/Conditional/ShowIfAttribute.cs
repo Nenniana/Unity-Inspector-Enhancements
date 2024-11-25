@@ -1,4 +1,6 @@
-namespace InspectorEnhancements
+using InspectorEnhancements.Attributes.Conditional.Base;
+
+namespace InspectorEnhancements.Attributes.Conditional
 {
     public class ShowIfAttribute : ConditionalAttribute
     {

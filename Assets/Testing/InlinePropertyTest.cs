@@ -1,6 +1,9 @@
+using InspectorEnhancements.Attributes;
+using InspectorEnhancements.Attributes.Conditional;
+using InspectorEnhancements.Helpers.Enums;
 using UnityEngine;
 
-namespace InspectorEnhancements
+namespace Nenn.InspectorEnhancements
 {
     public class InlinePropertyTest : MonoBehaviour
     {

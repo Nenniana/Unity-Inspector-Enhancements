@@ -1,5 +1,6 @@
+using InspectorEnhancements.Attributes;
 using UnityEngine;
-using InspectorEnhancements;
+using Nenn.InspectorEnhancements;
 
 public class MethodButtonShowcase : MonoBehaviour
 {

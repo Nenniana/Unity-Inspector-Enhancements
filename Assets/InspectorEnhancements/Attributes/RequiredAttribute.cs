@@ -1,6 +1,7 @@
 using System;
+using InspectorEnhancements.Attributes.Base;
 
-namespace InspectorEnhancements
+namespace InspectorEnhancements.Attributes
 {
     [AttributeUsage(AttributeTargets.Field, AllowMultiple = false)]
     public class RequiredAttribute : CustomPropertyAttribute 

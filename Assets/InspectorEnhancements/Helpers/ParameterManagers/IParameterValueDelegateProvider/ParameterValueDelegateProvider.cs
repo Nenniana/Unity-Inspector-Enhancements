@@ -1,9 +1,12 @@
 using System;
 using System.Reflection;
+using InspectorEnhancements.Helpers.General;
+using InspectorEnhancements.Helpers.Interfaces.IDefaultValueProvider.Base;
+using InspectorEnhancements.Helpers.Interfaces.IParameterOwner;
 
-namespace InspectorEnhancements 
+namespace InspectorEnhancements.Helpers.ParameterManagers.IParameterValueDelegateProvider 
 {
-    public class ParameterValueDelegateProvider : IParameterValueDelegateProvider
+    public class ParameterValueDelegateProvider : Base.IParameterValueDelegateProvider
     {
         private readonly IDefaultValueProvider defaultValueProvider;
 

@@ -1,8 +1,12 @@
 using UnityEngine;
 using UnityEditor;
 using System.Collections.Generic;
+using InspectorEnhancements.Helpers.Factories.FieldDrawerFactories;
+using InspectorEnhancements.Helpers.Interfaces.EditorGUILayoutMethodResolver;
+using InspectorEnhancements.Helpers.Interfaces.IFieldDrawer.Base;
+using InspectorEnhancements.Helpers.Interfaces.IMemberInfoProvider;
 
-namespace InspectorEnhancements
+namespace Nenn.InspectorEnhancements
 {
     [CustomEditor(typeof(FieldDrawingTest))]
     public class FieldDrawingTestEditor : Editor

@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace InspectorEnhancements
+namespace InspectorEnhancements.Helpers.General
 {
     public static class OverwriteableStringCache<TValue>
     {

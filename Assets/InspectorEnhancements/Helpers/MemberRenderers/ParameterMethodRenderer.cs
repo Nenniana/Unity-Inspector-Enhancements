@@ -1,15 +1,16 @@
 using System.Reflection;
+using InspectorEnhancements.Helpers.Interfaces.IFoldoutProvider.Base;
 using UnityEngine;
 
-namespace InspectorEnhancements
+namespace InspectorEnhancements.Helpers.MemberRenderers
 {
     public class ParameterMethodRenderer
     {
-        private readonly IMethodRenderer methodRenderer;
-        private readonly IParameterRenderer parameterRenderer;
+        private readonly IMethodRenderer.Base.IMethodRenderer methodRenderer;
+        private readonly IParameterRenderer.Base.IParameterRenderer parameterRenderer;
         private readonly IFoldoutProvider foldoutProvider;
 
-        public ParameterMethodRenderer(IMethodRenderer methodRenderer, IParameterRenderer parameterRenderer, IFoldoutProvider foldoutProvider) 
+        public ParameterMethodRenderer(IMethodRenderer.Base.IMethodRenderer methodRenderer, IParameterRenderer.Base.IParameterRenderer parameterRenderer, IFoldoutProvider foldoutProvider) 
         {
             this.methodRenderer = methodRenderer;
             this.parameterRenderer = parameterRenderer;

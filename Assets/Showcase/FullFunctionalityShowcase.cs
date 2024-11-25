@@ -1,5 +1,9 @@
+using InspectorEnhancements.Attributes;
+using InspectorEnhancements.Attributes.Conditional;
 using UnityEngine;
-using InspectorEnhancements; // Namespace for your attributes
+using Nenn.InspectorEnhancements;
+
+// Namespace for your attributes
 
 public class ShowcaseExample : MonoBehaviour
 {

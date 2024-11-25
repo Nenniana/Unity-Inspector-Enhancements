@@ -1,7 +1,11 @@
 using UnityEngine;
 using System.Collections.Generic;
-using InspectorEnhancements;
-using System; // Assuming this is your namespace
+using Nenn.InspectorEnhancements;
+using System;
+using InspectorEnhancements.Attributes;
+using InspectorEnhancements.Attributes.Conditional;
+
+// Assuming this is your namespace
 
 public class CharacterSetupAfter : MonoBehaviour
 {

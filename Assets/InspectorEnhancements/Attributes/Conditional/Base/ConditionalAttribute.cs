@@ -1,4 +1,7 @@
-namespace InspectorEnhancements
+using InspectorEnhancements.Attributes.Base;
+using InspectorEnhancements.Helpers.Interfaces.IMemberOwner;
+
+namespace InspectorEnhancements.Attributes.Conditional.Base
 {
     public abstract class ConditionalAttribute : CustomPropertyAttribute, IMemberOwner
     {

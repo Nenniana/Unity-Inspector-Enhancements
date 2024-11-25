@@ -1,7 +1,8 @@
 
+using InspectorEnhancements.Attributes;
 using UnityEngine;
 
-namespace InspectorEnhancements.Preview {
+namespace InspectorEnhancements.Demo.Scripts.Preview.MethodButton {
     public class MethodButtonExample4 : MonoBehaviour {
 
         #pragma warning disable CS0414 // Disable unused value warnings

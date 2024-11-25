@@ -1,8 +1,12 @@
 using System.Linq;
 using System.Reflection;
+using InspectorEnhancements.Attributes;
+using InspectorEnhancements.Helpers.CustomInspectorElements.Base;
+using InspectorEnhancements.Helpers.MemberRenderers;
+using InspectorEnhancements.Helpers.ParameterManagers;
 using UnityEngine;
 
-namespace InspectorEnhancements
+namespace InspectorEnhancements.Helpers.CustomInspectorElements
 {
     public class MethodButtonElement : ICustomInspectorElement
     {

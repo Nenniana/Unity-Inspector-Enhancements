@@ -1,6 +1,8 @@
+using InspectorEnhancements.Attributes;
+using InspectorEnhancements.Attributes.Conditional;
 using UnityEngine;
 
-namespace InspectorEnhancements.Testing
+namespace Nenn.InspectorEnhancements.Testing
 {
     public class HideIfTest : MonoBehaviour
     {

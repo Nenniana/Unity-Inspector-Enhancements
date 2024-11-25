@@ -1,4 +1,4 @@
-namespace InspectorEnhancements
+namespace InspectorEnhancements.Helpers.Interfaces.IParameterOwner
 {
     public interface IParameterOwner
     {

@@ -1,7 +1,8 @@
-using UnityEngine;
+using InspectorEnhancements.Attributes;
 using UnityEditor;
+using UnityEngine;
 
-namespace InspectorEnhancements
+namespace InspectorEnhancements.Editor.Drawers
 {
     [CustomPropertyDrawer(typeof(RequiredAttribute))]
     public class RequiredDrawer : PropertyDrawer

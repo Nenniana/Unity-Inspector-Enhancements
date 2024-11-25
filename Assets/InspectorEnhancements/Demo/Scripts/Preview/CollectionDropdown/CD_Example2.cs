@@ -1,8 +1,8 @@
-
-using UnityEngine;
 using System.Collections.Generic;
+using InspectorEnhancements.Attributes;
+using UnityEngine;
 
-namespace InspectorEnhancements.Preview {
+namespace InspectorEnhancements.Demo.Scripts.Preview.CollectionDropdown {
     public class CollectionDropdownExample2 : MonoBehaviour {
         [CollectionDropdown("GetSpawnPoints")]
         [SerializeField]

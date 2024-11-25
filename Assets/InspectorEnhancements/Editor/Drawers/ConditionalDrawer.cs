@@ -1,9 +1,15 @@
-using UnityEngine;
-using UnityEditor;
-using System.Reflection;
 using System;
+using System.Reflection;
+using InspectorEnhancements.Attributes.Conditional;
+using InspectorEnhancements.Attributes.Conditional.Base;
+using InspectorEnhancements.Helpers.Interfaces.IMemberInfoProvider;
+using InspectorEnhancements.Helpers.Interfaces.IMemberInfoProvider.Base;
+using InspectorEnhancements.Helpers.Interfaces.IMethodInvoker;
+using InspectorEnhancements.Helpers.Interfaces.IMethodInvoker.Base;
+using UnityEditor;
+using UnityEngine;
 
-namespace InspectorEnhancements
+namespace InspectorEnhancements.Editor.Drawers
 {
     [CustomPropertyDrawer(typeof(ConditionalAttribute), true)] 
     public class ConditionalDrawer : PropertyDrawer

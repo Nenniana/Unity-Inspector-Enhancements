@@ -1,7 +1,8 @@
 
+using InspectorEnhancements.Attributes;
 using UnityEngine;
 
-namespace InspectorEnhancements.Preview {
+namespace InspectorEnhancements.Demo.Scripts.Preview.InlineProperty {
     public class InlinePropertyExample2 : MonoBehaviour {
         [InlineProperty]
         [SerializeField]

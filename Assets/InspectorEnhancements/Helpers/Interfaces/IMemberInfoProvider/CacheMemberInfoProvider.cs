@@ -1,10 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
+using InspectorEnhancements.Helpers.General;
 
-namespace InspectorEnhancements
+namespace InspectorEnhancements.Helpers.Interfaces.IMemberInfoProvider
 {
-    public class CacheMemberInfoProvider : IMemberInfoProvider
+    public class CacheMemberInfoProvider : Base.IMemberInfoProvider
     {
         public List<TInfo> TryGetAllMemberInfo<TInfo>(Type type, BindingFlags bindingFlags = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.FlattenHierarchy) where TInfo : MemberInfo
         {

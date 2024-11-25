@@ -2,13 +2,13 @@ using System;
 using System.Collections.Generic;
 using UnityEditor;
 
-namespace InspectorEnhancements
+namespace InspectorEnhancements.Helpers.Interfaces.IFieldDrawer
 {
-    public class BaseFieldDrawer : IFieldDrawer
+    public class BaseFieldDrawer : Base.IFieldDrawer
     {
-        private readonly List<ITypeDrawer> typeDrawers;
+        private readonly List<ITypeDrawer.Base.ITypeDrawer> typeDrawers;
 
-        public BaseFieldDrawer(List<ITypeDrawer> typeDrawers)
+        public BaseFieldDrawer(List<ITypeDrawer.Base.ITypeDrawer> typeDrawers)
         {
             this.typeDrawers = typeDrawers ?? throw new ArgumentNullException(nameof(typeDrawers));
         }

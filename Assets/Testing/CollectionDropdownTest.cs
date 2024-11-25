@@ -1,8 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
+using InspectorEnhancements.Attributes;
 using UnityEngine;
 
-namespace InspectorEnhancements
+namespace Nenn.InspectorEnhancements
 {
     public class ArrayDropdownTest : MonoBehaviour 
     {

@@ -1,7 +1,8 @@
 
+using InspectorEnhancements.Attributes;
 using UnityEngine;
 
-namespace InspectorEnhancements.Preview {
+namespace InspectorEnhancements.Demo.Scripts.Preview.MethodButton {
     public class MethodButtonExample2 : MonoBehaviour {
         [MethodButton]
         public void SetPlayerStats(int level, string playerName) {

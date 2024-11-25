@@ -1,14 +1,15 @@
 using System;
 using System.Reflection;
+using InspectorEnhancements.Helpers.Interfaces.IParameterOwner;
 
-namespace InspectorEnhancements
+namespace InspectorEnhancements.Helpers.ParameterManagers
 {
     public class ParameterMethodManager
     {
-        private readonly IParameterValueDelegateProvider valueProvider;
-        private readonly IParameterProvider parameterProvider;
+        private readonly IParameterValueDelegateProvider.Base.IParameterValueDelegateProvider valueProvider;
+        private readonly IParameterProvider.Base.IParameterProvider parameterProvider;
 
-        public ParameterMethodManager(IParameterValueDelegateProvider valueProvider, IParameterProvider parameterProvider)
+        public ParameterMethodManager(IParameterValueDelegateProvider.Base.IParameterValueDelegateProvider valueProvider, IParameterProvider.Base.IParameterProvider parameterProvider)
         {
             this.valueProvider = valueProvider;
             this.parameterProvider = parameterProvider;

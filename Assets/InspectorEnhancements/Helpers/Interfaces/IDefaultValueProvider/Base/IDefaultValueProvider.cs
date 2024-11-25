@@ -1,6 +1,6 @@
 using System;
 
-namespace InspectorEnhancements
+namespace InspectorEnhancements.Helpers.Interfaces.IDefaultValueProvider.Base
 {
     public interface IDefaultValueProvider
     {

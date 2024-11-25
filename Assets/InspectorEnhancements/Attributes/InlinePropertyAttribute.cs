@@ -1,6 +1,8 @@
 using System;
+using InspectorEnhancements.Attributes.Base;
+using InspectorEnhancements.Helpers.Enums;
 
-namespace InspectorEnhancements
+namespace InspectorEnhancements.Attributes
 {
     [AttributeUsage(AttributeTargets.Field | AttributeTargets.Class | AttributeTargets.Struct, Inherited = true, AllowMultiple = false)]
     public class InlinePropertyAttribute : CustomPropertyAttribute

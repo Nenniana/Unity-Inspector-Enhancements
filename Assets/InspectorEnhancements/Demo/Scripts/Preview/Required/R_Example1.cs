@@ -1,7 +1,8 @@
 
+using InspectorEnhancements.Attributes;
 using UnityEngine;
 
-namespace InspectorEnhancements.Preview {
+namespace InspectorEnhancements.Demo.Scripts.Preview.Required {
     public class RequiredExample1 : MonoBehaviour {
         [Required]
         [SerializeField]

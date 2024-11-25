@@ -1,8 +1,8 @@
-
-using UnityEngine;
 using System.Linq;
+using InspectorEnhancements.Attributes;
+using UnityEngine;
 
-namespace InspectorEnhancements.Preview {
+namespace InspectorEnhancements.Demo.Scripts.Preview.CollectionDropdown {
     public class CollectionDropdownExample3 : MonoBehaviour {
         [CollectionDropdown("GetLevelRange", 1, 10)]
         [SerializeField]

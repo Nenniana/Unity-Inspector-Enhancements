@@ -1,7 +1,7 @@
-
+using InspectorEnhancements.Attributes;
 using UnityEngine;
 
-namespace InspectorEnhancements.Preview {
+namespace InspectorEnhancements.Demo.Scripts.Preview.HideLabel {
     public class HideLabelExample1 : MonoBehaviour {
         [HideLabel]
         [SerializeField]

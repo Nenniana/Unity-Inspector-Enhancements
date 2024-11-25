@@ -1,8 +1,8 @@
 using UnityEngine;
 
-namespace InspectorEnhancements
+namespace InspectorEnhancements.Helpers.MemberRenderers.IMethodRenderer
 {
-    public class MethodRenderer : IMethodRenderer
+    public class MethodRenderer : Base.IMethodRenderer
     {
         public bool DrawMethodButton(string methodName, bool hasParameters)
         {

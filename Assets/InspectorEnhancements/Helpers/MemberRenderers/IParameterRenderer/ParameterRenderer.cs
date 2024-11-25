@@ -1,8 +1,9 @@
 using System.Reflection;
+using InspectorEnhancements.Helpers.Interfaces.IFieldDrawer.Base;
 
-namespace InspectorEnhancements
+namespace InspectorEnhancements.Helpers.MemberRenderers.IParameterRenderer
 {
-    public class ParameterRenderer : IParameterRenderer
+    public class ParameterRenderer : Base.IParameterRenderer
     {
         private readonly IFieldDrawer fieldDrawer;
 
