@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace InspectorEnhancements.Helpers.General
+namespace Nenn.InspectorEnhancements.Helpers.General
 {
     public static class OverwriteableStringCache<TValue>
     {

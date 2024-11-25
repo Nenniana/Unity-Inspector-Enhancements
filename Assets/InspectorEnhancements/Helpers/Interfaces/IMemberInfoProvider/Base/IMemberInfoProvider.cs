@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 
-namespace InspectorEnhancements.Helpers.Interfaces.IMemberInfoProvider.Base
+namespace Nenn.InspectorEnhancements.Helpers.Interfaces.IMemberInfoProvider.Base
 {
     public interface IMemberInfoProvider
     {

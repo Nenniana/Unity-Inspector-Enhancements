@@ -1,7 +1,7 @@
 using System;
 using System.Reflection;
 
-namespace InspectorEnhancements.Helpers.ParameterManagers.IParameterProvider.Base
+namespace Nenn.InspectorEnhancements.Helpers.ParameterManagers.IParameterProvider.Base
 {
     public interface IParameterProvider
     {

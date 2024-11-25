@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEditor;
 
-namespace InspectorEnhancements.Helpers.Interfaces.IFieldDrawer
+namespace Nenn.InspectorEnhancements.Helpers.Interfaces.IFieldDrawer
 {
     public class BaseFieldDrawer : Base.IFieldDrawer
     {

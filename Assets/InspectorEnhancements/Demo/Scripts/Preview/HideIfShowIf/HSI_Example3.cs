@@ -1,5 +1,4 @@
-
-using InspectorEnhancements.Attributes.Conditional;
+using Nenn.InspectorEnhancements.Attributes.Conditional;
 using UnityEngine;
 
 namespace InspectorEnhancements.Demo.Scripts.Preview.HideIfShowIf {

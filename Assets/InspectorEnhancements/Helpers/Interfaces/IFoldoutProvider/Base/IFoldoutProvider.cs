@@ -1,4 +1,4 @@
-namespace InspectorEnhancements.Helpers.Interfaces.IFoldoutProvider.Base
+namespace Nenn.InspectorEnhancements.Helpers.Interfaces.IFoldoutProvider.Base
 {
     public interface IFoldoutProvider
     {

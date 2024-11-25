@@ -1,6 +1,6 @@
 using System.Reflection;
 
-namespace InspectorEnhancements.Helpers.Interfaces.IMethodInvoker.Base
+namespace Nenn.InspectorEnhancements.Helpers.Interfaces.IMethodInvoker.Base
 {
     public interface IMethodResolver
     {

@@ -2,7 +2,7 @@ using System;
 using UnityEditor;
 using UnityEngine;
 
-namespace InspectorEnhancements.Helpers.Interfaces.ITypeDrawer
+namespace Nenn.InspectorEnhancements.Helpers.Interfaces.ITypeDrawer
 {
     public class PrimitiveFieldDrawer : Base.ITypeDrawer
     {

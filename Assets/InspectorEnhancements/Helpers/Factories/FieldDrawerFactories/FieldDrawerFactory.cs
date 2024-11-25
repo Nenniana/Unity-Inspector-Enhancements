@@ -1,12 +1,12 @@
 using System.Collections.Generic;
-using InspectorEnhancements.Helpers.Interfaces.EditorGUILayoutMethodResolver;
-using InspectorEnhancements.Helpers.Interfaces.IFieldDrawer;
-using InspectorEnhancements.Helpers.Interfaces.IFieldDrawer.Base;
-using InspectorEnhancements.Helpers.Interfaces.IMemberInfoProvider.Base;
-using InspectorEnhancements.Helpers.Interfaces.ITypeDrawer;
-using InspectorEnhancements.Helpers.Interfaces.ITypeDrawer.Base;
+using Nenn.InspectorEnhancements.Helpers.Interfaces.EditorGUILayoutMethodResolver;
+using Nenn.InspectorEnhancements.Helpers.Interfaces.IFieldDrawer;
+using Nenn.InspectorEnhancements.Helpers.Interfaces.IFieldDrawer.Base;
+using Nenn.InspectorEnhancements.Helpers.Interfaces.IMemberInfoProvider.Base;
+using Nenn.InspectorEnhancements.Helpers.Interfaces.ITypeDrawer;
+using Nenn.InspectorEnhancements.Helpers.Interfaces.ITypeDrawer.Base;
 
-namespace InspectorEnhancements.Helpers.Factories.FieldDrawerFactories
+namespace Nenn.InspectorEnhancements.Helpers.Factories.FieldDrawerFactories
 {
     public static class FieldDrawerFactory
     {

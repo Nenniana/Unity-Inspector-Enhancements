@@ -1,8 +1,8 @@
 using System.Reflection;
-using InspectorEnhancements.Helpers.Interfaces.IFoldoutProvider.Base;
+using Nenn.InspectorEnhancements.Helpers.Interfaces.IFoldoutProvider.Base;
 using UnityEngine;
 
-namespace InspectorEnhancements.Helpers.MemberRenderers
+namespace Nenn.InspectorEnhancements.Helpers.MemberRenderers
 {
     public class ParameterMethodRenderer
     {

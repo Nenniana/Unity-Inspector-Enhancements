@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using InspectorEnhancements.Attributes;
+using Nenn.InspectorEnhancements.Attributes;
 using UnityEngine;
 
 namespace InspectorEnhancements.Demo.Scripts.Preview.CollectionDropdown {

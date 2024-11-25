@@ -1,8 +1,8 @@
 using System;
 using System.Reflection;
-using InspectorEnhancements.Helpers.Interfaces.IParameterOwner;
+using Nenn.InspectorEnhancements.Helpers.Interfaces.IParameterOwner;
 
-namespace InspectorEnhancements.Helpers.ParameterManagers.IParameterValueDelegateProvider.Base
+namespace Nenn.InspectorEnhancements.Helpers.ParameterManagers.IParameterValueDelegateProvider.Base
 {
     public interface IParameterValueDelegateProvider
     {

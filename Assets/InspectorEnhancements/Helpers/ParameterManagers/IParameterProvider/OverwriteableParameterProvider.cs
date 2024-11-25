@@ -1,8 +1,8 @@
 using System;
 using System.Reflection;
-using InspectorEnhancements.Helpers.General;
+using Nenn.InspectorEnhancements.Helpers.General;
 
-namespace InspectorEnhancements.Helpers.ParameterManagers.IParameterProvider
+namespace Nenn.InspectorEnhancements.Helpers.ParameterManagers.IParameterProvider
 {
     public class OverwriteableParameterProvider : Base.IParameterProvider
     {

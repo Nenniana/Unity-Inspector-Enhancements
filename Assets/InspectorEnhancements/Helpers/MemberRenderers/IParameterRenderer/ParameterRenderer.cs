@@ -1,7 +1,7 @@
 using System.Reflection;
-using InspectorEnhancements.Helpers.Interfaces.IFieldDrawer.Base;
+using Nenn.InspectorEnhancements.Helpers.Interfaces.IFieldDrawer.Base;
 
-namespace InspectorEnhancements.Helpers.MemberRenderers.IParameterRenderer
+namespace Nenn.InspectorEnhancements.Helpers.MemberRenderers.IParameterRenderer
 {
     public class ParameterRenderer : Base.IParameterRenderer
     {

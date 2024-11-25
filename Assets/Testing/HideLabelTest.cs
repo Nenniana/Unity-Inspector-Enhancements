@@ -1,5 +1,5 @@
 using System;
-using InspectorEnhancements.Attributes;
+using Nenn.InspectorEnhancements.Attributes;
 using UnityEngine;
 
 namespace Nenn.InspectorEnhancements.Testing

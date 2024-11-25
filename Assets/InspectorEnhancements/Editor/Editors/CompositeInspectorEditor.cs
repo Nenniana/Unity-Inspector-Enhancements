@@ -1,12 +1,12 @@
 using System.Collections.Generic;
 using System.Reflection;
-using InspectorEnhancements.Helpers.CustomInspectorElements.Base;
-using InspectorEnhancements.Helpers.Factories.MethodButtonElementFactory;
-using InspectorEnhancements.Helpers.Interfaces.IMemberInfoProvider;
-using InspectorEnhancements.Helpers.Interfaces.IMemberInfoProvider.Base;
+using Nenn.InspectorEnhancements.Helpers.CustomInspectorElements.Base;
+using Nenn.InspectorEnhancements.Helpers.Factories.MethodButtonElementFactory;
+using Nenn.InspectorEnhancements.Helpers.Interfaces.IMemberInfoProvider;
+using Nenn.InspectorEnhancements.Helpers.Interfaces.IMemberInfoProvider.Base;
 using UnityEditor;
 
-namespace InspectorEnhancements.Editor.Editors
+namespace Nenn.InspectorEnhancements.Editor.Editors
 {
     [CanEditMultipleObjects]
     [CustomEditor(typeof(UnityEngine.Object), true)]

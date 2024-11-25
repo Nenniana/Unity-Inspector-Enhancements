@@ -1,10 +1,10 @@
 using System;
 using System.Reflection;
-using InspectorEnhancements.Helpers.General;
-using InspectorEnhancements.Helpers.Interfaces.IDefaultValueProvider.Base;
-using InspectorEnhancements.Helpers.Interfaces.IParameterOwner;
+using Nenn.InspectorEnhancements.Helpers.General;
+using Nenn.InspectorEnhancements.Helpers.Interfaces.IDefaultValueProvider.Base;
+using Nenn.InspectorEnhancements.Helpers.Interfaces.IParameterOwner;
 
-namespace InspectorEnhancements.Helpers.ParameterManagers.IParameterValueDelegateProvider 
+namespace Nenn.InspectorEnhancements.Helpers.ParameterManagers.IParameterValueDelegateProvider 
 {
     public class ParameterValueDelegateProvider : Base.IParameterValueDelegateProvider
     {

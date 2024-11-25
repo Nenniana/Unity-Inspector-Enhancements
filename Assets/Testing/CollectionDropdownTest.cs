@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
-using InspectorEnhancements.Attributes;
+using Nenn.InspectorEnhancements.Attributes;
 using UnityEngine;
 
 namespace Nenn.InspectorEnhancements

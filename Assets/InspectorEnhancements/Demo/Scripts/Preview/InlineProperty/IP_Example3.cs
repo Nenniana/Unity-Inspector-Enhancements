@@ -1,6 +1,5 @@
-
-using InspectorEnhancements.Attributes;
-using InspectorEnhancements.Helpers.Enums;
+using Nenn.InspectorEnhancements.Attributes;
+using Nenn.InspectorEnhancements.Helpers.Enums;
 using UnityEngine;
 
 namespace InspectorEnhancements.Demo.Scripts.Preview.InlineProperty {

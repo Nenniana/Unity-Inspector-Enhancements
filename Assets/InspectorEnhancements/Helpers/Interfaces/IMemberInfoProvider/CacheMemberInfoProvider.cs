@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
-using InspectorEnhancements.Helpers.General;
+using Nenn.InspectorEnhancements.Helpers.General;
 
-namespace InspectorEnhancements.Helpers.Interfaces.IMemberInfoProvider
+namespace Nenn.InspectorEnhancements.Helpers.Interfaces.IMemberInfoProvider
 {
     public class CacheMemberInfoProvider : Base.IMemberInfoProvider
     {

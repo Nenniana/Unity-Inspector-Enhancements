@@ -1,15 +1,15 @@
 using System;
 using System.Reflection;
-using InspectorEnhancements.Attributes.Conditional;
-using InspectorEnhancements.Attributes.Conditional.Base;
-using InspectorEnhancements.Helpers.Interfaces.IMemberInfoProvider;
-using InspectorEnhancements.Helpers.Interfaces.IMemberInfoProvider.Base;
-using InspectorEnhancements.Helpers.Interfaces.IMethodInvoker;
-using InspectorEnhancements.Helpers.Interfaces.IMethodInvoker.Base;
+using Nenn.InspectorEnhancements.Attributes.Conditional;
+using Nenn.InspectorEnhancements.Attributes.Conditional.Base;
+using Nenn.InspectorEnhancements.Helpers.Interfaces.IMemberInfoProvider;
+using Nenn.InspectorEnhancements.Helpers.Interfaces.IMemberInfoProvider.Base;
+using Nenn.InspectorEnhancements.Helpers.Interfaces.IMethodInvoker;
+using Nenn.InspectorEnhancements.Helpers.Interfaces.IMethodInvoker.Base;
 using UnityEditor;
 using UnityEngine;
 
-namespace InspectorEnhancements.Editor.Drawers
+namespace Nenn.InspectorEnhancements.Editor.Drawers
 {
     [CustomPropertyDrawer(typeof(ConditionalAttribute), true)] 
     public class ConditionalDrawer : PropertyDrawer

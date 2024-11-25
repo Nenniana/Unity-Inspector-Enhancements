@@ -1,8 +1,8 @@
 using System;
 using System.Reflection;
-using InspectorEnhancements.Helpers.Interfaces.IParameterOwner;
+using Nenn.InspectorEnhancements.Helpers.Interfaces.IParameterOwner;
 
-namespace InspectorEnhancements.Helpers.ParameterManagers
+namespace Nenn.InspectorEnhancements.Helpers.ParameterManagers
 {
     public class ParameterMethodManager
     {

@@ -1,11 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
-using InspectorEnhancements.Helpers.Interfaces.IMemberInfoProvider;
+using Nenn.InspectorEnhancements.Helpers.Interfaces.IMemberInfoProvider;
 using UnityEditor;
 using UnityEngine;
 
-namespace InspectorEnhancements.Helpers.Interfaces.EditorGUILayoutMethodResolver
+namespace Nenn.InspectorEnhancements.Helpers.Interfaces.EditorGUILayoutMethodResolver
 {
     public class EditorGUILayoutMethodProvider
     {

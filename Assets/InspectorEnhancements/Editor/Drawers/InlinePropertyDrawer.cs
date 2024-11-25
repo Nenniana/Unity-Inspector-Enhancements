@@ -1,11 +1,11 @@
 using System;
 using System.Reflection;
-using InspectorEnhancements.Attributes;
-using InspectorEnhancements.Helpers.Enums;
+using Nenn.InspectorEnhancements.Attributes;
+using Nenn.InspectorEnhancements.Helpers.Enums;
 using UnityEditor;
 using UnityEngine;
 
-namespace InspectorEnhancements.Editor.Drawers
+namespace Nenn.InspectorEnhancements.Editor.Drawers
 {
     [CustomPropertyDrawer(typeof(InlinePropertyAttribute), true)]
     public class InlinePropertyDrawer : PropertyDrawer

@@ -1,6 +1,6 @@
 using System;
 
-namespace InspectorEnhancements.Helpers.Interfaces.ITypeDrawer.Base
+namespace Nenn.InspectorEnhancements.Helpers.Interfaces.ITypeDrawer.Base
 {
     public interface ITypeDrawer
     {

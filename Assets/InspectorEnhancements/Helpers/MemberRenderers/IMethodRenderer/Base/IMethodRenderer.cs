@@ -1,4 +1,4 @@
-namespace InspectorEnhancements.Helpers.MemberRenderers.IMethodRenderer.Base
+namespace Nenn.InspectorEnhancements.Helpers.MemberRenderers.IMethodRenderer.Base
 {
     public interface IMethodRenderer
     {

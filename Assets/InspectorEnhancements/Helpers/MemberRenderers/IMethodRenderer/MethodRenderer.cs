@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace InspectorEnhancements.Helpers.MemberRenderers.IMethodRenderer
+namespace Nenn.InspectorEnhancements.Helpers.MemberRenderers.IMethodRenderer
 {
     public class MethodRenderer : Base.IMethodRenderer
     {

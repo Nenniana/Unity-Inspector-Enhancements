@@ -1,6 +1,6 @@
 using System.Reflection;
 
-namespace InspectorEnhancements.Helpers.CustomInspectorElements.Base
+namespace Nenn.InspectorEnhancements.Helpers.CustomInspectorElements.Base
 {
     public interface ICustomInspectorElement
     {

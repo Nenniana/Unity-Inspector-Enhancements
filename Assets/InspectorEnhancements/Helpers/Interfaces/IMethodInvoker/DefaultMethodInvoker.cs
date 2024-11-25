@@ -1,10 +1,10 @@
 using System;
 using System.Reflection;
-using InspectorEnhancements.Helpers.Interfaces.IMemberInfoProvider;
-using InspectorEnhancements.Helpers.Interfaces.IMethodInvoker.Base;
+using Nenn.InspectorEnhancements.Helpers.Interfaces.IMemberInfoProvider;
+using Nenn.InspectorEnhancements.Helpers.Interfaces.IMethodInvoker.Base;
 using UnityEngine;
 
-namespace InspectorEnhancements.Helpers.Interfaces.IMethodInvoker
+namespace Nenn.InspectorEnhancements.Helpers.Interfaces.IMethodInvoker
 {
     public class DefaultMethodResolver : IMethodResolver
     {

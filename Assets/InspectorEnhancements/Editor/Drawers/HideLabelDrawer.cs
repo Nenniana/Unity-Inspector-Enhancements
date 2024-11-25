@@ -1,8 +1,8 @@
-using InspectorEnhancements.Attributes;
+using Nenn.InspectorEnhancements.Attributes;
 using UnityEditor;
 using UnityEngine;
 
-namespace InspectorEnhancements.Editor.Drawers
+namespace Nenn.InspectorEnhancements.Editor.Drawers
 {
     [CustomPropertyDrawer(typeof(HideLabelAttribute))]
     public class HideLabelDrawer : PropertyDrawer

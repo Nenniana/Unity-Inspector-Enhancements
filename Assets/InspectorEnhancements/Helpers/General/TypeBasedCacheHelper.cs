@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace InspectorEnhancements.Helpers.General
+namespace Nenn.InspectorEnhancements.Helpers.General
 {
     public static class TypeBasedCacheHelper<TValue>
     {

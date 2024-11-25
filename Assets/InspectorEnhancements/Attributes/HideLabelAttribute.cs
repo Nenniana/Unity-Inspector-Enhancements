@@ -1,7 +1,7 @@
 using System;
-using InspectorEnhancements.Attributes.Base;
+using Nenn.InspectorEnhancements.Attributes.Base;
 
-namespace InspectorEnhancements.Attributes
+namespace Nenn.InspectorEnhancements.Attributes
 {
     [AttributeUsage(AttributeTargets.Field, AllowMultiple = false)]
     public class HideLabelAttribute : CustomPropertyAttribute

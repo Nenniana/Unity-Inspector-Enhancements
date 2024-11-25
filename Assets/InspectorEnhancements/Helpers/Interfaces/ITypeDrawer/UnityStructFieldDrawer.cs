@@ -1,9 +1,9 @@
 using System;
 using System.Reflection;
-using InspectorEnhancements.Helpers.Interfaces.EditorGUILayoutMethodResolver;
+using Nenn.InspectorEnhancements.Helpers.Interfaces.EditorGUILayoutMethodResolver;
 using UnityEditor;
 
-namespace InspectorEnhancements.Helpers.Interfaces.ITypeDrawer
+namespace Nenn.InspectorEnhancements.Helpers.Interfaces.ITypeDrawer
 {
     public class UnityStructFieldDrawer : Base.ITypeDrawer
     {

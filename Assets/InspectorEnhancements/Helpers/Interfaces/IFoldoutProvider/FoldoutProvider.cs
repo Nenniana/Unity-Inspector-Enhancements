@@ -1,7 +1,7 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace InspectorEnhancements.Helpers.Interfaces.IFoldoutProvider
+namespace Nenn.InspectorEnhancements.Helpers.Interfaces.IFoldoutProvider
 {
     public class FoldoutProvider : Base.IFoldoutProvider
     {

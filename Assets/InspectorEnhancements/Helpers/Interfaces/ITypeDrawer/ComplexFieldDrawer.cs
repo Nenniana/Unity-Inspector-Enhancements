@@ -2,7 +2,7 @@ using System;
 using System.Reflection;
 using UnityEditor;
 
-namespace InspectorEnhancements.Helpers.Interfaces.ITypeDrawer
+namespace Nenn.InspectorEnhancements.Helpers.Interfaces.ITypeDrawer
 {
     public class ComplexFieldDrawer : Base.ITypeDrawer
     {

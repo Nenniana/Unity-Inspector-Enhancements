@@ -1,6 +1,6 @@
 using System;
 
-namespace InspectorEnhancements.Helpers.Interfaces.IFieldDrawer.Base
+namespace Nenn.InspectorEnhancements.Helpers.Interfaces.IFieldDrawer.Base
 {
     public interface IFieldDrawer
     {

@@ -1,7 +1,7 @@
 using System;
 using System.Reflection;
 
-namespace InspectorEnhancements.Helpers.General
+namespace Nenn.InspectorEnhancements.Helpers.General
 {
     public static class ReflectionHelper
     {

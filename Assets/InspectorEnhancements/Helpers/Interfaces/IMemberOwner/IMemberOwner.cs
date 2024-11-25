@@ -1,4 +1,4 @@
-namespace InspectorEnhancements.Helpers.Interfaces.IMemberOwner
+namespace Nenn.InspectorEnhancements.Helpers.Interfaces.IMemberOwner
 {
     public interface IMemberOwner : IParameterOwner.IParameterOwner
     {

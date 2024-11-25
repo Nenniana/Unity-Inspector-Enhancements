@@ -1,6 +1,6 @@
 using System.Reflection;
 
-namespace InspectorEnhancements.Helpers.MemberRenderers.IParameterRenderer.Base
+namespace Nenn.InspectorEnhancements.Helpers.MemberRenderers.IParameterRenderer.Base
 {
     public interface IParameterRenderer
     {

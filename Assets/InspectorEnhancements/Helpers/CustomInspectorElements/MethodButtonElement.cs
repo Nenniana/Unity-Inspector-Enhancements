@@ -1,12 +1,12 @@
 using System.Linq;
 using System.Reflection;
-using InspectorEnhancements.Attributes;
-using InspectorEnhancements.Helpers.CustomInspectorElements.Base;
-using InspectorEnhancements.Helpers.MemberRenderers;
-using InspectorEnhancements.Helpers.ParameterManagers;
+using Nenn.InspectorEnhancements.Attributes;
+using Nenn.InspectorEnhancements.Helpers.CustomInspectorElements.Base;
+using Nenn.InspectorEnhancements.Helpers.MemberRenderers;
+using Nenn.InspectorEnhancements.Helpers.ParameterManagers;
 using UnityEngine;
 
-namespace InspectorEnhancements.Helpers.CustomInspectorElements
+namespace Nenn.InspectorEnhancements.Helpers.CustomInspectorElements
 {
     public class MethodButtonElement : ICustomInspectorElement
     {

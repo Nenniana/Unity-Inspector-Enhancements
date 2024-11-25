@@ -1,6 +1,6 @@
-using InspectorEnhancements.Attributes.Conditional.Base;
+using Nenn.InspectorEnhancements.Attributes.Conditional.Base;
 
-namespace InspectorEnhancements.Attributes.Conditional
+namespace Nenn.InspectorEnhancements.Attributes.Conditional
 {
     public class ShowIfAttribute : ConditionalAttribute
     {
