@@ -8,7 +8,7 @@ namespace Nenn.InspectorEnhancements.Runtime.Helpers.Interfaces.IDefaultValuePro
         {
             // Use reflection to invoke a generic method that returns default(T)
             return typeof(DefaultValueHelper)
-                .GetMethod(nameof(DefaultValueHelper.GetDefault))
+                .GetMethod(nameof(DefaultValueHelper.GetDefault))!
                 .MakeGenericMethod(type)
                 .Invoke(null, null);
         }
