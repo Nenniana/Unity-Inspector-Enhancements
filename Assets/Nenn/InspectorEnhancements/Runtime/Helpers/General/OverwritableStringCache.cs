@@ -3,11 +3,11 @@ using System.Collections.Generic;
 
 namespace Nenn.InspectorEnhancements.Runtime.Helpers.General
 {
-    public static class OverwriteableStringCache<TValue>
+    public static class OverwritableStringCache<TValue>
     {
-        private static Dictionary<string, TValue> cache = new Dictionary<string, TValue>();
+        private static readonly Dictionary<string, TValue> Cache = new Dictionary<string, TValue>();
 
-        public static TValue GetOrAdd(Type target, string conditionName, System.Func<TValue> computeValue)
+        public static TValue GetOrAdd(Type target, string conditionName, Func<TValue> computeValue)
         {
             string key = GenerateCacheKey(target, conditionName);
             TValue value = GetOrAddByKey(key, computeValue);
@@ -16,10 +16,10 @@ namespace Nenn.InspectorEnhancements.Runtime.Helpers.General
 
         private static TValue GetOrAddByKey(string key, Func<TValue> computeValue)
         {
-            if (!cache.TryGetValue(key, out var value))
+            if (!Cache.TryGetValue(key, out var value))
             {
                 value = computeValue();
-                cache[key] = value;
+                Cache[key] = value;
             }
 
             return value;
@@ -27,7 +27,7 @@ namespace Nenn.InspectorEnhancements.Runtime.Helpers.General
 
         public static void ClearCache()
         {
-            cache.Clear();
+            Cache.Clear();
         }
 
         private static string GenerateCacheKey(Type target, string conditionName)
@@ -40,9 +40,9 @@ namespace Nenn.InspectorEnhancements.Runtime.Helpers.General
         {
             string key = GenerateCacheKey(target, conditionName);
 
-            if (cache.ContainsKey(key)) 
+            if (Cache.ContainsKey(key)) 
             {
-                cache[key] = value;
+                Cache[key] = value;
                 return value;
             } 
 
