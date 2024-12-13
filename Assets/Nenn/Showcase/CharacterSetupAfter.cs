@@ -25,11 +25,11 @@ namespace Nenn.Showcase
         private bool canFly;
 
         
-        [ShowIf("CanFly")]
+        [ShowIf("canFly")]
         [SerializeField]
         private float flyingSpeed;
         
-        [ShowIf("CanFly")]
+        [ShowIf("canFly")]
         [SerializeField]
         private float flyingDuration;
 
@@ -37,12 +37,12 @@ namespace Nenn.Showcase
         [SerializeField]
         private bool hasSpecialAttack;
         
-        [ShowIf("HasSpecialAttack")]
+        [ShowIf("hasSpecialAttack")]
         [SerializeField]
         private int attackPower = 50;
 
         // Weapons (displayed with a dropdown for selection)
-        [CollectionDropdown("AvailableWeapons")]
+        [CollectionDropdown("_availableWeapons")]
         [SerializeField]
         private string selectedWeapon;
 
