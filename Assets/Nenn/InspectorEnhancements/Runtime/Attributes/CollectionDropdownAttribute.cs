@@ -11,13 +11,13 @@ namespace Nenn.InspectorEnhancements.Runtime.Attributes
 
         public object[] Parameters { get; private set; }
 
-        public CollectionDropdownAttribute (string _condition) {
-            MemberName = _condition;
+        public CollectionDropdownAttribute (string condition) {
+            MemberName = condition;
         }
 
-        public CollectionDropdownAttribute (string _condition, params object[] _parameters) {
-            MemberName = _condition;
-            Parameters = _parameters;
+        public CollectionDropdownAttribute (string condition, params object[] parameters) {
+            MemberName = condition;
+            Parameters = parameters;
         }
     }
 }
