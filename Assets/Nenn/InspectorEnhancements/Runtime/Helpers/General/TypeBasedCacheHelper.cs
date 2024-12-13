@@ -7,16 +7,16 @@ namespace Nenn.InspectorEnhancements.Runtime.Helpers.General
 {
     public static class TypeBasedCacheHelper<TValue>
     {
-        private static Dictionary<(Type, BindingFlags), List<TValue>> cache = new Dictionary<(Type, BindingFlags), List<TValue>>();
+        private static readonly Dictionary<(Type, BindingFlags), List<TValue>> Cache = new Dictionary<(Type, BindingFlags), List<TValue>>();
 
 
         public static List<TValue> GetOrAddList(Type type, Func<TValue[]> computeValue, BindingFlags bindingFlags)
         {
             var cacheKey = (type, bindingFlags);
-            if (!cache.TryGetValue(cacheKey, out var valueList))
+            if (!Cache.TryGetValue(cacheKey, out var valueList))
             {
                 valueList = computeValue().ToList();
-                cache[cacheKey] = valueList;
+                Cache[cacheKey] = valueList;
             }
 
             return valueList;
@@ -24,7 +24,7 @@ namespace Nenn.InspectorEnhancements.Runtime.Helpers.General
 
         public static void ClearCache()
         {
-            cache.Clear();
+            Cache.Clear();
         }
     }
 }
