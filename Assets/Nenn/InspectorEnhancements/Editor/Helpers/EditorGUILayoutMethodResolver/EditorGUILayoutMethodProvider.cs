@@ -10,13 +10,13 @@ namespace Nenn.InspectorEnhancements.Editor.Helpers.EditorGUILayoutMethodResolve
 {
     public class EditorGUILayoutMethodProvider
     {
-        private readonly IMemberInfoProvider memberInfoProvider;
-        private static readonly Dictionary<string, MethodInfo> cachedMethods = new Dictionary<string, MethodInfo>();
+        private readonly IMemberInfoProvider _memberInfoProvider;
+        private static readonly Dictionary<string, MethodInfo> CachedMethods = new Dictionary<string, MethodInfo>();
 
         public EditorGUILayoutMethodProvider() {
-            memberInfoProvider = new CacheMemberInfoProvider();
+            _memberInfoProvider = new CacheMemberInfoProvider();
             
-            if (cachedMethods.Count == 0)
+            if (CachedMethods.Count == 0)
             {
                 InitializeCache();
             }
@@ -25,10 +25,10 @@ namespace Nenn.InspectorEnhancements.Editor.Helpers.EditorGUILayoutMethodResolve
         // Inject IMemberInfoProvider to retrieve general member information when needed
         public EditorGUILayoutMethodProvider(IMemberInfoProvider memberInfoProvider)
         {
-            this.memberInfoProvider = memberInfoProvider ?? throw new ArgumentNullException(nameof(memberInfoProvider));;
+            _memberInfoProvider = memberInfoProvider ?? throw new ArgumentNullException(nameof(memberInfoProvider));
 
             // Initialize cache only if the dictionary is empty
-            if (cachedMethods.Count == 0)
+            if (CachedMethods.Count == 0)
             {
                 InitializeCache();
             }
@@ -41,14 +41,14 @@ namespace Nenn.InspectorEnhancements.Editor.Helpers.EditorGUILayoutMethodResolve
             string methodName = $"{fieldType.Name}Field";
 
             // Attempt to retrieve from the cache directly
-            cachedMethods.TryGetValue(methodName, out var method);
+            CachedMethods.TryGetValue(methodName, out var method);
             return method;
         }
 
         // This method retrieves and caches all relevant EditorGUILayout methods in one go
         private void InitializeCache()
         {
-            var methods = memberInfoProvider.TryGetAllMemberInfo<MethodInfo>(
+            var methods = _memberInfoProvider.TryGetAllMemberInfo<MethodInfo>(
                 typeof(EditorGUILayout), BindingFlags.Public | BindingFlags.Static);
 
             foreach (var method in methods)
@@ -62,10 +62,7 @@ namespace Nenn.InspectorEnhancements.Editor.Helpers.EditorGUILayoutMethodResolve
                     var methodName = $"{fieldType.Name}Field";
 
                     // Cache each method with its name if not already cached
-                    if (!cachedMethods.ContainsKey(methodName))
-                    {
-                        cachedMethods[methodName] = method;
-                    }
+                    CachedMethods.TryAdd(methodName, method);
                 }
             }
         }
