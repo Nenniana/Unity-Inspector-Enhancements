@@ -4,11 +4,11 @@ namespace Nenn.InspectorEnhancements.Editor.Helpers.FieldDrawing.MemberRenderers
 {
     public class ParameterRenderer : Base.IParameterRenderer
     {
-        private readonly IFieldDrawer.Base.IFieldDrawer fieldDrawer;
+        private readonly IFieldDrawer.Base.IFieldDrawer _fieldDrawer;
 
         public ParameterRenderer(IFieldDrawer.Base.IFieldDrawer fieldDrawer) 
         {
-            this.fieldDrawer = fieldDrawer;
+            this._fieldDrawer = fieldDrawer;
         }
 
         public void DrawParameterFields(ParameterInfo[] parameters, ref object[] parameterValues)
@@ -16,7 +16,7 @@ namespace Nenn.InspectorEnhancements.Editor.Helpers.FieldDrawing.MemberRenderers
             for (int i = 0; i < parameters.Length; i++)
             {
                 var parameter = parameters[i];
-                fieldDrawer.DrawField(parameter.Name, ref parameterValues[i], parameter.ParameterType, true);
+                _fieldDrawer.DrawField(parameter.Name, ref parameterValues[i], parameter.ParameterType, true);
             }
         }
     }
