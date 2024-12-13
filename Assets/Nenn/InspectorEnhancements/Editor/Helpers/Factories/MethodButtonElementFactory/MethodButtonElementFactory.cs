@@ -24,7 +24,7 @@ namespace Nenn.InspectorEnhancements.Editor.Helpers.Factories.MethodButtonElemen
             var methodRenderer = new MethodRenderer();
             var parameterMethodRenderer = new ParameterMethodRenderer(methodRenderer, parameterRenderer, new FoldoutProvider());
             var defaultValueProvider = new DefaultValueProvider();
-            var overwritableParameterProvider = new OverwriteableParameterProvider();
+            var overwritableParameterProvider = new OverwritableParameterProvider();
             var parameterValueDelegateProvider = new ParameterValueDelegateProvider(defaultValueProvider);
             var parameterMethodManager = new ParameterMethodManager(parameterValueDelegateProvider, overwritableParameterProvider);
             

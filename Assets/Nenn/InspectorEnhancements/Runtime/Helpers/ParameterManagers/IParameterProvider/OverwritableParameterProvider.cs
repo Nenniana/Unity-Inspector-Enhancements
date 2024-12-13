@@ -4,7 +4,7 @@ using Nenn.InspectorEnhancements.Runtime.Helpers.General;
 
 namespace Nenn.InspectorEnhancements.Runtime.Helpers.ParameterManagers.IParameterProvider
 {
-    public class OverwriteableParameterProvider : Base.IParameterProvider
+    public class OverwritableParameterProvider : Base.IParameterProvider
     {
         public object GetOrAdd(string methodName, ParameterInfo parameter, Func<object> valueFactory)
         {
