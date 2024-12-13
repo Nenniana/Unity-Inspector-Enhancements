@@ -14,14 +14,14 @@ namespace Nenn.InspectorEnhancements.Editor.Drawers
     [CustomPropertyDrawer(typeof(ConditionalAttribute), true)] 
     public class ConditionalDrawer : PropertyDrawer
     {
-        private readonly IMemberInfoProvider memberInfoProvider = new CacheMemberInfoProvider();
-        private readonly IMethodResolver methodResolver = new DefaultMethodResolver();
+        private readonly IMemberInfoProvider _memberInfoProvider = new CacheMemberInfoProvider();
+        private readonly IMethodResolver _methodResolver = new DefaultMethodResolver();
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
             string controlName = property.propertyPath;
-            var attribute = this.attribute as ConditionalAttribute;
-            string conditionName = attribute?.MemberName;
+            var conditionalAttribute = this.attribute as ConditionalAttribute;
+            string conditionName = conditionalAttribute?.MemberName;
 
             GUI.SetNextControlName(controlName);
 
@@ -32,7 +32,7 @@ namespace Nenn.InspectorEnhancements.Editor.Drawers
                 DrawWarningForStructClass(position, property, label);
             }
 
-            else if (EvaluateCondition(property, attribute, conditionName))
+            else if (EvaluateCondition(property, conditionalAttribute, conditionName))
             {
                 EditorGUI.PropertyField(position, property, label, true);
             }
@@ -50,15 +50,15 @@ namespace Nenn.InspectorEnhancements.Editor.Drawers
 
         public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
         {
-            var attribute = this.attribute as ConditionalAttribute;
-            string conditionName = attribute?.MemberName;
+            var conditionalAttribute = this.attribute as ConditionalAttribute;
+            string conditionName = conditionalAttribute?.MemberName;
 
             if (IsInvalidCustomClassOrStruct(property, conditionName))
             {
                 return CalculateHelpBoxHeight(property);
             }
 
-            if (EvaluateCondition(property, attribute, conditionName)) 
+            if (EvaluateCondition(property, conditionalAttribute, conditionName)) 
             {
                 return EditorGUI.GetPropertyHeight(property, true);
             }
@@ -67,15 +67,15 @@ namespace Nenn.InspectorEnhancements.Editor.Drawers
             return 0f;
         }
 
-        private bool EvaluateCondition(SerializedProperty property, ConditionalAttribute attribute, string conditionName)
+        private bool EvaluateCondition(SerializedProperty property, ConditionalAttribute conditionalAttribute, string conditionName)
         {
             bool shouldShow = true;
-            bool invertCondition = attribute is HideIfAttribute;
+            bool invertCondition = conditionalAttribute is HideIfAttribute;
             object target = property.serializedObject.targetObject;
 
             if (!string.IsNullOrEmpty(conditionName))
             {
-                return InvertCondition(invertCondition, FindMemberAndEvaluate(attribute, target, conditionName));
+                return InvertCondition(invertCondition, FindMemberAndEvaluate(conditionalAttribute, target, conditionName));
             }
 
             // If no condition is found, check if property can be a null condition
@@ -98,14 +98,14 @@ namespace Nenn.InspectorEnhancements.Editor.Drawers
         {
             if (string.IsNullOrEmpty(conditionName)) return false;
 
-            FieldInfo fieldInfo = memberInfoProvider.TryGetMemberInfo<FieldInfo>(target.GetType(), conditionName);
-            PropertyInfo propertyInfo = memberInfoProvider.TryGetMemberInfo<PropertyInfo>(target.GetType(), conditionName);
+            FieldInfo fieldMemberInfo = _memberInfoProvider.TryGetMemberInfo<FieldInfo>(target.GetType(), conditionName);
+            PropertyInfo propertyInfo = _memberInfoProvider.TryGetMemberInfo<PropertyInfo>(target.GetType(), conditionName);
 
             Type fieldType = null;
 
-            if (fieldInfo != null)
+            if (fieldMemberInfo != null)
             {
-                fieldType = fieldInfo.FieldType;
+                fieldType = fieldMemberInfo.FieldType;
             }
             else if (propertyInfo != null)
             {
@@ -130,11 +130,11 @@ namespace Nenn.InspectorEnhancements.Editor.Drawers
             return false;
         }
 
-        private bool FindMemberAndEvaluate(ConditionalAttribute attribute, object target, string conditionName)
+        private bool FindMemberAndEvaluate(ConditionalAttribute conditionalAttribute, object target, string conditionName)
         {
             bool shouldShow = true;
 
-            if (TryEvaluateMethod(attribute, target, conditionName, ref shouldShow))
+            if (TryEvaluateMethod(conditionalAttribute, target, conditionName, ref shouldShow))
                 return shouldShow;
 
             if (TryEvaluateField(target, conditionName, ref shouldShow))
@@ -152,14 +152,14 @@ namespace Nenn.InspectorEnhancements.Editor.Drawers
             return invertCondition ? !result : result;
         }
 
-        private bool TryEvaluateMethod(ConditionalAttribute attribute, object target, string conditionName, ref bool shouldShow)
+        private bool TryEvaluateMethod(ConditionalAttribute conditionalAttribute, object target, string conditionName, ref bool shouldShow)
         {
-            MethodInfo methodInfo = memberInfoProvider.TryGetMemberInfo<MethodInfo>(target.GetType(), conditionName);
+            MethodInfo methodInfo = _memberInfoProvider.TryGetMemberInfo<MethodInfo>(target.GetType(), conditionName);
 
             if (methodInfo == null)
                 return false;
 
-            object[] methodParameters = methodResolver.InvokeMethod(target, attribute.Parameters, methodInfo);
+            object[] methodParameters = _methodResolver.InvokeMethod(target, conditionalAttribute.Parameters, methodInfo);
             object methodResult = methodInfo.Invoke(target, methodParameters);
             
             shouldShow = (bool)methodResult;
@@ -168,7 +168,7 @@ namespace Nenn.InspectorEnhancements.Editor.Drawers
 
         private bool TryEvaluateProperty(object target, string conditionName, ref bool shouldShow)
         {
-            PropertyInfo propertyInfo = memberInfoProvider.TryGetMemberInfo<PropertyInfo>(target.GetType(), conditionName);
+            PropertyInfo propertyInfo = _memberInfoProvider.TryGetMemberInfo<PropertyInfo>(target.GetType(), conditionName);
 
             if (propertyInfo == null)
                 return false;
@@ -180,23 +180,23 @@ namespace Nenn.InspectorEnhancements.Editor.Drawers
 
         private bool TryEvaluateField(object target, string conditionName, ref bool shouldShow)
         {
-            FieldInfo fieldInfo = memberInfoProvider.TryGetMemberInfo<FieldInfo>(target.GetType(), conditionName);
+            FieldInfo fieldMemberInfo = _memberInfoProvider.TryGetMemberInfo<FieldInfo>(target.GetType(), conditionName);
 
-            if (fieldInfo == null)
+            if (fieldMemberInfo == null)
                 return false;
 
-            bool result = IsFieldBoolean(target, fieldInfo);
+            bool result = IsFieldBoolean(target, fieldMemberInfo);
             shouldShow = result;
             return true;
         }
 
-        public bool IsFieldBoolean(object target, FieldInfo fieldInfo)
+        private bool IsFieldBoolean(object target, FieldInfo fieldMemberInfo)
         {
-            var fieldValue = fieldInfo.GetValue(target);
-            return fieldInfo.FieldType == typeof(bool) ? (bool)fieldValue : fieldValue != null;
+            var fieldValue = fieldMemberInfo.GetValue(target);
+            return fieldMemberInfo.FieldType == typeof(bool) ? (bool)fieldValue : fieldValue != null;
         }
 
-        public bool IsPropertyBoolean(object target, PropertyInfo propertyInfo)
+        private bool IsPropertyBoolean(object target, PropertyInfo propertyInfo)
         {
             var propertyValue = propertyInfo.GetValue(target);
             return propertyInfo.PropertyType == typeof(bool) ? (bool)propertyValue : propertyValue != null;
