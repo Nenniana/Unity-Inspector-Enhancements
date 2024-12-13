@@ -16,7 +16,6 @@ namespace Nenn.InspectorEnhancements.Runtime.Helpers.Interfaces.IMethodInvoker
             {
                 if (target == null) throw new ArgumentNullException(nameof(target));
                 if (methodInfo == null) throw new ArgumentNullException(nameof(methodInfo));
-                if (passedParameters == null) throw new ArgumentNullException(nameof(passedParameters));
                 
                 var parameterValues = BuildParameterValues(target, passedParameters, methodInfo);
                 if (parameterValues == null)
