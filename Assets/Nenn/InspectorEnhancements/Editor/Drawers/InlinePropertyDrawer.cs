@@ -1,7 +1,7 @@
 using System;
 using System.Reflection;
-using Nenn.InspectorEnhancements.Attributes;
-using Nenn.InspectorEnhancements.Helpers.Enums;
+using Nenn.InspectorEnhancements.Runtime.Attributes;
+using Nenn.InspectorEnhancements.Runtime.Helpers.Enums;
 using UnityEditor;
 using UnityEngine;
 

@@ -1,4 +1,4 @@
-using Nenn.InspectorEnhancements.Attributes;
+using Nenn.InspectorEnhancements.Runtime.Attributes;
 using UnityEditor;
 using UnityEngine;
 

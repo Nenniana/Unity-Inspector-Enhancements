@@ -2,8 +2,8 @@ using UnityEngine;
 using System.Collections.Generic;
 using Nenn.InspectorEnhancements;
 using System;
-using Nenn.InspectorEnhancements.Attributes;
-using Nenn.InspectorEnhancements.Attributes.Conditional;
+using Nenn.InspectorEnhancements.Runtime.Attributes;
+using Nenn.InspectorEnhancements.Runtime.Attributes.Conditional;
 
 // Assuming this is your namespace
 

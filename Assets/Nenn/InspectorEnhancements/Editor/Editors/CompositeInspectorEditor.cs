@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using System.Reflection;
-using Nenn.InspectorEnhancements.Helpers.CustomInspectorElements.Base;
-using Nenn.InspectorEnhancements.Helpers.Factories.MethodButtonElementFactory;
-using Nenn.InspectorEnhancements.Helpers.Interfaces.IMemberInfoProvider;
-using Nenn.InspectorEnhancements.Helpers.Interfaces.IMemberInfoProvider.Base;
+using Nenn.InspectorEnhancements.Editor.Editors.CustomInspectorElements.Base;
+using Nenn.InspectorEnhancements.Editor.Helpers.Factories.MethodButtonElementFactory;
+using Nenn.InspectorEnhancements.Runtime.Helpers.Interfaces.IMemberInfoProvider;
+using Nenn.InspectorEnhancements.Runtime.Helpers.Interfaces.IMemberInfoProvider.Base;
 using UnityEditor;
 
 namespace Nenn.InspectorEnhancements.Editor.Editors

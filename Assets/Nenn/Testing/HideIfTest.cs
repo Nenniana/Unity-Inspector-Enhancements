@@ -1,5 +1,5 @@
-using Nenn.InspectorEnhancements.Attributes;
-using Nenn.InspectorEnhancements.Attributes.Conditional;
+using Nenn.InspectorEnhancements.Runtime.Attributes;
+using Nenn.InspectorEnhancements.Runtime.Attributes.Conditional;
 using UnityEngine;
 
 namespace Nenn.InspectorEnhancements.Testing

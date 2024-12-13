@@ -2,11 +2,11 @@ using System;
 using System.Collections;
 using System.Linq;
 using System.Reflection;
-using Nenn.InspectorEnhancements.Attributes;
-using Nenn.InspectorEnhancements.Helpers.Interfaces.IMemberInfoProvider;
-using Nenn.InspectorEnhancements.Helpers.Interfaces.IMemberInfoProvider.Base;
-using Nenn.InspectorEnhancements.Helpers.Interfaces.IMethodInvoker;
-using Nenn.InspectorEnhancements.Helpers.Interfaces.IMethodInvoker.Base;
+using Nenn.InspectorEnhancements.Runtime.Attributes;
+using Nenn.InspectorEnhancements.Runtime.Helpers.Interfaces.IMemberInfoProvider;
+using Nenn.InspectorEnhancements.Runtime.Helpers.Interfaces.IMemberInfoProvider.Base;
+using Nenn.InspectorEnhancements.Runtime.Helpers.Interfaces.IMethodInvoker;
+using Nenn.InspectorEnhancements.Runtime.Helpers.Interfaces.IMethodInvoker.Base;
 using UnityEditor;
 using UnityEngine;
 

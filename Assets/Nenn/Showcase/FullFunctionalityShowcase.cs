@@ -1,7 +1,7 @@
 using UnityEngine;
 using Nenn.InspectorEnhancements;
-using Nenn.InspectorEnhancements.Attributes;
-using Nenn.InspectorEnhancements.Attributes.Conditional;
+using Nenn.InspectorEnhancements.Runtime.Attributes;
+using Nenn.InspectorEnhancements.Runtime.Attributes.Conditional;
 
 // Namespace for your attributes
 
