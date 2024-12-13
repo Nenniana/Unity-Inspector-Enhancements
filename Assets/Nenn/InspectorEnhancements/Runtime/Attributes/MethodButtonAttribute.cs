@@ -10,21 +10,21 @@ namespace Nenn.InspectorEnhancements.Runtime.Attributes
         public object[] Parameters { get; private set; }
         public bool ExpandParameters { get; private set; }
 
-        public MethodButtonAttribute(bool _expandParameters = true) 
+        public MethodButtonAttribute(bool expandParameters = true) 
         {
-            ExpandParameters = _expandParameters;
+            ExpandParameters = expandParameters;
         }
 
-        public MethodButtonAttribute (bool _expandParameters = true, params object[] _parameters)
+        public MethodButtonAttribute (bool expandParameters = true, params object[] parameters)
         {
-            ExpandParameters = _expandParameters;
-            Parameters = _parameters;
+            ExpandParameters = expandParameters;
+            Parameters = parameters;
         }
 
-        public MethodButtonAttribute (params object[] _parameters)
+        public MethodButtonAttribute (params object[] parameters)
         {
             ExpandParameters = true;
-            Parameters = _parameters;
+            Parameters = parameters;
         }
     }
 }
