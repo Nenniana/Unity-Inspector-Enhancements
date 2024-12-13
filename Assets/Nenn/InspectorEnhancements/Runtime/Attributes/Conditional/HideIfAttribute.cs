@@ -1,3 +1,4 @@
+using System;
 using Nenn.InspectorEnhancements.Runtime.Attributes.Conditional.Base;
 
 namespace Nenn.InspectorEnhancements.Runtime.Attributes.Conditional
@@ -8,7 +9,7 @@ namespace Nenn.InspectorEnhancements.Runtime.Attributes.Conditional
         public HideIfAttribute(string condition) : base(condition)
         {
             MemberName = condition;
-            Parameters = new object[0];
+            Parameters = Array.Empty<object>();
         }
     
         public HideIfAttribute(string condition, params object[] parameters)  : base(condition, parameters)
