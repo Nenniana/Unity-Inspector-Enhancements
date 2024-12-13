@@ -1,7 +1,7 @@
 using Nenn.InspectorEnhancements.Runtime.Attributes;
 using UnityEngine;
 
-namespace InspectorEnhancements.Demo.Scripts.Preview.CollectionDropdown {
+namespace Nenn.InspectorEnhancements.Demo.Scripts.Preview.CollectionDropdown {
     public class CollectionDropdownExample1 : MonoBehaviour {
         [CollectionDropdown("colors")]
         [SerializeField]

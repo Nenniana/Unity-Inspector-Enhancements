@@ -2,7 +2,7 @@ using Nenn.InspectorEnhancements.Runtime.Attributes;
 using Nenn.InspectorEnhancements.Runtime.Helpers.Enums;
 using UnityEngine;
 
-namespace InspectorEnhancements.Demo.Scripts.Preview.InlineProperty {
+namespace Nenn.InspectorEnhancements.Demo.Scripts.Preview.InlineProperty {
     public class InlinePropertyExample1 : MonoBehaviour {
         [InlineProperty(InlinePropertyNameMode.PrependName)]
         [SerializeField]

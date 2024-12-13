@@ -1,7 +1,7 @@
 using Nenn.InspectorEnhancements.Runtime.Attributes;
 using UnityEngine;
 
-namespace InspectorEnhancements.Demo.Scripts.Preview.InlineProperty {
+namespace Nenn.InspectorEnhancements.Demo.Scripts.Preview.InlineProperty {
     public class InlinePropertyExample2 : MonoBehaviour {
         [InlineProperty]
         [SerializeField]

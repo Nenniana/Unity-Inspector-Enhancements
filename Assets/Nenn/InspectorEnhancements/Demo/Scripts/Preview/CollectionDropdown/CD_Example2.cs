@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Nenn.InspectorEnhancements.Runtime.Attributes;
 using UnityEngine;
 
-namespace InspectorEnhancements.Demo.Scripts.Preview.CollectionDropdown {
+namespace Nenn.InspectorEnhancements.Demo.Scripts.Preview.CollectionDropdown {
     public class CollectionDropdownExample2 : MonoBehaviour {
         [CollectionDropdown("GetSpawnPoints")]
         [SerializeField]

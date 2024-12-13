@@ -1,7 +1,7 @@
 using Nenn.InspectorEnhancements.Runtime.Attributes;
 using UnityEngine;
 
-namespace InspectorEnhancements.Demo.Scripts.Preview.MethodButton {
+namespace Nenn.InspectorEnhancements.Demo.Scripts.Preview.MethodButton {
     public class MethodButtonExample3 : MonoBehaviour {
         [MethodButton("Hello World", 3)]
         public void PrintMessageMultipleTimes(string message, int repeatCount) {

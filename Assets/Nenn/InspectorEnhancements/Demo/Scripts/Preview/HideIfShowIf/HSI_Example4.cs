@@ -1,7 +1,7 @@
 using Nenn.InspectorEnhancements.Runtime.Attributes.Conditional;
 using UnityEngine;
 
-namespace InspectorEnhancements.Demo.Scripts.Preview.HideIfShowIf {
+namespace Nenn.InspectorEnhancements.Demo.Scripts.Preview.HideIfShowIf {
     public class HideIfShowIfExample4 : MonoBehaviour {
         [SerializeField]
         private bool shouldHide;

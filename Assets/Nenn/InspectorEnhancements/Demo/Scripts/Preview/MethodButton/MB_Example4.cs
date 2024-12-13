@@ -1,7 +1,7 @@
 using Nenn.InspectorEnhancements.Runtime.Attributes;
 using UnityEngine;
 
-namespace InspectorEnhancements.Demo.Scripts.Preview.MethodButton {
+namespace Nenn.InspectorEnhancements.Demo.Scripts.Preview.MethodButton {
     public class MethodButtonExample4 : MonoBehaviour {
 
         #pragma warning disable CS0414 // Disable unused value warnings

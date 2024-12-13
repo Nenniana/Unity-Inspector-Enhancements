@@ -2,7 +2,7 @@ using System.Linq;
 using Nenn.InspectorEnhancements.Runtime.Attributes;
 using UnityEngine;
 
-namespace InspectorEnhancements.Demo.Scripts.Preview.CollectionDropdown {
+namespace Nenn.InspectorEnhancements.Demo.Scripts.Preview.CollectionDropdown {
     public class CollectionDropdownExample3 : MonoBehaviour {
         [CollectionDropdown("GetLevelRange", 1, 10)]
         [SerializeField]

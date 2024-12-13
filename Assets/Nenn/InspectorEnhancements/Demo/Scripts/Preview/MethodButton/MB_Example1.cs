@@ -1,7 +1,7 @@
 using Nenn.InspectorEnhancements.Runtime.Attributes;
 using UnityEngine;
 
-namespace InspectorEnhancements.Demo.Scripts.Preview.MethodButton {
+namespace Nenn.InspectorEnhancements.Demo.Scripts.Preview.MethodButton {
     public class MethodButtonExample1 : MonoBehaviour {
         [MethodButton]
         public void LogMessage() {
