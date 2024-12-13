@@ -6,16 +6,16 @@ namespace Nenn.InspectorEnhancements.Editor.Helpers.FieldDrawing.IFieldDrawer
 {
     public class BaseFieldDrawer : Base.IFieldDrawer
     {
-        private readonly List<ITypeDrawer.Base.ITypeDrawer> typeDrawers;
+        private readonly List<ITypeDrawer.Base.ITypeDrawer> _typeDrawers;
 
         public BaseFieldDrawer(List<ITypeDrawer.Base.ITypeDrawer> typeDrawers)
         {
-            this.typeDrawers = typeDrawers ?? throw new ArgumentNullException(nameof(typeDrawers));
+            this._typeDrawers = typeDrawers ?? throw new ArgumentNullException(nameof(typeDrawers));
         }
 
         public void DrawField(string fieldName, ref object fieldValue, Type type, bool isEditable)
         {
-            foreach (var drawer in typeDrawers)
+            foreach (var drawer in _typeDrawers)
             {
                 if (drawer.Draw(fieldName, ref fieldValue, type, isEditable))
                     return;
