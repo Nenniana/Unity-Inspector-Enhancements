@@ -5,22 +5,22 @@ namespace Nenn.InspectorEnhancements.Runtime.Helpers.General
 {
     public static class StringBasedCacheHelper<TValue>
     {
-        private static Dictionary<string, TValue> cache = new Dictionary<string, TValue>();
+        private static readonly Dictionary<string, TValue> Cache = new Dictionary<string, TValue>();
 
-        public static TValue GetOrAdd(Type target, string conditionName, System.Func<TValue> computeValue)
+        public static TValue GetOrAdd(Type target, string conditionName, Func<TValue> computeValue)
         {
             string key = GenerateCacheKey(target, conditionName);
-            if (!cache.TryGetValue(key, out var value))
+            if (!Cache.TryGetValue(key, out var value))
             {
                 value = computeValue();
-                cache[key] = value;
+                Cache[key] = value;
             }
             return value;
         }
 
         public static void ClearCache()
         {
-            cache.Clear();
+            Cache.Clear();
         }
 
         private static string GenerateCacheKey(Type target, string conditionName)
