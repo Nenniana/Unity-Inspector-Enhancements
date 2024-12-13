@@ -15,13 +15,13 @@ namespace Nenn.InspectorEnhancements.Editor.Drawers
     [CustomPropertyDrawer(typeof(CollectionDropdownAttribute))]
     public class ArrayDropdownDrawer : PropertyDrawer
     {
-        private IMemberInfoProvider memberInfoProvider = new CacheMemberInfoProvider();
-        private IMethodResolver methodResolver = new DefaultMethodResolver();
+        private readonly IMemberInfoProvider _memberInfoProvider = new CacheMemberInfoProvider();
+        private readonly IMethodResolver _methodResolver = new DefaultMethodResolver();
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
             object target = property.serializedObject.targetObject;
-            FieldInfo propertyFieldInfo = memberInfoProvider.TryGetMemberInfo<FieldInfo>(target.GetType(), property.name);
+            FieldInfo propertyFieldInfo = _memberInfoProvider.TryGetMemberInfo<FieldInfo>(target.GetType(), property.name);
 
             if (propertyFieldInfo == null)
             {
@@ -76,19 +76,19 @@ namespace Nenn.InspectorEnhancements.Editor.Drawers
 
         private IEnumerable GetDropdownValues(CollectionDropdownAttribute dropdownAttribute, object target, FieldInfo propertyFieldInfo) 
         {
-            FieldInfo fieldInfo = memberInfoProvider.TryGetMemberInfo<FieldInfo>(target.GetType(), dropdownAttribute.MemberName);
-            if (fieldInfo != null)
+            FieldInfo fieldMemberInfo = _memberInfoProvider.TryGetMemberInfo<FieldInfo>(target.GetType(), dropdownAttribute.MemberName);
+            if (fieldMemberInfo != null)
             {
-                return TryGetFieldValueList(fieldInfo, propertyFieldInfo, target);
+                return TryGetFieldValueList(fieldMemberInfo, propertyFieldInfo, target);
             }
 
-            PropertyInfo propertyInfo = memberInfoProvider.TryGetMemberInfo<PropertyInfo>(target.GetType(), dropdownAttribute.MemberName);
+            PropertyInfo propertyInfo = _memberInfoProvider.TryGetMemberInfo<PropertyInfo>(target.GetType(), dropdownAttribute.MemberName);
             if (propertyInfo != null)
             {
                 return TryGetPropertyValueList(propertyInfo, propertyFieldInfo, target);
             }
 
-            MethodInfo methodInfo = memberInfoProvider.TryGetMemberInfo<MethodInfo>(target.GetType(), dropdownAttribute.MemberName);
+            MethodInfo methodInfo = _memberInfoProvider.TryGetMemberInfo<MethodInfo>(target.GetType(), dropdownAttribute.MemberName);
             if (methodInfo != null)
             {
                 return TryGetMethodValueList(dropdownAttribute.Parameters, methodInfo, propertyFieldInfo, target);
@@ -100,7 +100,7 @@ namespace Nenn.InspectorEnhancements.Editor.Drawers
 
         private IEnumerable TryGetMethodValueList(object[] parameters, MethodInfo methodInfo, FieldInfo propertyFieldInfo, object target)
         {
-            object[] methodParameters = methodResolver.InvokeMethod(target, parameters, methodInfo);
+            object[] methodParameters = _methodResolver.InvokeMethod(target, parameters, methodInfo);
             object methodResult = methodInfo.Invoke(target, methodParameters);
 
             if (methodResult == null)
@@ -131,9 +131,9 @@ namespace Nenn.InspectorEnhancements.Editor.Drawers
             return null;
         }
 
-        private IEnumerable TryGetFieldValueList(FieldInfo fieldInfo, FieldInfo propertyFieldInfo, object target)
+        private IEnumerable TryGetFieldValueList(FieldInfo fieldMemberInfo, FieldInfo propertyFieldInfo, object target)
         {
-            object fieldValue = fieldInfo.GetValue(target);
+            object fieldValue = fieldMemberInfo.GetValue(target);
 
             if (fieldValue is IEnumerable resultEnumerable)
             {
