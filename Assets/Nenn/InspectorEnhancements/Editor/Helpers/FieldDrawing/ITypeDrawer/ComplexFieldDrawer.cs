@@ -7,14 +7,14 @@ namespace Nenn.InspectorEnhancements.Editor.Helpers.FieldDrawing.ITypeDrawer
 {
     public class ComplexFieldDrawer : Base.ITypeDrawer
     {
-        private readonly Func<IFieldDrawer.Base.IFieldDrawer> fieldDrawerFactory;
-        private readonly IMemberInfoProvider memberInfoProvider;
+        private readonly Func<IFieldDrawer.Base.IFieldDrawer> _fieldDrawerFactory;
+        private readonly IMemberInfoProvider _memberInfoProvider;
 
         public ComplexFieldDrawer(Func<IFieldDrawer.Base.IFieldDrawer> fieldDrawerFactory, IMemberInfoProvider memberInfoProvider)
         {
             // Use factory delegate to pass IFieldDrawer instance
-            this.fieldDrawerFactory = fieldDrawerFactory ?? throw new ArgumentNullException(nameof(fieldDrawerFactory));
-            this.memberInfoProvider = memberInfoProvider ?? throw new ArgumentNullException(nameof(memberInfoProvider));
+            this._fieldDrawerFactory = fieldDrawerFactory ?? throw new ArgumentNullException(nameof(fieldDrawerFactory));
+            this._memberInfoProvider = memberInfoProvider ?? throw new ArgumentNullException(nameof(memberInfoProvider));
         }
 
         public bool Draw(string label, ref object value, Type type, bool isEditable)
@@ -30,7 +30,7 @@ namespace Nenn.InspectorEnhancements.Editor.Helpers.FieldDrawing.ITypeDrawer
             EditorGUILayout.LabelField(label, type.Name);
             EditorGUI.indentLevel++;
 
-            var fields = memberInfoProvider.TryGetAllMemberInfo<FieldInfo>(type);
+            var fields = _memberInfoProvider.TryGetAllMemberInfo<FieldInfo>(type);
             foreach (var field in fields)
             {
                 if (!field.IsPublic || field.IsNotSerialized)
@@ -39,7 +39,7 @@ namespace Nenn.InspectorEnhancements.Editor.Helpers.FieldDrawing.ITypeDrawer
                 }
 
                 object fieldValue = field.GetValue(value);
-                fieldDrawerFactory().DrawField(field.Name, ref fieldValue, field.FieldType, !field.IsInitOnly);
+                _fieldDrawerFactory().DrawField(field.Name, ref fieldValue, field.FieldType, !field.IsInitOnly);
                 field.SetValue(value, fieldValue);
             }
 
