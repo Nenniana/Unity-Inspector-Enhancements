@@ -47,7 +47,6 @@ namespace Nenn.InspectorEnhancements.Runtime.Helpers.General
                 }
                 else
                 {
-                    EditorOnlyLogger.LogWarning($"Member '{name}' in type '{type.FullName}' is not of the expected type '{typeof(TInfo).Name}'.");
                     return null;
                 }
             }
