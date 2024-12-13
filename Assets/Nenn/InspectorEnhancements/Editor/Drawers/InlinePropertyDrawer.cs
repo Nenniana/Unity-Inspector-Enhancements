@@ -61,7 +61,7 @@ namespace Nenn.InspectorEnhancements.Editor.Drawers
             InlinePropertyAttribute typeAttribute = fieldType.GetCustomAttribute<InlinePropertyAttribute>();
 
             if (typeAttribute == null || !fieldAttribute.IsDefault)
-                return fieldAttribute;
+                return null;
 
             return typeAttribute;
         }
@@ -101,10 +101,10 @@ namespace Nenn.InspectorEnhancements.Editor.Drawers
         {
             var endProperty = iterator.GetEndProperty();
             bool enterChildren = true;
-            string fullName;
 
             while (iterator.NextVisible(enterChildren) && !SerializedProperty.EqualContents(iterator, endProperty))
             {
+                string fullName;
                 if (effectiveAttribute.DisplayMode == InlinePropertyNameMode.PrependName)
                 {
                     fullName = $"{displayName} - {iterator.displayName}";
