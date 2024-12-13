@@ -8,10 +8,8 @@ namespace Nenn.InspectorEnhancements.Runtime.Attributes
     public class InlinePropertyAttribute : CustomPropertyAttribute
     {
         public string CustomName { get; }
-        public bool IsDefault { get {return isDefault;} private set {isDefault = value;} }
-        public InlinePropertyNameMode DisplayMode { get; } 
-
-        private bool isDefault = false;
+        public bool IsDefault { get; private set; }
+        public InlinePropertyNameMode DisplayMode { get; }
 
         public InlinePropertyAttribute()
         {
