@@ -12,13 +12,13 @@ namespace Nenn.InspectorEnhancements.Editor.Editors
     [CustomEditor(typeof(UnityEngine.Object), true)]
     public class CompositeInspectorEditor : UnityEditor.Editor
     {
-        private readonly List<ICustomInspectorElement> customInspectorElements = new List<ICustomInspectorElement>();
-        private readonly IMemberInfoProvider memberInfoProvider = new CacheMemberInfoProvider();
+        private readonly List<ICustomInspectorElement> _customInspectorElements = new List<ICustomInspectorElement>();
+        private readonly IMemberInfoProvider _memberInfoProvider = new CacheMemberInfoProvider();
 
         private void OnEnable()
         {
             // Register available custom elements here, injecting dependencies as needed
-            customInspectorElements.Add(
+            _customInspectorElements.Add(
                 MethodButtonElementFactory.CreateDefaultMethodButtonElement()
             );
         } 
@@ -33,10 +33,10 @@ namespace Nenn.InspectorEnhancements.Editor.Editors
 
         private void DrawCustomElements()
         {
-            var members = memberInfoProvider.TryGetAllMemberInfo<MemberInfo>(target.GetType());
+            var members = _memberInfoProvider.TryGetAllMemberInfo<MemberInfo>(target.GetType());
             foreach (var member in members)
             {
-                foreach (var element in customInspectorElements)
+                foreach (var element in _customInspectorElements)
                 {
                     if (element.IsApplicable(member))
                     {
